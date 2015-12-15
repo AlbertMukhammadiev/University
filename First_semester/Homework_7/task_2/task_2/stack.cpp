@@ -49,6 +49,18 @@ Value getValue(Stack *stack)
 	return stack->head->value;
 }
 
+bool empty(Stack *stack)
+{
+	if (!stack->head)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void printStack(Stack *stack)
 {
 	StackElement *i = stack->head;

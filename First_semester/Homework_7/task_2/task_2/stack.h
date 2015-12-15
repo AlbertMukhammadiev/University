@@ -14,6 +14,8 @@ void push(Value value, Stack *stack);
 
 Value getValue(Stack *stack);
 
+bool empty(Stack *stack);
+
 void printStack(Stack *stack);
 
 void deleteStack(Stack *stack);

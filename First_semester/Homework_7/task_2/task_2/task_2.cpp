@@ -20,7 +20,10 @@ int main()
 		cin >> symbol;
 		if ((symbol == '+') || (symbol == '-') || (symbol == '/') || (symbol == '*'))
 		{
-			result = calculator(symbol, stack);
+			bool correctnessOfEntry = true;
+			result = calculator(symbol, stack, correctnessOfEntry);
+			if (!correctnessOfEntry)
+				return EXIT_FAILURE;
 			push(result, stack);
 		}
 		else
