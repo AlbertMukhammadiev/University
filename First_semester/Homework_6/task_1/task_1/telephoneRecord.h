@@ -1,10 +1,9 @@
 #pragma once
+#include <string>
 
 struct TelephoneRecord
 {
-	char surname[15] = { '\0' };
-	char name[15] = { '\0' };
-	char phoneNumber[15] = { '\0' };
+	std::string surname;
+	std::string name;
+	std::string phoneNumber;
 };
-
-void copy(char buffer[], char field[]);

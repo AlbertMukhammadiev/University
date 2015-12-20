@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "telephoneRecord.h"
 
 struct ListElement;
@@ -9,13 +10,19 @@ List *createList();
 
 typedef ListElement* Position;
 
-void searchPhoneNumber(char word[], List *listOfRecords);
+Position head(List *list);
 
-void searchName(char word[], List *listOfRecords);
+Position next(Position element);
+
+std::string getSurname(Position element);
+
+std::string getPhoneNumber(Position element);
+
+std::string getName(Position element);
 
 void printToFile(List *listOfRecords);
 
-void addListElement(TelephoneRecord value, List *listOfRecords);
+void addListElement(TelephoneRecord record, List *listOfRecords);
 
 void deleteList(List *list);
 

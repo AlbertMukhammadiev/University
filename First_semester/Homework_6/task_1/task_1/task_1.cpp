@@ -6,14 +6,15 @@
 #include <fstream>
 #include <iostream>
 #include "list.h"
-
+#include "telephoneRecord.h"
+#include "searchByField.h"
 
 using namespace std;
 
 int main()
 {
 	ifstream fin("file.txt");
-	char buffer[16];
+	string buffer;
 	TelephoneRecord x;
 	List *listOfRecords = createList();
 	if (!fin.is_open())
@@ -26,15 +27,15 @@ int main()
 			fin >> buffer;
 			if (i == 1)
 			{
-				copy(buffer, x.surname);
+				x.surname = buffer;
 			}
 			if (i == 2)
 			{
-				copy(buffer, x.name);
+				x.name = buffer;
 			}
 			if (i == 3)
 			{
-				copy(buffer, x.phoneNumber);
+				x.phoneNumber = buffer;
 				i = 0;
 				addListElement(x, listOfRecords);
 			}
@@ -61,13 +62,13 @@ int main()
 		{
 			cout << "	-Enter surname, please:  ";
 			cin >> buffer;
-			copy(buffer, x.surname);
+			x.surname = buffer;
 			cout << "	-Enter  name,   please:  ";
 			cin >> buffer;
-			copy(buffer, x.name);
+			x.name = buffer;
 			cout << "	-Enter   phone  number:  ";
 			cin >> buffer;
-			copy(buffer, x.phoneNumber);
+			x.phoneNumber = buffer;
 			addListElement(x, listOfRecords);
 			break;
 		}

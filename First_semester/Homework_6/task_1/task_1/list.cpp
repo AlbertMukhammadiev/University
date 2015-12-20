@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include "list.h"
-#include "telephoneRecord.h"
 
 struct ListElement
 {
@@ -21,12 +20,48 @@ List *createList()
 	return list;
 }
 
+Position head(List *list)
+{
+	return list->head;
+}
+
+Position next(Position element)
+{
+	return element->next;
+}
+
+std::string getSurname(Position element)
+{
+	return element->value.surname;
+}
+
+std::string getPhoneNumber(Position element)
+{
+	return element->value.phoneNumber;
+}
+
+std::string getName(Position element)
+{
+	return element->value.name;
+}
+
 void addListElement(TelephoneRecord record, List *listOfRecords)
 {
 	Position newElement = new ListElement;
 	newElement->value = record;
-	newElement->next = listOfRecords->head;
-	listOfRecords->head = newElement;
+
+	if (!listOfRecords->head)
+	{
+		listOfRecords->head = newElement;
+		return;
+	}
+
+	Position i = listOfRecords->head;
+	while (i->next)
+	{
+		i = i->next;
+	}
+	i->next = newElement;
 }
 
 void printToFile(List *listOfRecords)
@@ -74,32 +109,4 @@ void deleteList(List *list)
 		delete list->head;
 		list->head = temp;
 	}
-}
-
-void searchPhoneNumber(char buffer[], List *listOfRecords)
-{
-	ListElement* i = listOfRecords->head;
-	while (i) {
-		if (strcmp(i->value.surname, buffer) == 0)
-		{
-			std::cout << "	# Phone number of this man: " << i->value.phoneNumber << std::endl;
-			return;
-		}
-		i = i->next;
-	}
-	std::cout << "	# No man with such surname" << std::endl;
-}
-
-void searchName(char buffer[], List *listOfRecords)
-{
-	ListElement* i = listOfRecords->head;
-	while (i) {
-		if (strcmp(i->value.phoneNumber, buffer) == 0)
-		{
-			std::cout << "	# Name and surname of man with this phone number: " << i->value.name << " " << i->value.surname << std::endl;
-			return;
-		}
-		i = i->next;
-	}
-	std::cout << "	# No man with such phone number" << std::endl;
 }
