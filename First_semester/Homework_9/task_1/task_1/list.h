@@ -1,6 +1,5 @@
 #pragma once
-
-#pragma once
+#include <string>
 
 struct List;
 
@@ -8,7 +7,7 @@ struct ListElement;
 
 typedef ListElement* Position;
 
-typedef char Value;
+typedef std::string Value;
 
 List *createList();
 

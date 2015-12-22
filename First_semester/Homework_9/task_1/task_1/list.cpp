@@ -4,13 +4,13 @@
 
 struct ListElement
 {
-	Value value = '\0';
+	Value value = "";
+	int number = 0;
 	ListElement *next = nullptr;
 };
 
 struct List
 {
-	int index = 0;
 	Position head = nullptr;
 };
 
@@ -22,10 +22,11 @@ List *createList()
 
 void addNewElement(Value value, List *list)
 {
-	Position newElement = new ListElement;
-	newElement->value = value;
 	if (!list->head)
 	{
+		Position newElement = new ListElement;
+		newElement->value = value;
+		++newElement->number;
 		list->head = newElement;
 		return;
 	}
@@ -33,13 +34,17 @@ void addNewElement(Value value, List *list)
 	{
 		if (list->head->value == value)
 		{
-			std::cout << "	This element is already present in the list" << std::endl;
+			++list->head->number;
 			return;
 		}
 
 		//Add to head
 		if (list->head->value > value)
 		{
+			Position newElement = new ListElement;
+			newElement->value = value;
+			++newElement->number;
+			
 			Position temp = list->head;
 			list->head = newElement;
 			list->head->next = temp;
@@ -52,7 +57,7 @@ void addNewElement(Value value, List *list)
 		{
 			if (i->next->value == value)
 			{
-				std::cout << "	This element is already present in the list" << std::endl;
+				++i->number;
 				return;
 			}
 
@@ -62,6 +67,10 @@ void addNewElement(Value value, List *list)
 			}
 			i = i->next;
 		}
+		Position newElement = new ListElement;
+		newElement->value = value;
+		++newElement->number;
+
 		newElement->next = i->next;
 		i->next = newElement;
 	}
@@ -79,7 +88,8 @@ void printList(List *list)
 		Position listElement = list->head;
 		while (listElement)
 		{
-			std::cout << listElement->value << " ";
+			std::cout << listElement->value << "("
+				<< listElement->number << ")" << " ";
 			listElement = listElement->next;
 		}
 		std::cout << std::endl;
@@ -116,13 +126,13 @@ void deleteElement(Value value, List *list)
 	}
 }
 
-void deleteList(List *p)
+void deleteList(List *list)
 {
 	Position temp = nullptr;
-	while (p->head)
+	while (list->head)
 	{
-		temp = p->head->next;
-		delete p->head;
-		p->head = temp;
+		temp = list->head->next;
+		delete list->head;
+		list->head = temp;
 	}
 }
