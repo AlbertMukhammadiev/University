@@ -21,11 +21,12 @@ List *createList()
 
 void addNewElement(Value value, List *list)
 {
-	Position newElement = new ListElement;
-	newElement->value = value;
+	/*Position newElement = new ListElement;
+	newElement->value = value;*/
 	if (!list->head)
 	{
-		list->head = newElement;
+		list->head = new ListElement;
+		list->head->value = value;
 		return;
 	}
 	else
@@ -40,7 +41,8 @@ void addNewElement(Value value, List *list)
 		if (list->head->value > value)
 		{
 			Position temp = list->head;
-			list->head = newElement;
+			list->head = new ListElement;
+			list->head->value = value;
 			list->head->next = temp;
 			return;
 		}
@@ -61,6 +63,9 @@ void addNewElement(Value value, List *list)
 			}
 			i = i->next;
 		}
+		
+		Position newElement = new ListElement;
+		newElement->value = value;
 		newElement->next = i->next;
 		i->next = newElement;
 	}
@@ -115,13 +120,14 @@ void deleteElement(Value value, List *list)
 	}
 }
 
-void deleteList(List *p)
+void deleteList(List *list)
 {
 	Position temp = nullptr;
-	while (p->head)
+	while (list->head)
 	{
-		temp = p->head->next;
-		delete p->head;
-		p->head = temp;
+		temp = list->head->next;
+		delete list->head;
+		list->head = temp;
 	}
+	delete list;
 }
