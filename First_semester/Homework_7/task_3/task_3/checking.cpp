@@ -8,7 +8,7 @@ bool ruleOfNesting(char string[], Stack *stack)
 	{
 		if ((string[i] == ')') || (string[i] == '}') || (string[i] == ']'))
 		{
-			if (empty(stack))
+			if (isEmpty(stack))
 				return false;
 
 			switch (string[i])
@@ -49,9 +49,5 @@ bool ruleOfNesting(char string[], Stack *stack)
 			push(string[i], stack);
 		}
 	}
-	if (empty(stack))
-	{
-		return true;
-	}
-	return false;
+	return isEmpty(stack);
 }

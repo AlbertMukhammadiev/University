@@ -49,7 +49,7 @@ Value getValue(Stack *stack)
 	return stack->head->value;
 }
 
-bool empty(Stack *stack)
+bool isEmpty(Stack *stack)
 {
 	if (!stack->head)
 	{
