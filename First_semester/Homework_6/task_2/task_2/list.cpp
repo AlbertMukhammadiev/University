@@ -21,8 +21,6 @@ List *createList()
 
 void addNewElement(Value value, List *list)
 {
-	/*Position newElement = new ListElement;
-	newElement->value = value;*/
 	if (!list->head)
 	{
 		list->head = new ListElement;
@@ -122,10 +120,9 @@ void deleteElement(Value value, List *list)
 
 void deleteList(List *list)
 {
-	Position temp = nullptr;
 	while (list->head)
 	{
-		temp = list->head->next;
+		Position temp = list->head->next;
 		delete list->head;
 		list->head = temp;
 	}
