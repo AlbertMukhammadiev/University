@@ -24,6 +24,5 @@ int main()
 	Stack *stack = createStack();
 	convertToPostfixForm(string, stack, length);
 	deleteStack(stack);
-	delete stack;
 	return EXIT_SUCCESS;
 }

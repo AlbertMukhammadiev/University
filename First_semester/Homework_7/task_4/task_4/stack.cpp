@@ -85,4 +85,5 @@ void deleteStack(Stack *stack)
 		delete stack->head;
 		stack->head = temp;
 	}
+	delete stack;
 }
