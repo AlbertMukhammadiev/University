@@ -34,13 +34,18 @@ void fillingDate(Date *date, int numberOfField, int buffer)
 	}
 }
 
+void copyDate(Date *to, Date *from)
+{
+	to->day = from->day;
+	to->month = from->month;
+	to->year = from->year;
+}
+
 void comparingDates(Date *maxDate, Date *newDate)
 {
 	if (maxDate->year < newDate->year)
 	{
-		maxDate->day = newDate->day;
-		maxDate->month = newDate->month;
-		maxDate->year = newDate->year;
+		copyDate(maxDate, newDate);
 		return;
 	}
 	else if (maxDate->year > newDate->year)
@@ -51,9 +56,7 @@ void comparingDates(Date *maxDate, Date *newDate)
 	{
 		if (maxDate->month < newDate->month)
 		{
-			maxDate->day = newDate->day;
-			maxDate->month = newDate->month;
-			maxDate->year = newDate->year;
+			copyDate(maxDate, newDate);
 			return;
 		}
 
@@ -66,9 +69,7 @@ void comparingDates(Date *maxDate, Date *newDate)
 		{
 			if (maxDate->day < newDate->day)
 			{
-				maxDate->day = newDate->day;
-				maxDate->month = newDate->month;
-				maxDate->year = newDate->year;
+				copyDate(maxDate, newDate);
 				return;
 			}
 			else
