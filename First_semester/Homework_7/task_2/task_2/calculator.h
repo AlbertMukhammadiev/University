@@ -1,4 +1,4 @@
 #pragma once
 #include "stack.h"
 
-int calculator(Value operation, Stack *stack, bool &correctnessOfEntry);
+int calculator(char operation, Stack *stack, bool &correctnessOfEntry);

@@ -3,9 +3,9 @@
 #include "calculator.h"
 #include "stack.h"
 
-int calculator(Value operation, Stack *stack, bool &correctnessOfEntry)
+int calculator(char operation, Stack *stack, bool &correctnessOfEntry)
 {
-	if (empty(stack))
+	if (isEmpty(stack))
 	{
 		std::cout << "Postfix notation is incorrect" << std::endl;
 		correctnessOfEntry = false;
@@ -13,7 +13,7 @@ int calculator(Value operation, Stack *stack, bool &correctnessOfEntry)
 	}
 	Value operand1 = getValue(stack);
 	pop(stack);
-	if (empty(stack))
+	if (isEmpty(stack))
 	{
 		std::cout << "Postfix notation is incorrect" << std::endl;
 		correctnessOfEntry = false;
@@ -25,19 +25,21 @@ int calculator(Value operation, Stack *stack, bool &correctnessOfEntry)
 	{
 	case '+':
 	{
-		return operand2 + operand1 - '0';
+		return operand2 + operand1;
 	}
 	case '-':
 	{
-		return operand2 - operand1 + '0';
+		return operand2 - operand1;
 	}
 	case '/':
 	{
-		return (operand2 - '0') / (operand1 - '0') + '0';
+		return operand2 / operand1;
 	}
 	case '*':
 	{
-		return (operand2 - '0') * (operand1 - '0') + '0';
+		return operand2 * operand1;
 	}
+	default:
+		break;
 	}
 }

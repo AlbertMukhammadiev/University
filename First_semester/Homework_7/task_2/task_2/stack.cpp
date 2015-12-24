@@ -49,16 +49,9 @@ Value getValue(Stack *stack)
 	return stack->head->value;
 }
 
-bool empty(Stack *stack)
+bool isEmpty(Stack *stack)
 {
-	if (!stack->head)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return stack->head ? false : true;
 }
 
 void printStack(Stack *stack)
@@ -85,4 +78,5 @@ void deleteStack(Stack *stack)
 		delete stack->head;
 		stack->head = temp;
 	}
+	delete stack;
 }

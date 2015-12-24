@@ -15,9 +15,9 @@ int main()
 	cout << "Enter an expression in Postfix form(after the expression, type sign =):" << endl;
 	char symbol = ' ';
 	int result = 0;
+	cin >> symbol;
 	while (symbol != '=')
 	{
-		cin >> symbol;
 		if ((symbol == '+') || (symbol == '-') || (symbol == '/') || (symbol == '*'))
 		{
 			bool correctnessOfEntry = true;
@@ -28,11 +28,12 @@ int main()
 		}
 		else
 		{
+			symbol -= '0';
 			push(symbol, stack);
 		}
+		cin >> symbol;
 	}
-	cout << "result = " << result - '0' << endl;
+	cout << "result = " << result << endl;
 	deleteStack(stack);
-	delete stack;
 	return EXIT_SUCCESS;
 }
