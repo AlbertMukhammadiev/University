@@ -2,7 +2,7 @@
 #include <iostream>
 #include "searchByField.h"
 
-void searchPhoneNumber(std::string buffer, List *listOfRecords)
+void searchPhoneNumber(std::string &buffer, List *listOfRecords)
 {
 	Position i = head(listOfRecords);
 	while (i) {
@@ -17,7 +17,7 @@ void searchPhoneNumber(std::string buffer, List *listOfRecords)
 	std::cout << "	# No man with such surname" << std::endl;
 }
 
-void searchName(std::string buffer, List *listOfRecords)
+void searchName(std::string &buffer, List *listOfRecords)
 {
 	Position i = head(listOfRecords);
 	while (i) {

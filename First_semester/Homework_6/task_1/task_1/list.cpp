@@ -45,7 +45,7 @@ std::string getName(Position element)
 	return element->value.name;
 }
 
-void addListElement(TelephoneRecord record, List *listOfRecords)
+void addListElement(TelephoneRecord &record, List *listOfRecords)
 {
 	Position newElement = new ListElement;
 	newElement->value = record;
@@ -66,7 +66,7 @@ void addListElement(TelephoneRecord record, List *listOfRecords)
 
 void printToFile(List *listOfRecords)
 {
-	std::ofstream fout("output.txt");
+	std::ofstream fout("file.txt");
 	if (listOfRecords->head == nullptr)
 	{
 		fout << "	# List is empty" << std::endl;
@@ -109,4 +109,5 @@ void deleteList(List *list)
 		delete list->head;
 		list->head = temp;
 	}
+	delete list;
 }

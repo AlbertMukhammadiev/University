@@ -98,6 +98,5 @@ int main()
 
 	printList(listOfRecords);
 	deleteList(listOfRecords);
-	delete listOfRecords;
 	return EXIT_SUCCESS;
 }
