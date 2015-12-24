@@ -19,7 +19,6 @@ List *createList()
 	return list;
 }
 
-////circular list using add to head
 void createListOfSicarii(int number, List *list)
 {
 	Position lastSikarius = new ListElement;
@@ -83,5 +82,6 @@ Value numberOfSurvivor(List *list, int m)
 	Value value = i->value;
 	delete i;
 	list->head = nullptr;
+	delete list;
 	return value;
 }

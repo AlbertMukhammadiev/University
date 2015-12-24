@@ -36,6 +36,5 @@ int main()
 	}
 	cout << endl << "the sequence number of sikarius, who survived: "
 		<< numberOfSurvivor(listOfSicarii, m) << endl;
-	delete listOfSicarii;
 	return EXIT_SUCCESS;
 }
