@@ -30,6 +30,5 @@ int main()
 		cout << "A rule of nesting of parentheses is violated" << endl;
 	}
 	deleteStack(stack);
-	delete stack;
 	return EXIT_SUCCESS;
 }

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "checking.h"
 
-///checking the balance of parentheses
 bool ruleOfNesting(char string[], Stack *stack)
 {
 	for (int i = 0; string[i] != '\0'; ++i)
