@@ -84,6 +84,11 @@ Value getValue(List *list)
 	return list->head->value;
 }
 
+bool isEmpty(List *list)
+{
+	return list->head ? false : true;
+}
+
 void printList(List *list)
 {
 	std::cout << "	";

@@ -24,14 +24,9 @@ int main()
 	}*/
 	cout << "enter the road in the format: i j len" << endl
 		<< "i and j - the sequence number of the city; len - the length of the road" << endl;
-	const int m = 7;
+	const int m = 8;
 	const int n = 6;
-	int arrayOfRoads[n + 1][n + 1] = { 0 };
-	for (int i = 0; i < n + 1; ++i)
-	{
-		arrayOfRoads[0][i] = i;
-		arrayOfRoads[i][0] = i;
-	}
+	int arrayOfRoads[n][n] = { 0 };
 	
 	///fills the adjacency matrix
 	for (int l = 0; l < m; ++l)
@@ -53,54 +48,63 @@ int main()
 	cout << endl << "enter the serial numbers of the capitals:" << endl;
 	List *states[k] = { nullptr };
 	List *neighborsOfStates[k] = { nullptr };
-	for (int i = 0; i < k; ++i)
-	{
-		states[i] = createList();
-		neighborsOfStates[i] = createList();
-	}
-	
-	int numberOfUnvisitedCities = n;
+	bool cities[n] = { true };
 	for (int i = 0; i < k; ++i)
 	{
 		int number = 0;
 		cin >> number;
+		states[i] = createList();
+		neighborsOfStates[i] = createList();
+		
 		City city;
 		city.sequenceNumber = number;
-		addNewElement(city, states[i]);
-		--numberOfUnvisitedCities;
-		for (int j = 1; j <= n; ++j)
-		{
-			if (arrayOfRoads[number][j] > 0)
-			{
-				city.sequenceNumber = j;
-				city.wayToCity = arrayOfRoads[number][j];
-				addNewElement(city, neighborsOfStates[i]);
-				arrayOfRoads[number][j] = 0;
-				arrayOfRoads[j][number] = 0;
-				--numberOfUnvisitedCities;
-			}
-		}
+		addNewElement(city, neighborsOfStates[i]);
+		cities[number] = false;
 	}
-
-	for (int i = 0; (i < k) && (); ++i)
+	int numOfUnoccupiedCities = n;
+	int numOfUnvisitedCities = n - k;
+	
+	while (numOfUnvisitedCities > 0)
 	{
-		City city = getValue(neighborsOfStates[i]);
-		pop(neighborsOfStates[i]);
-		addNewElement(city, states[i]);
-		for (int j = 1; j <= n; ++j)
+		for (int i = 0; (i < k); ++i)
 		{
-			if (arrayOfRoads[city.sequenceNumber][j] > 0)
+			City city = getValue(neighborsOfStates[i]);
+			pop(neighborsOfStates[i]);
+			if (cities[city.sequenceNumber])
 			{
-				city.sequenceNumber = j;
-				city.wayToCity = arrayOfRoads[city.sequenceNumber][j];
-				addNewElement(city, neighborsOfStates[i]);
-				arrayOfRoads[city.sequenceNumber][j] = 0;
-				arrayOfRoads[j][city.sequenceNumber] = 0;
-				--numberOfUnvisitedCities;
+				addNewElement(city, states[i]);
+				--numOfUnoccupiedCities;
+				cities[city.sequenceNumber] = false;
+			}
+			for (int j = 1; j <= n; ++j)
+			{
+				if (arrayOfRoads[city.sequenceNumber][j] > 0)
+				{
+					city.sequenceNumber = j;
+					city.wayToCity = arrayOfRoads[city.sequenceNumber][j];
+					addNewElement(city, neighborsOfStates[i]);
+					--numOfUnvisitedCities;
+				}
 			}
 		}
 	}
 	
+	int i = 0;
+	while (numOfUnoccupiedCities > 0)
+	{
+		if (!isEmpty(neighborsOfStates[i]))
+		{
+			City city = getValue(neighborsOfStates[i]);
+			pop(neighborsOfStates[i]);
+			if (cities[city.sequenceNumber])
+			{
+				addNewElement(city, states[i]);
+				--numOfUnoccupiedCities;
+				cities[city.sequenceNumber] = false;
+			}
+		}
+		i = (i + 1) % k;
+	}
 	for (int i = 0; i < k; ++i)
 	{
 		printList(states[i]);
