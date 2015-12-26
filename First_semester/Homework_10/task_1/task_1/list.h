@@ -9,9 +9,11 @@ typedef ListElement* Position;
 
 typedef City Value;
 
+///creates the list and returns a pointer to the list
 List *createList();
 
-List *createArrayOfLists(int size);
+///creates array of the list and returns a pointer to the array
+List **createArrayOfLists(int size);
 
 ///adds a new value to the list(without disturbing order)
 ///(duplicate values are ignored)
@@ -31,4 +33,6 @@ bool isEmpty(List *list);
 
 void printList(List *list);
 
-void deleteList(List *p);
+void deleteList(List *list);
+
+void deleteArrayOfLists(List **arrayOfLists, int size);

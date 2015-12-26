@@ -15,8 +15,14 @@ struct List
 
 List *createList()
 {
-	List *l = new List();
-	return l;
+	List *list = new List();
+	return list;
+}
+
+List **createArrayOfLists(int size)
+{
+	List **arrayOfLists = new List*[size];
+	return arrayOfLists;
 }
 
 void addNewElement(Value value, List *list)
@@ -53,7 +59,7 @@ void addNewElement(Value value, List *list)
 				return;
 			}
 
-			if (i->next->value.wayToCity > value.wayToCity)
+			if (i->next->value.wayToCity >= value.wayToCity)
 			{
 				break;
 			}
@@ -147,4 +153,19 @@ void deleteList(List *list)
 		list->head = temp;
 	}
 	delete list;
+}
+
+void deleteArrayOfLists(List **arrayOfLists, int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		while (arrayOfLists[i]->head)
+		{
+			Position temp = arrayOfLists[i]->head->next;
+			delete arrayOfLists[i]->head;
+			arrayOfLists[i]->head = temp;
+		}
+		delete arrayOfLists[i];
+	}
+	delete *arrayOfLists;
 }

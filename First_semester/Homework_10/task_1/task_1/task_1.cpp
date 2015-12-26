@@ -11,22 +11,19 @@ using namespace std;
 
 int main()
 {
-	/*cout << "enter the number n(the number of cities):";
+	cout << "enter the number n(the number of cities):";
 	int n = 0;
 	cin >> n;
 	cout << "enter the number m(the number of roads):";
 	int m = 0;
-	cin >> m;*/
-	//int **arrayOfRoads = new int*[n];
-	/*for (int i = 0; i < m; ++i)
+	cin >> m;
+	int **arrayOfRoads = new int*[n];
+	for (int i = 0; i < n; ++i)
 	{
 		arrayOfRoads[i] = new int[n];
-	}*/
+	}
 	cout << "enter the road in the format: i j len" << endl
 		<< "i and j - the sequence number of the city; len - the length of the road" << endl;
-	const int m = 8;
-	const int n = 6;
-	int arrayOfRoads[n][n] = { 0 };
 	
 	///fills the adjacency matrix
 	for (int l = 0; l < m; ++l)
@@ -42,13 +39,12 @@ int main()
 	}
 
 	cout << "enter the number k(number of capitals): ";
-	//int k = 0;
-	//cin >> k;
-	const int k = 2;
+	int k = 0;
+	cin >> k;
 	cout << endl << "enter the serial numbers of the capitals:" << endl;
-	List *states[k] = { nullptr };
-	List *neighborsOfStates[k] = { nullptr };
-	bool cities[n] = { true };
+	List **states = createArrayOfLists(k);
+	List **neighborsOfStates = createArrayOfLists(k);
+	bool *cities = new bool[n] {};
 	for (int i = 0; i < k; ++i)
 	{
 		int number = 0;
@@ -59,31 +55,39 @@ int main()
 		City city;
 		city.sequenceNumber = number;
 		addNewElement(city, neighborsOfStates[i]);
-		cities[number] = false;
 	}
 	int numOfUnoccupiedCities = n;
 	int numOfUnvisitedCities = n - k;
 	
 	while (numOfUnvisitedCities > 0)
 	{
-		for (int i = 0; (i < k); ++i)
+		for (int l = 0; (l < k); ++l)
 		{
-			City city = getValue(neighborsOfStates[i]);
-			pop(neighborsOfStates[i]);
-			if (cities[city.sequenceNumber])
+			City city = getValue(neighborsOfStates[l]);
+			while (cities[city.sequenceNumber])
 			{
-				addNewElement(city, states[i]);
-				--numOfUnoccupiedCities;
-				cities[city.sequenceNumber] = false;
+				pop(neighborsOfStates[l]);
+				city = getValue(neighborsOfStates[l]);
 			}
-			for (int j = 1; j <= n; ++j)
+			
+			if (!cities[city.sequenceNumber])
 			{
-				if (arrayOfRoads[city.sequenceNumber][j] > 0)
+				addNewElement(city, states[l]);
+				--numOfUnoccupiedCities;
+				cities[city.sequenceNumber] = true;
+				
+				int i = city.sequenceNumber;
+				int j = 0;
+				while (j < n)
 				{
-					city.sequenceNumber = j;
-					city.wayToCity = arrayOfRoads[city.sequenceNumber][j];
-					addNewElement(city, neighborsOfStates[i]);
-					--numOfUnvisitedCities;
+					if ((arrayOfRoads[i][j] > 0) && (!cities[j]))
+					{
+						city.wayToCity = arrayOfRoads[i][j];
+						city.sequenceNumber = j;
+						addNewElement(city, neighborsOfStates[l]);
+						--numOfUnvisitedCities;
+					}
+					++j;
 				}
 			}
 		}
@@ -95,21 +99,39 @@ int main()
 		if (!isEmpty(neighborsOfStates[i]))
 		{
 			City city = getValue(neighborsOfStates[i]);
-			pop(neighborsOfStates[i]);
-			if (cities[city.sequenceNumber])
+			while (cities[city.sequenceNumber])
+			{
+				pop(neighborsOfStates[i]);
+				city = getValue(neighborsOfStates[i]);
+			}
+
+			if (!cities[city.sequenceNumber])
 			{
 				addNewElement(city, states[i]);
 				--numOfUnoccupiedCities;
-				cities[city.sequenceNumber] = false;
+				cities[city.sequenceNumber] = true;
 			}
 		}
 		i = (i + 1) % k;
 	}
 	for (int i = 0; i < k; ++i)
 	{
+		cout << "State number " << i << ":" << endl;
 		printList(states[i]);
 		cout << endl;
 	}
+
+	delete cities;
+
+	
+	for (int i = 0; i < n; ++i)
+	{
+		delete arrayOfRoads[i];
+	}
+	delete *arrayOfRoads;
+
+	deleteArrayOfLists(states, n);
+	deleteArrayOfLists(neighborsOfStates, n);
 	return EXIT_SUCCESS;
 }
 
