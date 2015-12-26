@@ -8,9 +8,9 @@
 
 using namespace std;
 
-void convertToBinary(bool array[], int number)
+void convertToBinary(bool array[], int number, int sizeOfInteger)
 {
-	for (int i = 0; i < 32; ++i)
+	for (int i = 0; i < sizeOfInteger; ++i)
 	{	
 		if ((number & 1) == 1)
 		{
@@ -20,11 +20,11 @@ void convertToBinary(bool array[], int number)
 	}
 }
 
-int convertToDecimal(bool array[])
+int convertToDecimal(bool array[], int sizeOfInteger)
 {
 	int degTwo = 1;
 	int number = 0;
-	for (int i = 0; i <= 31; ++i)
+	for (int i = 0; i < sizeOfInteger; ++i)
 	{
 		if (array[i])
 		{
@@ -35,28 +35,21 @@ int convertToDecimal(bool array[])
 	return number;
 }
 
-void sumUp(bool number1[], bool number2[], bool sum[])
+void sumUp(bool number1[], bool number2[], bool sum[], int sizeOfInteger)
 {
 	bool mental = false;
 	int forMental = 0;
-	for (int i = 0; i <=31; ++i)
+	for (int i = 0; i < sizeOfInteger; ++i)
 	{
 		sum[i] = number1[i] ^ number2[i] ^ mental;
 		forMental = number1[i] + number2[i] + mental;
-		if (forMental >= 2)
-		{
-			mental = true;
-		}
-		else
-		{
-			mental = false;
-		}
+		mental = (forMental >= 2)
 	}
 }
 
-void printBinaryForm(bool array[])
+void printBinaryForm(bool array[], int sizeOfInteger)
 {
-	for (int i = 31; i > 0; --i)
+	for (int i = sizeOfInteger - 1; i > 0; --i)
 	{
 		cout << array[i] << " ";
 	}
@@ -70,19 +63,20 @@ int main()
 	int number1 = 0;
 	int number2 = 0;
 	cin >> number1 >> number2;
-	bool bitMask1[32] = {};
-	bool bitMask2[32] = {};
-	convertToBinary(bitMask1, number1);
+	const int sizeOfInteger = 32;
+	bool bitMask1[sizeOfInteger] = {};
+	bool bitMask2[sizeOfInteger] = {};
+	convertToBinary(bitMask1, number1, sizeOfInteger);
 	cout << endl << "Первое число в двоичной системе счисления:" << endl;
-	printBinaryForm(bitMask1);
-	convertToBinary(bitMask2, number2);
+	printBinaryForm(bitMask1, sizeOfInteger);
+	convertToBinary(bitMask2, number2, sizeOfInteger);
 	cout << endl << "Второе число в двоичной системе счисления:" << endl;
-	printBinaryForm(bitMask2);
-	bool sum[32] = {};
-	sumUp(bitMask1, bitMask2, sum);
+	printBinaryForm(bitMask2, sizeOfInteger);
+	bool sum[sizeOfInteger] = {};
+	sumUp(bitMask1, bitMask2, sum, sizeOfInteger);
 	cout << endl << "Сумма в двоичной системе счисления:" << endl;
-	printBinaryForm(sum);
+	printBinaryForm(sum, sizeOfInteger);
 	cout << endl << "Сумма после перевода из двоичной в десятичную систему счисления:";
-	cout << endl << convertToDecimal(sum) << endl;
+	cout << endl << convertToDecimal(sum, sizeOfInteger) << endl;
 	return EXIT_SUCCESS;
 }
