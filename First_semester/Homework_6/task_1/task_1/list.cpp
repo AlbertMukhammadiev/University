@@ -16,8 +16,7 @@ struct List
 
 List *createList()
 {
-	List *list = new List();
-	return list;
+	return new List();
 }
 
 Position head(List *list)
@@ -45,7 +44,7 @@ std::string getName(Position element)
 	return element->value.name;
 }
 
-void addListElement(TelephoneRecord &record, List *listOfRecords)
+void addListElement(const TelephoneRecord &record, List *listOfRecords)
 {
 	Position newElement = new ListElement;
 	newElement->value = record;

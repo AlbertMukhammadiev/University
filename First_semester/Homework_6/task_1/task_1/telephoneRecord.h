@@ -3,7 +3,7 @@
 
 struct TelephoneRecord
 {
-	std::string surname;
-	std::string name;
-	std::string phoneNumber;
+	std::string surname = "";
+	std::string name = "";
+	std::string phoneNumber = "";
 };
