@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "listOfRecords.h"
-#include "mergeSort(Bottom-up).h"
+#include "bottom-upMergeSort.h"
 
-void mergeSort(List *list, int sizeOfList, bool field)
+void mergeSort(List *list, int sizeOfList, Field field)
 {
 	int sizeOfSublist = 1;
 	int remaining = 0;
@@ -40,10 +40,9 @@ void mergeSort(List *list, int sizeOfList, bool field)
 		sizeOfSublist *= 2;
 	}
 	deleteList(buffer);
-	delete buffer;
 }
 
-void merge(List *buffer, Position first, Position second, int sizeOfSublist, bool field)
+void merge(List *buffer, Position first, Position second, int sizeOfSublist, Field field)
 {
 	Position i = head(buffer);
 	int firstSublist = sizeOfSublist;

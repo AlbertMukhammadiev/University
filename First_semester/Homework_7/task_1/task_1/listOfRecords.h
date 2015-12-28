@@ -5,29 +5,43 @@ struct ListElement;
 
 struct List;
 
+/// creates a list and returns a pointer to it
 List *createList();
 
 typedef ListElement* Position;
 
-///create buffer with one element
+/// creates buffer with one element
 List *createBuffer();
 
-///access to the head of list
+/// returns access to the head of list
 Position head(List *list);
 
 ///access to the next list item
 Position next(Position element);
 
+/// copies the value of one item list to another
 void copyValue(Position to, Position from);
 
-///get the phone number or the name depending on a Boolean variable
-std::string getValue(Position element, bool field);
+enum Field
+{
+	name,
+	phoneNumber
+};
 
-void addNewRecord(std::string value, List *list, int &numberOfElements);
+/// returns the phone number or the name depending on a Boolean variable
+std::string getValue(Position element, Field field);
 
-///increase the buffer size for one element
+/// returns size of the list
+int getSize(List *list);
+
+/// adds a new record to the singly linked list
+void addNewRecord(const std::string value, List *list);
+
+/// increase the buffer size for one element
 void increaseBuffer(Position tail);
 
+/// displays entire list into the console
 void printList(List *list);
 
+/// deletes the entire list
 void deleteList(List *list);

@@ -30,7 +30,7 @@
     <ClInclude Include="listOfRecords.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="mergeSort(Bottom-up).h">
+    <ClInclude Include="bottom-upMergeSort.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,7 +44,7 @@
     <ClCompile Include="listOfRecords.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="mergeSort(Bottom-up).cpp">
+    <ClCompile Include="bottom-upMergeSort.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

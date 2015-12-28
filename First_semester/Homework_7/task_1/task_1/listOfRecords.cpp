@@ -13,12 +13,12 @@ struct ListElement
 struct List
 {
 	ListElement *head = nullptr;
+	int size = 1;
 };
 
 List *createList()
 {
-	List *l = new List();
-	return l;
+	return new List;
 }
 
 List *createBuffer()
@@ -45,19 +45,24 @@ void copyValue(Position to, Position from)
 	to->phoneNumber = from->phoneNumber;
 }
 
-std::string getValue(Position element, bool field)
+std::string getValue(Position element, Field field)
 {
-	if (field)
+	if (field == name)
 	{
 		return element->name;
 	}
-	else
+	else if (field == phoneNumber)
 	{
 		return element->phoneNumber;
 	}
 }
 
-void addNewRecord(std::string value, List *list, int &numberOfElements)
+int getSize(List *list)
+{
+	return list->size;
+}
+
+void addNewRecord(const std::string value, List *list)
 {
 	std::string name = "";
 	int j = 0;
@@ -90,7 +95,7 @@ void addNewRecord(std::string value, List *list, int &numberOfElements)
 		i = i->next;
 	}
 	i->next = newRecord;
-	++numberOfElements;
+	++list->size;
 }
 
 void increaseBuffer(Position tail)
@@ -125,4 +130,5 @@ void deleteList(List *list)
 		delete list->head;
 		list->head = temp;
 	}
+	delete list;
 }
