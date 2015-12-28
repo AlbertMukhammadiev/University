@@ -51,7 +51,7 @@ Value getValue(Stack *stack)
 
 bool isEmpty(Stack *stack)
 {
-	return stack->head ? false : true;
+	return !stack->head;
 }
 
 void printStack(Stack *stack)
