@@ -135,4 +135,5 @@ void deleteList(List *list)
 		delete list->head;
 		list->head = temp;
 	}
+	delete list;
 }

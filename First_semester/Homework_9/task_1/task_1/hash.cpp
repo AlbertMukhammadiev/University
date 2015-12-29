@@ -2,7 +2,7 @@
 #include <iostream>
 #include "hash.h"
 
-int hashFunction(std::string word, int sizeOfHashTable)
+int hashFunction(const std::string word, int sizeOfHashTable)
 {
 	int result = 0;
 	for (int i = 0; word[i] != '\0'; ++i)
@@ -12,12 +12,20 @@ int hashFunction(std::string word, int sizeOfHashTable)
 	return result % sizeOfHashTable;
 }
 
-void createHashTable(List* array[], int sizeOfHashTable)
+List **createHashTable(int sizeOfHashTable)
 {
+	List **hashTable = new List*[sizeOfHashTable] { nullptr };
 	for (int i = 0; i < sizeOfHashTable; ++i)
 	{
-		array[i] = createList();
+	hashTable[i] = createList();
 	}
+	return hashTable;
+}
+
+void addElementToTable(const std::string word, List **hashTable, int sizeOfHashTabdle)
+{
+	int i = hashFunction(word, sizeOfHashTabdle);
+	addNewElement(word, hashTable[i]);
 }
 
 void printHashTable(List* array[], int sizeOfHashTable)
@@ -36,6 +44,6 @@ void deleteHashTable(List* array[], int sizeOfHashTable)
 	for (int i = 0; i < sizeOfHashTable; ++i)
 	{
 		deleteList(array[i]);
-		delete array[i];
 	}
+	delete array;
 }

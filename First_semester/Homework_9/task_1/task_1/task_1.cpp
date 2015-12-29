@@ -6,17 +6,16 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
-#include "list.h"
 #include "hash.h"
 
 using namespace std;
 
 int main()
 {
-	const int sizeOfHashTable = 19;
-	List *array[sizeOfHashTable] = { nullptr };
-	createHashTable(array, sizeOfHashTable);
-
+	cout << "enter please size of hash table preferably a Prime number" << endl;
+	int sizeOfHashTable = 0;
+	cin >> sizeOfHashTable;
+	List **hashTable = createHashTable(sizeOfHashTable);
 	ifstream fin("text.txt");
 	string word = "";
 	if (!fin.is_open())
@@ -26,12 +25,12 @@ int main()
 		while (!fin.eof())
 		{
 			fin >> word;
-			addNewElement(word, array[hashFunction(word, sizeOfHashTable)]);
+			addElementToTable(word, hashTable, sizeOfHashTable);
 		}
 	}
 	fin.close();
 
-	printHashTable(array, sizeOfHashTable);
-	deleteHashTable(array, sizeOfHashTable);
+	printHashTable(hashTable, sizeOfHashTable);
+	deleteHashTable(hashTable, sizeOfHashTable);
 	return EXIT_SUCCESS;
 }
