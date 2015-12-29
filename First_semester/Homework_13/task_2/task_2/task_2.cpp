@@ -9,6 +9,22 @@
 
 using namespace std;
 
+int index(char symbol)
+{
+	if (symbol == '*')
+	{
+		return 0;
+	}
+	else if (symbol == '/')
+	{
+		return 1;
+	}
+	else
+	{
+		return 2;
+	}
+}
+
 enum State
 {
 	Text,
@@ -36,6 +52,15 @@ bool isEnd(char symbol)
 
 int main()
 {
+	State matrix[6][3] = { 
+		{Text, Slash, Text}, 
+		{Comment, Slash, Text}, 
+		{Star, Slash, Text},
+		{CommentStar, Comment, Comment}, 
+		{CommentStar, Text, Comment}, 
+		{End, End, End} 
+	};
+
 	ifstream fin("Text.txt");
 	if (!fin.is_open())
 		cout << "File can't be opened!" << endl;
@@ -44,110 +69,24 @@ int main()
 		cout << "Comments:" << endl;
 		State currentState = Text;
 		string buffer = "";
-		char symbol = fin.get();
+		char symbol = '/0';
 		while (!fin.eof())
 		{
-			switch (currentState)
-			{
-			case Text:
-			{
-				if (isSlash(symbol))
-				{
-					currentState = Slash;
-				}
-				else if (isEnd(symbol))
-				{
-					currentState = End;
-				}
-				else
-				{
-					currentState = Text;
-				}
-				break;
-			}
-			case Slash:
-			{
-				if (isStar(symbol))
-				{
-					currentState = Comment;
-				}
-				else if (isSlash(symbol))
-				{
-					currentState = Slash;
-				}
-				else if (isEnd(symbol))
-				{
-					currentState = End;
-				}
-				else
-				{
-					currentState = Text;
-				}
-				break;
-			}
-			case Star:
-			{
-				if (isStar(symbol))
-				{
-					currentState = Star;
-				}
-				else if (isEnd(symbol))
-				{
-					currentState = End;
-				}
-				else
-				{
-					currentState = Text;
-				}
-				break;
-			}
-			case Comment:
+			char symbol = fin.get();
+			State previousState = currentState;
+			
+			currentState = matrix[previousState][index(symbol)];
+
+			if (currentState == Comment)
 			{
 				buffer += symbol;
-				if (isStar(symbol))
-				{
-					currentState = CommentStar;
-				}
-				else if (isEnd(symbol))
-				{
-					buffer = "";
-					currentState = End;
-				}
-				else
-				{
-					currentState = Comment;
-				}
-				break;
 			}
-			case CommentStar:
+
+			if ((currentState == Text) && (previousState == CommentStar))
 			{
-				if (isSlash(symbol))
-				{
-					cout << "/*" << buffer << "/" << endl;
-					buffer = "";
-					currentState = Text;
-				}
-				else if (isEnd(symbol))
-				{
-					buffer = "";
-					currentState = End;
-				}
-				else if (isStar(symbol))
-				{
-					buffer += symbol;
-					currentState = CommentStar;
-				}
-				else
-				{
-					buffer += symbol;
-					currentState = Comment;
-				}
-				break;
+				cout << "/" << buffer << "*/" << endl;
+				buffer = "";
 			}
-			default:
-				break;
-			}
-			symbol = fin.get();
 		}
 	}
 	fin.close();
