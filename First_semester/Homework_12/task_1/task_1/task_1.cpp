@@ -42,16 +42,16 @@ int main()
 	++i;
 	int *prefix = new int[i] { 0 };
 	prefixFunction(string, i, prefix);
-	i = position(prefix, lengthOfString, i);
-	if (i == 0)
+	int index = position(prefix, lengthOfString, i);
+	if (index == -1)
 	{
 		cout << "there is no string in thei text" << endl;
 	}
 	else
 	{
-		cout << "position of the first occurrence of substring in string = " << i << endl;
+		cout << "position of the first occurrence of substring in string = " << index << endl;
 	}
-	delete prefix;
+	delete[] prefix;
 	return EXIT_SUCCESS;
 }
 

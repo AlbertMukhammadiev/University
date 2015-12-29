@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <iostream>
 #include "KMPalgorithm.h"
 
 void prefixFunction(char string[], int sizeOfString, int prefix[])
@@ -16,6 +17,7 @@ void prefixFunction(char string[], int sizeOfString, int prefix[])
 			++j;
 		}
 		prefix[i] = j;
+		std::cout << prefix[i];
 	}
 }
 
@@ -28,5 +30,5 @@ int position(int prefix[], int lengthOfString, int lengthOfText)
 			return i - 2 * lengthOfString;
 		}
 	}
-	return 0;
+	return -1;
 }
