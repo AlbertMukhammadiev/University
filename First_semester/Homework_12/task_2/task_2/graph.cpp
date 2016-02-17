@@ -94,6 +94,6 @@ Graph* createMinSpanningTree(List *list, int size)
 			setWeight(graph, from, to, weight);
 		}
 	}
-	delete id;
+	delete[] id;
 	return graph;
 }

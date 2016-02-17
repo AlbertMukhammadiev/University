@@ -13,23 +13,22 @@ using namespace std;
 
 int main()
 {
-	cout << "enter the number of vertices, please" << endl;
 	int size = 0;
-	cin >> size;
-	Graph *graph = createGraph(size);
 	int buffer = 0;
 	ifstream fin("adjacencyMatrix.txt");
 	if (!fin.is_open())
-		cout << "File can't be opened" << endl;
-	else
 	{
-		for (int i = 0; (i < size) && (!fin.eof()); ++i)
+		cout << "File can't be opened" << endl;
+		return EXIT_FAILURE;
+	}
+	fin >> size;
+	Graph *graph = createGraph(size);
+	for (int i = 0; (i < size) && (!fin.eof()); ++i)
+	{
+		for (int j = 0; (j < size) && (!fin.eof()); ++j)
 		{
-			for (int j = 0; (j < size) && (!fin.eof()); ++j)
-			{
-				fin >> buffer;
-				setWeight(graph, i, j, buffer);
-			}
+			fin >> buffer;
+			setWeight(graph, i, j, buffer);
 		}
 	}
 	fin.close();
@@ -51,10 +50,10 @@ int main()
 		}
 	}
 
-	Graph *MinSpanningTree = createMinSpanningTree(listOfRoads, size);
-	printGraph(MinSpanningTree, size);
+	Graph *minSpanningTree = createMinSpanningTree(listOfRoads, size);
+	printGraph(minSpanningTree, size);
 	deleteGraph(graph, size);
-	deleteGraph(MinSpanningTree, size);
+	deleteGraph(minSpanningTree, size);
 	deleteList(listOfRoads);
 	return EXIT_SUCCESS;
 }
