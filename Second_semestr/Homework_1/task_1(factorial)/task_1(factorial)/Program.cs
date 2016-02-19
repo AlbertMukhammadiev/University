@@ -7,6 +7,11 @@ namespace task_1_factorial_
 {
     class Program
     {
+        /// <summary>
+        /// returns factorial of number
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
         static int RecursionFactorial(int num)
         {
             if ((num == 1) || (num == 0))
@@ -17,6 +22,11 @@ namespace task_1_factorial_
             return num * RecursionFactorial(num - 1);
         }
 
+        /// <summary>
+        /// returns factorial of number
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
         static int IterationFactorial(int num)
         {
             if ((num == 1) || (num == 0))
