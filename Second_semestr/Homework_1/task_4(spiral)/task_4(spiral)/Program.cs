@@ -12,8 +12,9 @@ namespace task_4_spiral_
         /// </summary>
         /// <param name="matrix"></param>
         /// <param name="size"></param>
-        private static void Spiral(int[,] matrix, int size)
+        private static void Spiral(int[,] matrix)
         {
+            var size = matrix.GetLength(0);
             var i = size / 2;
             var j = i;
             Console.Write(matrix[i, j] + " ");
@@ -54,7 +55,7 @@ namespace task_4_spiral_
                 size = Convert.ToInt32(Console.ReadLine());
             }
 
-            int[,] array = new int[size,size];
+            int[,] array = new int[size, size];
             for (int i = 0; i < size; ++i)
             {
                 for (int j = 0; j < size; ++j)
@@ -72,7 +73,7 @@ namespace task_4_spiral_
                 Console.WriteLine();
             }
 
-            Spiral(array, size);
+            Spiral(array);
         }
     }
 }
