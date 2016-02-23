@@ -8,39 +8,25 @@ namespace task_2_Fibonacci_
     class Program
     {
         /// <summary>
-        /// multiplies two matrices and returns the result
+        /// multiplies two matrices(the result of the multiplication is written in "result")
         /// </summary>
         /// <param name="result"></param>
         /// <param name="matrix"></param>
         /// <returns></returns>
-        private static int[,] matrixMultiplication(int[,] result, int[,] matrix)
+        private static void MatrixMultiplication(int[,] result, int[,] matrix)
         {
             var a11 = result[0, 0];
             var a12 = result[0, 1];
             var a22 = result[1, 1];
 
-            result[0, 0] = matrix[0, 0] * a11 + matrix[0, 1] * a12;
-            result[0, 1] = matrix[0, 0] * a12 + matrix[0, 1] * a22;
-            result[1, 0] = result[0, 1];
-            result[1, 1] = matrix[1, 0] * a12 + matrix[1, 1] * a22;
-            return result;
-        }
+            var b11 = matrix[0, 0];
+            var b12 = matrix[0, 1];
+            var b22 = matrix[1, 1];
 
-        /// <summary>
-        /// builds a matrix in a square and returns the result
-        /// </summary>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
-        private static int[,] SqrOfMatrix(int[,] matrix)
-        {
-            var a11 = matrix[0, 0];
-            var a12 = matrix[0, 1];
-            var a22 = matrix[1, 1];
-            matrix[0, 0] = a11 * a11 + a12 * a12;
-            matrix[0, 1] = a11 * a12 + a22 * a12;
-            matrix[1, 0] = matrix[0, 1];
-            matrix[1, 1] = a12 * a12 + a22 * a22;
-            return matrix;
+            result[0, 0] = b11 * a11 + b12 * a12;
+            result[0, 1] = b11 * a12 + b12 * a22;
+            result[1, 0] = result[0, 1];
+            result[1, 1] = b12 * a12 + b22 * a22;
         }
 
         /// <summary>
@@ -57,9 +43,9 @@ namespace task_2_Fibonacci_
             {
                 if ((number & 1) == 1)   /// parity checking
                 {
-                    result = matrixMultiplication(result, matrix);
+                    MatrixMultiplication(result, matrix);
                 }
-                matrix = SqrOfMatrix(matrix);
+                MatrixMultiplication(matrix, matrix);
                 number = number >> 1;
             }
 
