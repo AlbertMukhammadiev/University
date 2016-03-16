@@ -1,27 +1,15 @@
 ﻿using IStackNamespace;
+using MyException;
 using System;
 
 namespace StackNamespace
 {
-    class Stack : IStack
+    public class Stack : IStack
     {
         private StackElement head;
         private class StackElement
         {
-            private int aValue { get; set; }
-            public int Value
-            {
-                get
-                {
-                    return aValue;
-                }
-
-                set
-                {
-                    this.aValue = value;
-                }
-            }
-
+            public int Value { get; set; }
             public StackElement Next { get; set; }
         }
 
@@ -44,8 +32,7 @@ namespace StackNamespace
         {
             if (this.head == null)
             {
-                Console.WriteLine("	Stack is empty");
-                return;
+                throw new MyNullReferenceException("you are trying to access a non-existent object");
             }
 
             this.head = this.head.Next;
@@ -53,7 +40,7 @@ namespace StackNamespace
 
         public bool IsEmpty()
         {
-            return this.head != null;
+            return this.head == null;
         }
 
         public void PrintStack()

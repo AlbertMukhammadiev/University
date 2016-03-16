@@ -1,6 +1,6 @@
-﻿using System;
-using System.Threading;
-using StackNamespace;
+﻿using StackNamespace;
+using System;
+using MyException;
 
 namespace ProgramNamespace
 {
@@ -8,31 +8,18 @@ namespace ProgramNamespace
     {
         static void Main(string[] args)
         {
-
             Stack stack = new Stack();
-            //Gusigagaga();
-            int a = 0;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
-            stack.Push(a);
-            ++a;
+            try
+            {
+                //Stack excStack = new Stack();
+                stack.Pop();
+            }
+            catch (MyNullReferenceException ex)
+            {
+                Console.WriteLine("Caught Exception");
+                Console.WriteLine("Ошибка: " + ex.Message);
+            }
             stack.Pop();
-            a = stack.GetValue();
-            stack.PrintStack();
         }
     }
 }
