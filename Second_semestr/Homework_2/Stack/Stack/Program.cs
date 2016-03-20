@@ -11,15 +11,15 @@ namespace ProgramNamespace
             Stack stack = new Stack();
             try
             {
-                //Stack excStack = new Stack();
+                stack.PrintStack();
                 stack.Pop();
+                stack.PrintStack();
             }
-            catch (MyNullReferenceException ex)
+            catch (EmptyStackException ex)
             {
                 Console.WriteLine("Caught Exception");
-                Console.WriteLine("Ошибка: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
             }
-            stack.Pop();
         }
     }
 }

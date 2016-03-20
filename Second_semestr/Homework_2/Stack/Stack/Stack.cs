@@ -1,5 +1,4 @@
-﻿using IStackNamespace;
-using MyException;
+﻿using MyException;
 using System;
 
 namespace StackNamespace
@@ -22,17 +21,26 @@ namespace StackNamespace
                 this.head = newElement;
                 return;
             }
+
             newElement.Next = this.head;
             this.head = newElement;
         }
 
-        public int GetValue() => this.head.Value;
+        public int GetValue()
+        {
+            if (this.head == null)
+            {
+                throw new EmptyStackException("you are trying to access a non-existent object");
+            }
+
+            return this.head.Value;
+        }
 
         public void Pop()
         {
             if (this.head == null)
             {
-                throw new MyNullReferenceException("you are trying to access a non-existent object");
+                throw new EmptyStackException("you are trying to access a non-existent object");
             }
 
             this.head = this.head.Next;
@@ -45,6 +53,11 @@ namespace StackNamespace
 
         public void PrintStack()
         {
+            if (this.head == null)
+            {
+                throw new EmptyStackException("Stack is empty");
+            }
+
             StackElement i = this.head;
             while (i != null)
             {

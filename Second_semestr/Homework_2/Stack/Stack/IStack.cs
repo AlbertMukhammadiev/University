@@ -1,4 +1,4 @@
-﻿namespace IStackNamespace
+﻿namespace StackNamespace
 {
     /// <summary>
     /// LIFO
@@ -11,6 +11,10 @@
         /// <param name="value"></param>
         void Push(int value);
 
+        /// <summary>
+        /// returns the top value of the stack
+        /// </summary>
+        /// <returns></returns>
         int GetValue();
 
         /// <summary>
@@ -18,6 +22,10 @@
         /// </summary>
         void Pop();
 
+        /// <summary>
+        /// if stack is empty, returns "true", else returns "false"
+        /// </summary>
+        /// <returns></returns>
         bool IsEmpty();
 
         /// <summary>
