@@ -6,31 +6,24 @@ namespace ListNamespace
     {
         private class ListElement
         {
-            private int aValue { get; set; }
-            public int Value
+            /// <summary>
+            /// class constructor
+            /// </summary>
+            /// <param name="value"></param>
+            public ListElement(int value)
             {
-                get
-                {
-                    return aValue;
-                }
-
-                set
-                {
-                    this.aValue = value;
-                }
+                this.Value = value;
             }
 
+            public int Value { get; set; }
             public ListElement Next { get; set; }
-
         }
 
         private ListElement head;
 
-        public void addListElement(int value)
+        public void AddListElement(int value)
         {
-            ListElement newElement = new ListElement();
-            newElement.Value = value;
-
+            ListElement newElement = new ListElement(value);
             if (this.head == null)
             {
                 this.head = newElement;
@@ -45,26 +38,25 @@ namespace ListNamespace
             i.Next = newElement;
         }
 
-        public void printList()
+        public void PrintList()
         {
-            Console.Write("	");
             if (this.head == null)
             {
                 Console.WriteLine("-List is empty");
+                return;
             }
-            else
+
+            Console.Write("	");
+            ListElement i = this.head;
+            while (i != null)
             {
-                ListElement i = this.head;
-                while (i != null)
-                {
-                    Console.Write(i.Value + " ");
-                    i = i.Next;
-                }
-                Console.WriteLine();
+                Console.Write(i.Value + " ");
+                i = i.Next;
             }
+            Console.WriteLine();
         }
 
-        void deleteElement(int value)
+        public void DeleteListElement(int value)
         {
             if (this.head == null)
             {
@@ -86,58 +78,55 @@ namespace ListNamespace
                     i.Next = i.Next.Next;
                     return;
                 }
+
                 i = i.Next;
             }
         }
+
+        public void AddWithKeepingOrder(int value)
+        {
+            if (this.head == null)
+            {
+                this.head = new ListElement(value);
+                return;
+            }
+
+            if (this.head.Value == value)
+            {
+                Console.WriteLine("	This element is already present in the list");
+                return;
+            }
+
+            //Add to head
+            if (this.head.Value > value)
+            {
+                ListElement temp = this.head;
+                this.head = new ListElement(value);
+                this.head.Next = temp;
+                return;
+            }
+
+            //Add to sort list
+            ListElement i = this.head;
+            while (i.Next != null)
+            {
+                if (i.Next.Value == value)
+                {
+                    Console.WriteLine("	This element is already present in the list");
+                    return;
+                }
+
+                if (i.Next.Value > value)
+                {
+                    break;
+                }
+
+                i = i.Next;
+            }
+
+            ListElement newElement = new ListElement(value);
+            newElement.Next = i.Next;
+            i.Next = newElement;
+        }
     }
 }
-
-//void addNewElement(Value value, List* list)
-//{
-//    if (!list->head)
-//    {
-//        list->head = new ListElement;
-//        list->head->value = value;
-//        return;
-//    }
-//    else
-//    {
-//        if (list->head->value == value)
-//        {
-//            std::cout << "	This element is already present in the list" << std::endl;
-//            return;
-//        }
-
-//        //Add to head
-//        if (list->head->value > value)
-//        {
-//            Position temp = list->head;
-//            list->head = new ListElement;
-//            list->head->value = value;
-//            list->head->next = temp;
-//            return;
-//        }
-
-//        //Add to sort list
-//        Position i = list->head;
-//        while (i->next)
-//        {
-//            if (i->next->value == value)
-//            {
-//                std::cout << "	This element is already present in the list" << std::endl;
-//                return;
-//            }
-
-//            if (i->next->value > value)
-//            {
-//                break;
-//            }
-//            i = i->next;
-//        }
-
-//        Position newElement = new ListElement;
-//        newElement->value = value;
-//        newElement->next = i->next;
-//        i->next = newElement;
-//    }
-//}
