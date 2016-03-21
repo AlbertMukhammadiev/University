@@ -11,7 +11,6 @@ namespace ProgramNamespace
             Stack stack = new Stack();
             try
             {
-                stack.PrintStack();
                 stack.Pop();
                 stack.PrintStack();
             }

@@ -8,14 +8,22 @@ namespace StackNamespace
         private StackElement head;
         private class StackElement
         {
+            /// <summary>
+            /// class constructor
+            /// </summary>
+            /// <param name="value"></param>
+            public StackElement(int value)
+            {
+                this.Value = value;
+            }
+
             public int Value { get; set; }
             public StackElement Next { get; set; }
         }
 
         public void Push(int value)
         {
-            StackElement newElement = new StackElement();
-            newElement.Value = value;
+            StackElement newElement = new StackElement(value);
             if (this.head == null)
             {
                 this.head = newElement;
