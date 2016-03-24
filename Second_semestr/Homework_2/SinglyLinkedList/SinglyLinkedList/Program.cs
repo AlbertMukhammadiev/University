@@ -7,6 +7,13 @@ namespace ProgramNamespace
         static void Main(string[] args)
         {
             List list = new List();
+            for (int i = 10; i > 1; --i)
+            {
+                list.AddWithKeepingOrder(i);
+                list.AddWithKeepingOrder(i+1);
+            }
+
+            list.PrintList();
         }
     }
 }

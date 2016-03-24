@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmptyListException.cs" />
     <Compile Include="IList.cs" />
     <Compile Include="List.cs" />
+    <Compile Include="NonExistentItemException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,8 +1,9 @@
 ﻿using System;
+using MyException;
 
 namespace ListNamespace
 {
-    class List
+    public class List
     {
         private class ListElement
         {
@@ -42,8 +43,7 @@ namespace ListNamespace
         {
             if (this.head == null)
             {
-                Console.WriteLine("-List is empty");
-                return;
+                throw new EmptyListException("List is empty");
             }
 
             Console.Write("	");
@@ -60,8 +60,7 @@ namespace ListNamespace
         {
             if (this.head == null)
             {
-                Console.WriteLine("	-List is empty");
-                return;
+                throw new EmptyListException("List is empty");
             }
 
             if (this.head.Value == value)
@@ -81,6 +80,8 @@ namespace ListNamespace
 
                 i = i.Next;
             }
+
+            throw new NonExistentItemException("there is no element with the specified value in the list");
         }
 
         public void AddWithKeepingOrder(int value)
@@ -91,14 +92,8 @@ namespace ListNamespace
                 return;
             }
 
-            if (this.head.Value == value)
-            {
-                Console.WriteLine("	This element is already present in the list");
-                return;
-            }
-
             //Add to head
-            if (this.head.Value > value)
+            if (this.head.Value >= value)
             {
                 ListElement temp = this.head;
                 this.head = new ListElement(value);
@@ -110,13 +105,7 @@ namespace ListNamespace
             ListElement i = this.head;
             while (i.Next != null)
             {
-                if (i.Next.Value == value)
-                {
-                    Console.WriteLine("	This element is already present in the list");
-                    return;
-                }
-
-                if (i.Next.Value > value)
+                if (i.Next.Value >= value)
                 {
                     break;
                 }
@@ -127,6 +116,23 @@ namespace ListNamespace
             ListElement newElement = new ListElement(value);
             newElement.Next = i.Next;
             i.Next = newElement;
+        }
+
+        public int GetIValue(int i)
+        {
+            ListElement j = this.head;
+            while ((i != 0) & (j != null))
+            {
+                j = j.Next;
+                --i;
+            }
+
+            if (i != 0)
+            {
+                throw new NonExistentItemException("the size of the list smaller than the sequence number of the element, or sequence number is a negative number");
+            }
+
+            return j.Value;
         }
     }
 }

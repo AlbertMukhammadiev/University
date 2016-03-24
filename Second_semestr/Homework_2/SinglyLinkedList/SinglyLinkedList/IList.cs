@@ -23,5 +23,12 @@
         /// </summary>
         /// <param name="value"></param>
         void AddWithKeepingOrder(int value);
+
+        /// <summary>
+        /// returns a value of the list item with the specified number
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        int GetValue(int i);
     }
 }
