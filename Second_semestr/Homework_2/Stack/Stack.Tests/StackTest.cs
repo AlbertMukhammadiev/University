@@ -30,5 +30,38 @@ namespace StackTests
             stack.Push(8);
             Assert.IsFalse(stack.IsEmpty());
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(MyException.EmptyStackException))]
+        public void GetFromEmptyStackTest()
+        {
+            var topValue = stack.GetValue();
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(MyException.EmptyStackException))]
+        public void PopFromEmptyStackTest()
+        {
+            stack.Pop();
+        }
+
+        [TestMethod]
+        public void IsEmptyTest()
+        {
+            Assert.IsTrue(stack.IsEmpty());
+        }
+
+        [TestMethod]
+        public void GetValueTest()
+        {
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+            Assert.AreEqual(3, stack.GetValue());
+            stack.Pop();
+            Assert.AreEqual(2, stack.GetValue());
+            stack.Pop();
+            Assert.AreEqual(1, stack.GetValue());
+        }
     }
 }
