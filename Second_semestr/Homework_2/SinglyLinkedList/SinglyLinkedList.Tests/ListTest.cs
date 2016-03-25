@@ -51,5 +51,24 @@ namespace ListTests
             list.DeleteListElement(0);
             Assert.AreEqual(1, list.GetIValue(0));
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(MyException.EmptyListException))]
+        public void EmptyListException()
+        {
+            list.PrintList();
+            list.DeleteListElement(3);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(MyException.NonExistentItemException))]
+        public void NonExistentItemException()
+        {
+            list.AddListElement(2);
+            list.AddListElement(4);
+
+            list.DeleteListElement(5);
+            var value = list.GetIValue(10);
+        }
     }
 }
