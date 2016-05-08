@@ -19,7 +19,7 @@ namespace FilterTests
         public void EvenNumbersTest()
         {
             var listOfEvenNumbers = Program.Filter(list, element => element % 2 == 0);
-            foreach(var element in listOfEvenNumbers)
+            foreach (var element in listOfEvenNumbers)
             {
                 Assert.IsTrue(element % 2 == 0);
             }
