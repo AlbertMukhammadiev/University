@@ -15,7 +15,9 @@ namespace MapTests
             list = new List<int>() { 1, 3, 2, 4 };
         }
 
-
+        /// <summary>
+        /// checks the order of elements in the list. Map must not spoil the order of the elements
+        /// </summary>
         [TestMethod]
         public void MapOrderTest()
         {
