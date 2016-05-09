@@ -6,7 +6,7 @@ namespace StackTests
     [TestClass]
     public class StackTest
     {
-        Stack stack;
+        private Stack stack;
 
         [TestInitialize]
         public void Initialize()
@@ -32,14 +32,14 @@ namespace StackTests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(MyException.EmptyStackException))]
+        [ExpectedException(typeof(EmptyStackException))]
         public void GetFromEmptyStackTest()
         {
             var topValue = stack.GetValue();
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(MyException.EmptyStackException))]
+        [ExpectedException(typeof(EmptyStackException))]
         public void PopFromEmptyStackTest()
         {
             stack.Pop();

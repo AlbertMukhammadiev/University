@@ -1,6 +1,5 @@
 ﻿using StackNamespace;
 using System;
-using MyException;
 
 namespace ProgramNamespace
 {

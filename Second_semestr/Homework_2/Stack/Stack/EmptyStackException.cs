@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace MyException
+namespace StackNamespace
 {
+    /// <summary>
+    /// the exception that is thrown when some functions are called from an empty stack
+    /// </summary>
     [Serializable]
     public class EmptyStackException : ApplicationException
     {

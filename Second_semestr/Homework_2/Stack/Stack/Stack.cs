@@ -1,26 +1,12 @@
-﻿using MyException;
-using System;
+﻿using System;
 
 namespace StackNamespace
 {
+    /// <summary>
+    /// LIFO
+    /// </summary>
     public class Stack : IStack
     {
-        private StackElement head;
-        private class StackElement
-        {
-            /// <summary>
-            /// class constructor
-            /// </summary>
-            /// <param name="value"></param>
-            public StackElement(int value)
-            {
-                this.Value = value;
-            }
-
-            public int Value { get; set; }
-            public StackElement Next { get; set; }
-        }
-
         public void Push(int value)
         {
             StackElement newElement = new StackElement(value);
@@ -73,5 +59,22 @@ namespace StackNamespace
                 i = i.Next;
             }
         }
+
+        private class StackElement
+        {
+            /// <summary>
+            /// class constructor
+            /// </summary>
+            /// <param name="value"></param>
+            public StackElement(int value)
+            {
+                this.Value = value;
+            }
+
+            public int Value { get; set; }
+            public StackElement Next { get; set; }
+        }
+
+        private StackElement head;
     }
 }
