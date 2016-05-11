@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace MyException
+namespace ListNamespace
 {
+    /// <summary>
+    /// the exception that is thrown when the program tries to perform actions with non-existent objects
+    /// </summary>
     [Serializable]
     public class NonExistentItemException : ApplicationException
     {
