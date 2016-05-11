@@ -1,4 +1,6 @@
-﻿using ListNamespace;
+﻿using System;
+using ListNamespace;
+
 
 namespace ProgramNamespace
 {
@@ -12,8 +14,8 @@ namespace ProgramNamespace
                 list.AddWithKeepingOrder(i);
                 list.AddWithKeepingOrder(i+1);
             }
-
-            list.PrintList();
+           
+            Console.WriteLine(list.Count);
         }
     }
 }
