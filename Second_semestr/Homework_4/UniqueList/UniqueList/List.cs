@@ -1,45 +1,40 @@
 ﻿using System;
-using MyException;
 
 namespace ListNamespace
 {
+    /// <summary>
+    /// singly linked list
+    /// </summary>
     public class List : IList
     {
-        protected class ListElement
+        /// <summary>
+        /// gets the number of elements contained in the List
+        /// </summary>
+        public int Count
         {
-            /// <summary>
-            /// class constructor
-            /// </summary>
-            /// <param name="value"></param>
-            public ListElement(int value)
+            get
             {
-                this.Value = value;
+                return size;
             }
-
-            public int Value { get; set; }
-            public ListElement Next { get; set; }
         }
 
-        protected ListElement head;
-
-        public virtual void AddListElement(int value)
+        public virtual void Add(int value)
         {
+            var newElement = new ListElement(value);
             if (this.head == null)
             {
-                this.head = new ListElement(value);
+                this.head = newElement;
+                this.tail = newElement;
+                ++this.size;
                 return;
             }
 
-            ListElement i = this.head;
-            while (i.Next != null)
-            {
-                i = i.Next;
-            }
-
-            i.Next = new ListElement(value);
+            this.tail.Next = newElement;
+            this.tail = newElement;
+            ++this.size;
         }
 
-        public void PrintList()
+        public void Print()
         {
             if (this.head == null)
             {
@@ -56,7 +51,7 @@ namespace ListNamespace
             Console.WriteLine();
         }
 
-        public void DeleteListElement(int value)
+        public void Remove(int value)
         {
             if (this.head == null)
             {
@@ -66,6 +61,12 @@ namespace ListNamespace
             if (this.head.Value == value)
             {
                 this.head = this.head.Next;
+                if (size == 1)
+                {
+                    this.tail = null;
+                }
+
+                --this.size;
                 return;
             }
 
@@ -75,6 +76,12 @@ namespace ListNamespace
                 if (i.Next.Value == value)
                 {
                     i.Next = i.Next.Next;
+                    if (i.Next == null)
+                    {
+                        this.tail = i;
+                    }
+
+                    --this.size;
                     return;
                 }
 
@@ -89,6 +96,8 @@ namespace ListNamespace
             if (this.head == null)
             {
                 this.head = new ListElement(value);
+                this.tail = this.head;
+                ++this.size;
                 return;
             }
 
@@ -98,6 +107,7 @@ namespace ListNamespace
                 ListElement temp = this.head;
                 this.head = new ListElement(value);
                 this.head.Next = temp;
+                ++this.size;
                 return;
             }
 
@@ -113,12 +123,17 @@ namespace ListNamespace
                 i = i.Next;
             }
 
-            ListElement newElement = new ListElement(value);
+            var newElement = new ListElement(value);
             newElement.Next = i.Next;
             i.Next = newElement;
+            ++this.size;
+            if (newElement.Next == null)
+            {
+                this.tail = newElement;
+            }
         }
 
-        public int GetIValue(int i)
+        public int GetValue(int i)
         {
             ListElement j = this.head;
             while ((i != 0) & (j != null))
@@ -133,6 +148,52 @@ namespace ListNamespace
             }
 
             return j.Value;
+        }
+
+        public bool Contains(int value)
+        {
+            if (this.head == null)
+            {
+                return false;
+            }
+
+            if (this.head.Value == value)
+            {
+                return true;
+            }
+
+            ListElement i = this.head;
+            while (i.Next != null)
+            {
+
+                i = i.Next;
+
+                if (i.Value == value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private int size;
+        private ListElement head;
+        private ListElement tail;
+
+        private class ListElement
+        {
+            /// <summary>
+            /// class constructor
+            /// </summary>
+            /// <param name="value"></param>
+            public ListElement(int value)
+            {
+                this.Value = value;
+            }
+
+            public int Value { get; set; }
+            public ListElement Next { get; set; }
         }
     }
 }
