@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace MyException
+namespace UniqueListNamespace
 {
+    /// <summary>
+    /// the exception that is thrown when duplicate elements are added to the Unique List
+    /// </summary>
     [Serializable]
     public class DuplicateValuesException : ApplicationException
     {

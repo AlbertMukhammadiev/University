@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace MyException
+namespace ListNamespace
 {
+    /// <summary>
+    /// the exception that is thrown when some functions are called from an empty List
+    /// </summary>
     [Serializable]
     public class EmptyListException : ApplicationException
     {
