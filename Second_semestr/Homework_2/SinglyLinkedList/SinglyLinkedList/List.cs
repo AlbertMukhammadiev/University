@@ -152,6 +152,11 @@ namespace ListNamespace
 
         public bool Contains(int value)
         {
+            if (this.head == null)
+            {
+                return false;
+            }
+
             if (this.head.Value == value)
             {
                 return true;
