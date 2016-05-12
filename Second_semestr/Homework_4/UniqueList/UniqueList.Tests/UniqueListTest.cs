@@ -1,4 +1,5 @@
-﻿using UniqueListNamespace;
+﻿using ListNamespace;
+using UniqueListNamespace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UniqueListTests
@@ -19,49 +20,65 @@ namespace UniqueListTests
         {
             list.AddWithKeepingOrder(5);
             list.AddWithKeepingOrder(3);
-            var firstElement = list.GetIValue(0);
-            var secondElement = list.GetIValue(1);
+            var firstElement = list.GetValue(0);
+            var secondElement = list.GetValue(1);
             Assert.IsTrue(firstElement <= secondElement);
         }
 
         [TestMethod]
-        public void AddListElementTest()
+        public void AddTest()
         {
             for (int i = 1; i < 10; i *= 2)
             {
-                list.AddListElement(i);
+                list.Add(i);
             }
 
-            Assert.AreEqual(1, list.GetIValue(0));
-            Assert.AreEqual(2, list.GetIValue(1));
-            Assert.AreEqual(8, list.GetIValue(3));
+            Assert.AreEqual(1, list.GetValue(0));
+            Assert.AreEqual(2, list.GetValue(1));
+            Assert.AreEqual(8, list.GetValue(3));
         }
 
         [TestMethod]
-        public void DeleteListElementTest()
+        public void RemoveTest()
         {
             for (int i = 0; i < 10; ++i)
             {
-                list.AddListElement(i);
+                list.Add(i);
             }
 
-            list.DeleteListElement(4);
-            Assert.AreEqual(5, list.GetIValue(4));
+            list.Remove(4);
+            Assert.AreEqual(5, list.GetValue(4));
 
-            list.DeleteListElement(0);
-            Assert.AreEqual(1, list.GetIValue(0));
+            list.Remove(0);
+            Assert.AreEqual(1, list.GetValue(0));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MyException.DuplicateValuesException))]
+        public void ContainsTest()
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                list.Add(i);
+            }
+
+            for (int i = 9; i >= 0; --i)
+            {
+                Assert.IsTrue(list.Contains(i));
+            }
+
+            Assert.IsFalse(list.Contains(12));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DuplicateValuesException))]
         public void AddListElementDuplicateValuesTest()
         {
-            list.AddListElement(1);
-            list.AddListElement(1);
+            list.Add(1);
+            list.Add(1);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MyException.DuplicateValuesException))]
+        [ExpectedException(typeof(DuplicateValuesException))]
         public void AddWithKeepingOrderDuplicateValuesTest()
         {
             list.AddWithKeepingOrder(1);
@@ -69,22 +86,38 @@ namespace UniqueListTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MyException.EmptyListException))]
-        public void EmptyListExceptionTest()
+        [ExpectedException(typeof(EmptyListException))]
+        public void PrintEmptyListExceptionTest()
         {
-            list.PrintList();
-            list.DeleteListElement(3);
+            list.Print();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MyException.NonExistentItemException))]
+        [ExpectedException(typeof(NonExistentItemException))]
         public void NonExistentItemExceptionTest()
         {
-            list.AddListElement(2);
-            list.AddListElement(4);
+            list.Add(2);
+            list.Add(4);
+            var value = list.GetValue(10);
+        }
 
-            list.DeleteListElement(5);
-            var value = list.GetIValue(10);
+        [TestMethod()]
+        [ExpectedException(typeof(NonExistentItemException))]
+        public void RemoveNonExistentItemTest()
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                list.Add(i + 5);
+            }
+
+            list.Remove(3);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(EmptyListException))]
+        public void RemoveFromEmptyListTest()
+        {
+            list.Remove(5);
         }
     }
-}
+}  
