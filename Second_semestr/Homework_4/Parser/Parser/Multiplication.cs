@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ParseTreeNamespace
 {
+    /// <summary>
+    /// a node that is a product of of its sons
+    /// </summary>
     class Multiplication : Operator
     {
         /// <summary>

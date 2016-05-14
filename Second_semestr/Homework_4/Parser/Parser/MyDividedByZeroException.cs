@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace MyException
+namespace ParseTreeNamespace
 {
+    /// <summary>
+    /// the exception that is thrown when right son of Division is zero
+    /// </summary>
     [Serializable]
     public class MyDividedByZeroException : ApplicationException
     {

@@ -1,8 +1,10 @@
 ﻿using System;
-using MyException;
 
 namespace ParseTreeNamespace
 {
+    /// <summary>
+    /// a node that is a quotient of the left son(dividend) and right son(divisor)
+    /// </summary>
     class Division : Operator
     {
         /// <summary>

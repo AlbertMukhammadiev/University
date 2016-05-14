@@ -2,6 +2,9 @@
 
 namespace ParseTreeNamespace
 {
+    /// <summary>
+    /// a node that is a sum of its sons
+    /// </summary>
     class Addition : Operator
     {
         /// <summary>

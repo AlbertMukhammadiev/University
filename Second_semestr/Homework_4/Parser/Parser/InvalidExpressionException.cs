@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace MyException
+namespace ParseTreeNamespace
 {
+    /// <summary>
+    /// the exception that is thrown when incorrect arithmetic expression is entered
+    /// </summary>
     [Serializable]
     public class InvalidExpressionException : ApplicationException
     {
