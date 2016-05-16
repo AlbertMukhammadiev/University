@@ -38,7 +38,7 @@ namespace ListNamespace
         {
             if (this.head == null)
             {
-                throw new EmptyListException("List is empty");
+                Console.Write("List is empty");
             }
 
             Console.Write("	");
