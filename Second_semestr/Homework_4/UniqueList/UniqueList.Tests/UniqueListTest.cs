@@ -7,7 +7,7 @@ namespace UniqueListTests
     [TestClass]
     public class UniqueListTest
     {
-        UniqueList list;
+        private UniqueList list;
 
         [TestInitialize]
         public void Initialize()
