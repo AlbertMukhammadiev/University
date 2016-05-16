@@ -54,13 +54,6 @@ namespace ListTests
 
         [TestMethod()]
         [ExpectedException(typeof(EmptyListException))]
-        public void EmptyListExceptionTest()
-        {
-            list.Print();
-        }
-
-        [TestMethod()]
-        [ExpectedException(typeof(EmptyListException))]
         public void RemoveFromEmptyListTest()
         {
             list.Remove(5);
