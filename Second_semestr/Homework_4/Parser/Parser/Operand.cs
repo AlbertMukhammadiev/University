@@ -2,7 +2,7 @@
 
 namespace ParseTreeNamespace
 {
-    class Operand : Node
+    public class Operand : Node
     {
         private int value;
 

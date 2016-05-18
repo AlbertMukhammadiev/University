@@ -5,7 +5,7 @@ namespace ParseTreeNamespace
     /// <summary>
     /// a node that is a sum of its sons
     /// </summary>
-    class Addition : Operator
+    public class Addition : Operator
     {
         /// <summary>
         /// returns the sum of the left child and right child

@@ -7,7 +7,7 @@ namespace ParserTests
     [TestClass]
     public class ParseTreeTest
     {
-        ParseTree tree;
+        private ParseTree tree;
 
         [TestInitialize]
         public void Initialize()

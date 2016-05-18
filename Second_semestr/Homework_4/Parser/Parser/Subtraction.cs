@@ -5,7 +5,7 @@ namespace ParseTreeNamespace
     /// <summary>
     /// a node that is a difference of the left son(minuend) and right son(subtrahend)
     /// </summary>
-    class Subtraction : Operator
+    public class Subtraction : Operator
     {
         /// <summary>
         /// returns the difference of the left child(minuend) and right child(subtrahend)

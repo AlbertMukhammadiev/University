@@ -5,7 +5,7 @@ namespace ParseTreeNamespace
     /// <summary>
     /// a node that is a product of of its sons
     /// </summary>
-    class Multiplication : Operator
+    public class Multiplication : Operator
     {
         /// <summary>
         /// returns the product of the left child and right child

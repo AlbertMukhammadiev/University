@@ -5,7 +5,7 @@ namespace ParseTreeNamespace
     /// <summary>
     /// a node that is a quotient of the left son(dividend) and right son(divisor)
     /// </summary>
-    class Division : Operator
+    public class Division : Operator
     {
         /// <summary>
         /// returns the quotient of the left child(dividend) and right child(divisor)
