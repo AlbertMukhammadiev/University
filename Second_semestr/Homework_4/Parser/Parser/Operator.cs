@@ -2,26 +2,12 @@
 {
     public abstract class Operator : Node
     {
+        public Node Left { get; set; }
+        public Node Right { get; set; }
+
         /// <summary>
         /// the operation sign
         /// </summary>
         public char Token { get; set; }
-
-        /// <summary>
-        /// olololololo
-        /// </summary>
-        /// <returns></returns>
-        public override int Calculate()
-        {
-            return 1212121;
-        }
-
-        /// <summary>
-        /// ololololololololo
-        /// </summary>
-        public override void PrintNode()
-        {
-
-        }
     }
 }

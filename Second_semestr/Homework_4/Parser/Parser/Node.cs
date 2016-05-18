@@ -2,9 +2,6 @@
 {
     public abstract class Node
     {
-        public Node Left { get; set; }
-        public Node Right { get; set; }
-
         /// <summary>
         /// returns the value of a node after applying the operation
         /// </summary>
