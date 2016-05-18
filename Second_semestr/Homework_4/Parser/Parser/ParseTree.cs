@@ -2,6 +2,9 @@
 
 namespace ParseTreeNamespace
 {
+    /// <summary>
+    /// the parse tree of the arithmetic expression
+    /// </summary>
     public class ParseTree
     {
         /// <summary>
@@ -12,38 +15,7 @@ namespace ParseTreeNamespace
         {
             var position = 0;
             var token = Token(expression, ref position);
-            switch (token[0])
-            {
-                case '+':
-                    {
-                        root = new Addition();
-                        break;
-                    }
-
-                case '-':
-                    {
-                        root = new Subtraction();
-                        break;
-                    }
-
-                case '*':
-                    {
-                        root = new Multiplication();
-                        break;
-                    }
-
-                case '/':
-                    {
-                        root = new Division();
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new InvalidExpressionException();
-                    }
-            }
-
+            this.root = CreateOperator(token[0]);
             CreateNode(this.root, expression, ref position);
             CreateNode(this.root, expression, ref position);
         }
@@ -65,7 +37,7 @@ namespace ParseTreeNamespace
             return this.root.Calculate();
         }
 
-        private Node root;
+        private Operator root;
 
         /// <summary>
         /// returns token(operands or operators(+, -, /, *)) which is located after the "position"
@@ -114,14 +86,49 @@ namespace ParseTreeNamespace
             return "error";
         }
 
+        /// <summary>
+        /// returns the Node that is created as the Operator of operation sign
+        /// </summary>
+        /// <param name="sign"></param>
+        /// <returns></returns>
+        private Operator CreateOperator(char sign)
+        {
+            switch (sign)
+            {
+                case '+':
+                    {
+                        return new Addition();
+                    }
+
+                case '-':
+                    {
+                        return new Subtraction();
+                    }
+
+                case '*':
+                    {
+                        return new Multiplication();
+                    }
+
+                case '/':
+                    {
+                        return new Division();
+                    }
+
+                default:
+                    {
+                        throw new InvalidExpressionException("the expression contains an invalid character or begins not with a symbol of the operation");
+                    }
+            }
+        }
 
         /// <summary>
-        /// creates new node and makes it left or right child of the given node
+        /// creates new node and makes it left or right child of the given node(using recursion)
         /// </summary>
         /// <param name="node"></param>
         /// <param name="expression"></param>
         /// <param name="position"></param>
-        private void CreateNode(Node node, string expression, ref int position)
+        private void CreateNode(Operator node, string expression, ref int position)
         {
             if ((node.Left != null) && (node.Right != null))
             {
@@ -129,59 +136,31 @@ namespace ParseTreeNamespace
             }
 
             var token = Token(expression, ref position);
-            Node newNode;
-            switch (token[0])
+            Operator newNode;
+            if ((token[0] >= '0') && (token[0] <= '9'))
             {
-                case '+':
-                    {
-                        newNode = new Addition();
-                        break;
-                    }
+                if (node.Left == null)
+                {
+                    node.Left = new Operand(Convert.ToInt32(token));
+                    CreateNode(node, expression, ref position);
+                }
+                else if (node.Right == null)
+                {
+                    node.Right = new Operand(Convert.ToInt32(token));
+                    CreateNode(node, expression, ref position);
+                }
 
-                case '-':
-                    {
-                        newNode = new Subtraction();
-                        break;
-                    }
-
-                case '*':
-                    {
-                        newNode = new Multiplication();
-                        break;
-                    }
-
-                case '/':
-                    {
-                        newNode = new Division();
-                        break;
-                    }
-
-                default:
-                    {
-                        if ((token[0] >= '0') && (token[0] <= '9'))
-                        {
-                            if (node.Left == null)
-                            {
-                                node.Left = new Operand(Convert.ToInt32(token));
-                                CreateNode(node, expression, ref position);
-                            }
-                            else if (node.Right == null)
-                            {
-                                node.Right = new Operand(Convert.ToInt32(token));
-                                CreateNode(node, expression, ref position);
-                            }
-
-                            return;
-                        }
-
-                        throw new InvalidExpressionException("the expression contains an invalid character");
-                    }
+                return;
+            }
+            else
+            {
+                newNode = CreateOperator(token[0]);
             }
 
             if (node.Left == null)
             {
                 node.Left = newNode;
-                CreateNode(node.Left, expression, ref position);
+                CreateNode(newNode, expression, ref position);
                 if (node.Right == null)
                 {
                     CreateNode(node, expression, ref position);
@@ -190,7 +169,7 @@ namespace ParseTreeNamespace
             else if (node.Right == null)
             {
                 node.Right = newNode;
-                CreateNode(node.Right, expression, ref position);
+                CreateNode(newNode, expression, ref position);
             }
         }
     }
