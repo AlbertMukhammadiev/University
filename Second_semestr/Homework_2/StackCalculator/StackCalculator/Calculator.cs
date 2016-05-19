@@ -2,7 +2,10 @@
 
 namespace CalculatorNamespace
 {
-    class Calculator
+    /// <summary>
+    /// class that implements a stack-based calculator
+    /// </summary>
+    public class Calculator : ICalculator
     {
         public void SumUp()
         {
@@ -34,19 +37,24 @@ namespace CalculatorNamespace
         public void Divide()
         {
             int first = stack.Top();
+            if (first == 0)
+            {
+                throw new MyDividedByZeroException("you can not divide by zero");
+            }
+
             stack.Pop();
             int second = stack.Top();
             stack.Pop();
             stack.Push(second / first);
         }
 
-        void Push(int value)
+        public void Push(int value)
         {
             stack.Push(value);
         }
 
-        int Result() => stack.Top();
+        public int Result() => stack.Top();
 
-        private Stack stack;
+        private Stack stack = new Stack();
     }
 }
