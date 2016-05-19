@@ -40,16 +40,13 @@ namespace StackNamespace
             this.head = this.head.Next;
         }
 
-        public bool IsEmpty()
-        {
-            return this.head == null;
-        }
+        public bool IsEmpty() => this.head == null;
 
         public void PrintStack()
         {
             if (this.head == null)
             {
-                throw new EmptyStackException("Stack is empty");
+                Console.WriteLine("Stack is empty");
             }
 
             StackElement i = this.head;
