@@ -20,7 +20,7 @@ namespace StackTests
             stack.Push(1);
             stack.Push(2);
             stack.Pop();
-            Assert.AreEqual(stack.GetValue(), 1);
+            Assert.AreEqual(stack.Top(), 1);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace StackTests
         [ExpectedException(typeof(EmptyStackException))]
         public void GetFromEmptyStackTest()
         {
-            var topValue = stack.GetValue();
+            var topValue = stack.Top();
         }
 
         [TestMethod()]
@@ -57,11 +57,11 @@ namespace StackTests
             stack.Push(1);
             stack.Push(2);
             stack.Push(3);
-            Assert.AreEqual(3, stack.GetValue());
+            Assert.AreEqual(3, stack.Top());
             stack.Pop();
-            Assert.AreEqual(2, stack.GetValue());
+            Assert.AreEqual(2, stack.Top());
             stack.Pop();
-            Assert.AreEqual(1, stack.GetValue());
+            Assert.AreEqual(1, stack.Top());
         }
     }
 }

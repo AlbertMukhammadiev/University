@@ -20,7 +20,7 @@ namespace StackNamespace
             this.head = newElement;
         }
 
-        public int GetValue()
+        public int Top()
         {
             if (this.head == null)
             {
