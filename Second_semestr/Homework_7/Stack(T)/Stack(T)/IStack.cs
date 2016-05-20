@@ -15,7 +15,7 @@
         /// returns the top value of the stack
         /// </summary>
         /// <returns></returns>
-        T GetValue();
+        T Top();
 
         /// <summary>
         /// removes the top element
