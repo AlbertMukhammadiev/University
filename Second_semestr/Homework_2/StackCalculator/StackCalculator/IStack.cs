@@ -29,8 +29,13 @@
         bool IsEmpty();
 
         /// <summary>
+        /// removes all elements from Stack
+        /// </summary>
+        void Clear();
+
+        /// <summary>
         /// displays all elements of stack into the console
         /// </summary>
-        void PrintStack();
+        void Print();
     }
 }

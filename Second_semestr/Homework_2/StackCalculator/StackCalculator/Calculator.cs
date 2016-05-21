@@ -39,7 +39,7 @@ namespace CalculatorNamespace
             int first = stack.Top();
             if (first == 0)
             {
-                throw new MyDividedByZeroException("you can not divide by zero");
+                throw new MyDivideByZeroException("you can not divide by zero");
             }
 
             stack.Pop();
@@ -55,6 +55,6 @@ namespace CalculatorNamespace
 
         public int Result() => stack.Top();
 
-        private Stack stack = new Stack();
+        private StackArray stack = new StackArray();
     }
 }

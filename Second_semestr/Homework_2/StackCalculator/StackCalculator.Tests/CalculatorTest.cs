@@ -2,7 +2,7 @@
 using CalculatorNamespace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StackCalculator.Tests
+namespace StackCalculatorTests
 {
     [TestClass]
     public class CalculatorTest
@@ -55,7 +55,7 @@ namespace StackCalculator.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(MyDividedByZeroException))]
+        [ExpectedException(typeof(MyDivideByZeroException))]
         public void DividedByZeroTest()
         {
             calculator.Push(99);

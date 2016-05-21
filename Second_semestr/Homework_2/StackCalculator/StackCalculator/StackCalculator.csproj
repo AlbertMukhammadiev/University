@@ -45,10 +45,12 @@
     <Compile Include="ICalculator.cs" />
     <Compile Include="InvalidExpressionException.cs" />
     <Compile Include="IStack.cs" />
-    <Compile Include="MyDividedByZeroException.cs" />
+    <Compile Include="MyDivideByZeroException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stack.cs" />
+    <Compile Include="StackArray.cs" />
+    <Compile Include="StackOverflowException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
