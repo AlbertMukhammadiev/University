@@ -15,130 +15,182 @@ namespace ClockWinForms
         {
             InitializeComponent();
 
+            Timer sec = new Timer();
+            sec.Interval = 100;
+            sec.Tick += SecHand;
+            sec.Enabled = true;
 
-            Timer time = new Timer();
-            time.Interval = 100;
-            time.Tick += Arrow;
-            time.Enabled = true;
 
-            Timer time2 = new Timer();
-            time2.Interval = 10000;
-            time2.Tick += Arrow2;
-            time2.Enabled = true;
+            Timer min = new Timer();
+            min.Interval = 6000;
+            min.Tick += MinHand;
+            min.Enabled = true;
 
-            Timer time3 = new Timer();
-            time3.Interval = 800;
-            time3.Tick += Arrow3;
-            time3.Enabled = true;
+            Timer hour = new Timer();
+            hour.Interval = 72000;
+            hour.Tick += HourHand;
+            hour.Enabled = true;
+
+
+            initialValues = new InitialValues(ClockFace.Width, ClockFace.Height);
+            xPoints = initialValues.GetCoordinatesOfxPoints();
+            yPoints = initialValues.GetCoordinatesOfyPoints();
         }
 
-        Pen MyPen = new Pen(Color.DarkSeaGreen, 5);
-        float x2 = 200;
-        float y2 = 20;
+        InitialValues initialValues;
+        float[] xPoints;
+        float[] yPoints;
+
+
+
+        Brush yellow = Brushes.Yellow;
+        Brush red = Brushes.Red;
+        Brush blue = Brushes.Blue;
+
+
+        Pen redPen40 = new Pen(Color.Red, 40);
+        Pen redPen10 = new Pen(Color.Red, 10);
+        Pen secPen = new Pen(Color.Black, 3);
+        Pen minPen = new Pen(Color.Gray, 5);
+        Pen hourPen = new Pen(Color.White, 10);
+
+        /// <summary>
+        /// coordinates of center of the clock face
+        /// </summary>
+        float x0 = 200;
+        float y0 = 200;
+
         int fi = -90;
-        int r = 175;
+        int gamma = -90;
+        float cosFi;
+        float sinFi;
 
-        Pen MyPen2 = new Pen(Color.Pink, 10);
-        float x22 = 200;
-        float y22 = 100;
-        int fi2 = -90;
-        int r2 = 100;
+        float xSec = 200;
+        float ySec = 100;
+        
+        int lengthOfSecHand = 175;
 
-        Pen MyPen3 = new Pen(Color.DarkOrchid, 2);
-        float x23 = 200;
-        float y23 = 100;
-        int fi3 = -90;
-        int r3 = 150;
+        float xMin = 200;
+        float yMin = 100;
+        int minRadius = 175;
+        
+        float xHour = 200;
+        float yHour = 100;
+        int hourRadius = 175;
 
-        ////////public SomeForm()
-        ////////{
-        ////////    InitializeComponent();
 
-        ////////    bitmap = new Bitmap(picturebox.Width, picturebox.Height);
-        ////////    picturebox.Image = bitmap;
-
-        ////////    Timer timer = new Timer();
-        ////////    timer.Tick += new EventHandler(performTick);
-        ////////    timer.Interval = 10;
-
-        ////////    timer.Start();
-        ////////}
-
-        ////////void performTick(object sender, EventArgs e)
-        ////////{
-        ////////    // Здесь перерисовать bitmap
-        ////////    picturebox.Image = bitmap;
-        ////////}
 
         private void Clock(object sender, PaintEventArgs e)
         {
-            ////Graphics g;
-            ////Bitmap drawing = null;
+            
+            e.Graphics.FillEllipse(yellow, 30, 30, 340, 340);
 
-            ////// шрифт для отображения
-            ////Font textFont = new System.Drawing.Font("GOST type B", 14);
+            e.Graphics.FillEllipse(red, 190, 190, 20, 20);
 
-            ////SolidBrush textBrush = new System.Drawing.SolidBrush(Color.Green);
-            ////StringFormat textFormat = new StringFormat();
+            
 
-            ////// сначала рисуем в битмапе, затем отображаем на экране
-            ////drawing = new Bitmap(this.Width, this.Height, e.Graphics);
-            ////g = Graphics.FromImage(drawing);
+            e.Graphics.FillEllipse(red, 5, 5, 60, 60);
 
-            ////g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            ////Rectangle rec = this.ClientRectangle;
-            ////// собственно рисование
-            //////g.FillRectangle(Brushes.Black, rec);
-            ////g.DrawString("string 1", textFont, textBrush, 150, 150);
-            ////g.DrawEllipse(new Pen(textBrush), 10, 10, 100, 100);
-
-            ////e.Graphics.DrawImageUnscaled(drawing, 0, 0);
-            ////g.Dispose();
+            e.Graphics.FillEllipse(blue, 335, 335, 60, 60);
 
 
-            e.Graphics.DrawEllipse(MyPen, 10, 10, 380, 380);
-            e.Graphics.DrawLine(MyPen, 200, 200, x2, y2);
-            e.Graphics.DrawLine(MyPen2, 200, 200, x22, y22);
-            e.Graphics.DrawLine(MyPen3, 200, 200, x23, y23);
+
+            e.Graphics.DrawEllipse(redPen40, 30, 30, 340, 340);
+
+            e.Graphics.DrawEllipse(redPen10, 160, 160, 80, 80);
+
+            
+            e.Graphics.DrawLine(secPen, x0, y0, xSec, ySec);
+
+            e.Graphics.DrawLine(minPen, x0, y0, xMin, yMin);
+            e.Graphics.DrawLine(hourPen, x0, y0, xHour, yHour);
+
+            for (int i = 0; i < 12; ++i)
+            {
+                e.Graphics.FillEllipse(yellow, xPoints[i], yPoints[i], 10, 10);
+            }
         }
 
+        int i = 0;
 
-        private void Arrow2(object sender, EventArgs e)
+        private void MinHand(object sender, EventArgs e)
         {
-
+            
             ClockFace.Invalidate();
-            fi2 += 30;
-            float cosFi = (float)Math.Cos(((Math.PI * fi2) / 180));
-            float sinFi = (float)Math.Sin(((Math.PI * fi2) / 180));
-
-            x22 = 200 + r2 * cosFi;
-            y22 = 200 + r2 * sinFi;
+            gamma += 6;
+            cosFi = (float)Math.Cos(((Math.PI * gamma) / 180));
+            sinFi = (float)Math.Sin(((Math.PI * gamma) / 180));
+            
+            xMin = x0 + minRadius * cosFi;
+            yMin = y0 + minRadius * sinFi;
         }
 
-        private void Arrow3(object sender, EventArgs e)
+        private void HourHand(object sender, EventArgs e)
         {
-
             ClockFace.Invalidate();
-            fi3 += 60;
-            float cosFi = (float)Math.Cos(((Math.PI * fi3) / 180));
-            float sinFi = (float)Math.Sin(((Math.PI * fi3) / 180));
-
-            x23 = 200 + r3 * cosFi;
-            y23 = 200 + r3 * sinFi;
+            fi += 6;
+            cosFi = (float)Math.Cos(((Math.PI * fi) / 180));
+            sinFi = (float)Math.Sin(((Math.PI * fi) / 180));
+            xHour = x0 + hourRadius * cosFi;
+            yHour = y0 + hourRadius * sinFi;
 
         }
 
-        private void Arrow(object sender, EventArgs e)
+        private void SecHand(object sender, EventArgs e)
         {
-
             ClockFace.Invalidate();
             fi += 6;
             float cosFi = (float)Math.Cos(((Math.PI * fi) / 180));
             float sinFi = (float)Math.Sin(((Math.PI * fi) / 180));
 
-            x2 = 200 + r * cosFi;
-            y2 = 200 + r * sinFi;
-
+            xSec = x0 + lengthOfSecHand * cosFi;
+            ySec = y0 + lengthOfSecHand * sinFi;
+            ++i;
         }
     }
+
+    ////Graphics g;
+    ////Bitmap drawing = null;
+
+    ////// шрифт для отображения
+    ////Font textFont = new System.Drawing.Font("GOST type B", 14);
+
+    ////SolidBrush textBrush = new System.Drawing.SolidBrush(Color.Green);
+    ////StringFormat textFormat = new StringFormat();
+
+    ////// сначала рисуем в битмапе, затем отображаем на экране
+    ////drawing = new Bitmap(this.Width, this.Height, e.Graphics);
+    ////g = Graphics.FromImage(drawing);
+
+    ////g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+    ////Rectangle rec = this.ClientRectangle;
+    ////// собственно рисование
+    //////g.FillRectangle(Brushes.Black, rec);
+    ////g.DrawString("string 1", textFont, textBrush, 150, 150);
+    ////g.DrawEllipse(new Pen(textBrush), 10, 10, 100, 100);
+
+    ////e.Graphics.DrawImageUnscaled(drawing, 0, 0);
+    ////g.Dispose();
+
+    //-----------------------------------------------------------------------
+
+    ////////public SomeForm()
+    ////////{
+    ////////    InitializeComponent();
+
+    ////////    bitmap = new Bitmap(picturebox.Width, picturebox.Height);
+    ////////    picturebox.Image = bitmap;
+
+    ////////    Timer timer = new Timer();
+    ////////    timer.Tick += new EventHandler(performTick);
+    ////////    timer.Interval = 10;
+
+    ////////    timer.Start();
+    ////////}
+
+    ////////void performTick(object sender, EventArgs e)
+    ////////{
+    ////////    // Здесь перерисовать bitmap
+    ////////    picturebox.Image = bitmap;
+    ////////}
 }
