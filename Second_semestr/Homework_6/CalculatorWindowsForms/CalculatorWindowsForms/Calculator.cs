@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using StackCalculatorNamespace;
 
@@ -37,7 +31,7 @@ namespace CalculatorWindowsForms
             }
             catch (FormatException)
             {
-                this.OnCClick(1, e);
+                this.ClearDisplays();
                 display2.Text = "Ошибка: Вы ввели число в некорректном формате";
                 return;
             }
@@ -50,7 +44,7 @@ namespace CalculatorWindowsForms
                 }
                 catch (MyDivideByZeroException)
                 {
-                    this.OnCClick(sender, e);
+                    this.ClearDisplays();
                     display2.Text = "Ошибка: Делить на ноль нельзя";
                     return;
                 }
@@ -81,13 +75,13 @@ namespace CalculatorWindowsForms
                 }
                 catch (FormatException)
                 {
-                    this.OnCClick(sender, e);
+                    this.ClearDisplays();
                     display2.Text = "Ошибка: Вы ввели число в некорректном формате";
                     return;
                 }
                 catch (MyDivideByZeroException)
                 {
-                    this.OnCClick(sender, e);
+                    this.ClearDisplays();
                     display2.Text = "Ошибка: Делить на ноль нельзя";
                     return;
                 }
@@ -100,6 +94,11 @@ namespace CalculatorWindowsForms
         }
 
         private void OnCClick(object sender, EventArgs e)
+        {
+            ClearDisplays();
+        }
+
+        private void ClearDisplays()
         {
             buffer = "";
             display.Text = "";
