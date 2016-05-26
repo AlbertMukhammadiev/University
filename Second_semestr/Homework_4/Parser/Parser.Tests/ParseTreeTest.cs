@@ -40,7 +40,7 @@ namespace ParserTests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(MyDividedByZeroException))]
+        [ExpectedException(typeof(MyDivideByZeroException))]
         public void DividedByZeroTest()
         {
             tree.CreateTree("/ 6 * 5 - 3 + 1 2");

@@ -16,7 +16,7 @@ namespace ParseTreeNamespace
             var divisor = this.Right.Calculate();
             if (divisor == 0)
             {
-                throw new MyDividedByZeroException();
+                throw new MyDivideByZeroException();
             }
 
             return this.Left.Calculate() / divisor;

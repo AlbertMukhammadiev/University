@@ -1,5 +1,8 @@
 ﻿namespace ParseTreeNamespace
 {
+    /// <summary>
+    /// the element of ParseTree
+    /// </summary>
     public abstract class Node
     {
         /// <summary>

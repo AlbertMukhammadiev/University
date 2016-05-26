@@ -6,12 +6,12 @@ namespace ParseTreeNamespace
     /// the exception that is thrown when right son of Division is zero
     /// </summary>
     [Serializable]
-    public class MyDividedByZeroException : ApplicationException
+    public class MyDivideByZeroException : ApplicationException
     {
-        public MyDividedByZeroException() { }
-        public MyDividedByZeroException(string message) : base(message) { }
-        public MyDividedByZeroException(string message, Exception inner) : base(message, inner) { }
-        protected MyDividedByZeroException(
+        public MyDivideByZeroException() { }
+        public MyDivideByZeroException(string message) : base(message) { }
+        public MyDivideByZeroException(string message, Exception inner) : base(message, inner) { }
+        protected MyDivideByZeroException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }

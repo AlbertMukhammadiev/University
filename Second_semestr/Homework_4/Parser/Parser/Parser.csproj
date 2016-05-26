@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addition.cs" />
-    <Compile Include="MyDividedByZeroException.cs" />
+    <Compile Include="MyDivideByZeroException.cs" />
     <Compile Include="Division.cs" />
     <Compile Include="InvalidExpressionException.cs" />
     <Compile Include="Multiplication.cs" />
