@@ -10,9 +10,9 @@ using StackCalculatorNamespace;
 
 namespace CalculatorWindowsForms
 {
-    public partial class Form1 : Form
+    public partial class Calculator : Form
     {
-        public Form1()
+        public Calculator()
         {
             InitializeComponent();
         }
@@ -38,8 +38,7 @@ namespace CalculatorWindowsForms
             catch (FormatException)
             {
                 this.OnCClick(1, e);
-                display.Text = "Ошибка:";
-                display2.Text = "Вы ввели число в некорректном формате";
+                display2.Text = "Ошибка: Вы ввели число в некорректном формате";
                 return;
             }
             

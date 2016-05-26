@@ -1,6 +1,6 @@
 ﻿namespace CalculatorWindowsForms
 {
-    partial class Form1
+    partial class Calculator
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -323,7 +323,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.display2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tableLayoutPanel1.SetColumnSpan(this.display2, 3);
-            this.display2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.display2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.display2.Location = new System.Drawing.Point(3, 74);
             this.display2.Name = "display2";
             this.display2.Size = new System.Drawing.Size(309, 74);
@@ -358,13 +358,15 @@
             this.button17.UseVisualStyleBackColor = true;
             this.button17.Click += new System.EventHandler(this.OnButtonNumbersClick);
             // 
-            // Form1
+            // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 450);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "Form1";
+            this.MaximumSize = new System.Drawing.Size(600, 600);
+            this.MinimumSize = new System.Drawing.Size(300, 350);
+            this.Name = "Calculator";
             this.Text = "Calculator";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
