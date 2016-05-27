@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace ListNamespace
 {
     /// <summary>
     /// singly linked list
     /// </summary>
-    public class List<T> : IList<T>, IEnumerable
+    public class List<T> : IList<T>, IEnumerable<T>
     {
         /// <summary>
         /// gets the number of elements contained in the List
@@ -138,7 +139,7 @@ namespace ListNamespace
         /// <summary>
         /// Supports a simple iteration over List<T>.
         /// </summary>
-        private class ListEnumenator : IEnumerator
+        public class ListEnumerator : IEnumerator<T>
         {
             private ListElement current;
 
@@ -152,7 +153,7 @@ namespace ListNamespace
             /// the class constructor
             /// </summary>
             /// <param name="list"></param>
-            public ListEnumenator(List<T> list)
+            public ListEnumerator(List<T> list)
             {
                 hat = new ListElement(list.head.Value);
                 hat.Next = list.head;
@@ -205,6 +206,10 @@ namespace ListNamespace
                     }
                 }
             }
+
+            public void  Dispose()
+                {
+                }
         }
 
         /// <summary>
@@ -213,16 +218,21 @@ namespace ListNamespace
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
+            return (IEnumerator<T>)GetEnumerator();
+        }
+
+        private IEnumerator GetEnumerator1()
+        {
+            return this.GetEnumerator();
         }
 
         /// <summary>
         /// Returns an enumerator that iterates through a collection
         /// </summary>
         /// <returns></returns>
-        private ListEnumenator GetEnumerator()
+        public ListEnumerator GetEnumerator()
         {
-            return new ListEnumenator(this);
+            return new ListEnumerator(this);
         }
 
         private int size;
