@@ -16,30 +16,66 @@ namespace ClockWinForms
             InitializeComponent();
 
             Timer sec = new Timer();
-            sec.Interval = 100;
+            sec.Interval = 1000;
             sec.Tick += SecHand;
             sec.Enabled = true;
 
 
             Timer min = new Timer();
-            min.Interval = 6000;
+            min.Interval = 60000 - localSec * 1000;
             min.Tick += MinHand;
             min.Enabled = true;
 
             Timer hour = new Timer();
-            hour.Interval = 72000;
+            hour.Interval = 720000 - localMinute * 1000;
             hour.Tick += HourHand;
             hour.Enabled = true;
 
+            secFi = secFi + localSec * 6;
+            minFi = minFi + localMinute * 6;
+            hourFi = hourFi + (localHour % 12) * 30;
 
-            initialValues = new InitialValues(ClockFace.Width, ClockFace.Height);
-            xPoints = initialValues.GetCoordinatesOfxPoints();
-            yPoints = initialValues.GetCoordinatesOfyPoints();
+            x2sec = x0 + secHandLength * (float)Math.Cos(((Math.PI * secFi) / 180));
+            y2sec = y0 + secHandLength * (float)Math.Sin(((Math.PI * secFi) / 180));
+
+            x2minute = x0 + minuteHandLength * (float)Math.Cos(((Math.PI * minFi) / 180));
+            y2minute = y0 + minuteHandLength * (float)Math.Sin(((Math.PI * minFi) / 180));
+
+            x2hour = x0 + hourHandLength * (float)Math.Cos(((Math.PI * hourFi) / 180));
+            y2hour = y0 + hourHandLength * (float)Math.Sin(((Math.PI * hourFi) / 180));
+
+            //initialValues = new InitialValues(ClockFace.Width, ClockFace.Height);
+            //xPoints = initialValues.GetCoordinatesOfxPoints();
+            //yPoints = initialValues.GetCoordinatesOfyPoints();
+
+            //x2Sec = initialValues.Get_x2_OfSecHand();
+            //y2Sec = initialValues.Get_y2_OfSecHand();
+
+            //x2Minute = initialValues.Get_x2_OfMinuteHand();
+            //y2Minute = initialValues.Get_y2_OfMinuteHand();
+
+            //x2Hour = initialValues.Get_x2_OfHourHand();
+            //y2Hour = initialValues.Get_y2_OfHourHand();
         }
 
-        InitialValues initialValues;
-        float[] xPoints;
-        float[] yPoints;
+        //InitialValues initialValues;
+        //float[] xPoints;
+        //float[] yPoints;
+
+        //float[] x2Sec;
+        //float[] y2Sec;
+
+        ///// <summary>
+        ///// coordinates of minute
+        ///// </summary>
+        //private float[] x2Minute;
+        //private float[] y2Minute;
+
+        ///// <summary>
+        ///// coordinates of points
+        ///// </summary>
+        //private float[] x2Hour;
+        //private float[] y2Hour;
 
 
 
@@ -50,9 +86,9 @@ namespace ClockWinForms
 
         Pen redPen40 = new Pen(Color.Red, 40);
         Pen redPen10 = new Pen(Color.Red, 10);
-        Pen secPen = new Pen(Color.Black, 3);
-        Pen minPen = new Pen(Color.Gray, 5);
-        Pen hourPen = new Pen(Color.White, 10);
+        Pen secPen = new Pen(Color.White, 3);
+        Pen minPen = new Pen(Color.DarkBlue, 5);
+        Pen hourPen = new Pen(Color.Red, 7);
 
         /// <summary>
         /// coordinates of center of the clock face
@@ -60,34 +96,18 @@ namespace ClockWinForms
         float x0 = 200;
         float y0 = 200;
 
-        int fi = -90;
-        int gamma = -90;
-        float cosFi;
-        float sinFi;
-
-        float xSec = 200;
-        float ySec = 100;
-        
-        int lengthOfSecHand = 175;
-
-        float xMin = 200;
-        float yMin = 100;
-        int minRadius = 175;
-        
-        float xHour = 200;
-        float yHour = 100;
-        int hourRadius = 175;
-
-
+        float secHandLength = 180;
+        float minuteHandLength = 160;
+        float hourHandLength = 100;
 
         private void Clock(object sender, PaintEventArgs e)
         {
-            
+
             e.Graphics.FillEllipse(yellow, 30, 30, 340, 340);
 
             e.Graphics.FillEllipse(red, 190, 190, 20, 20);
 
-            
+
 
             e.Graphics.FillEllipse(red, 5, 5, 60, 60);
 
@@ -99,53 +119,57 @@ namespace ClockWinForms
 
             e.Graphics.DrawEllipse(redPen10, 160, 160, 80, 80);
 
-            
-            e.Graphics.DrawLine(secPen, x0, y0, xSec, ySec);
+            e.Graphics.DrawLine(secPen, x0, y0, x2sec, y2sec);
+            e.Graphics.DrawLine(minPen, x0, y0, x2minute, y2minute);
+            e.Graphics.DrawLine(hourPen, x0, y0, x2hour, y2hour);
 
-            e.Graphics.DrawLine(minPen, x0, y0, xMin, yMin);
-            e.Graphics.DrawLine(hourPen, x0, y0, xHour, yHour);
-
-            for (int i = 0; i < 12; ++i)
-            {
-                e.Graphics.FillEllipse(yellow, xPoints[i], yPoints[i], 10, 10);
-            }
+            //for (int i = 0; i < 12; ++i)
+            //{
+            //    e.Graphics.FillEllipse(yellow, xPoints[i], yPoints[i], 10, 10);
+            //}
         }
 
-        int i = 0;
+        float x2sec;
+        float y2sec;
+        float x2minute;
+        float y2minute;
+        float x2hour;
+        float y2hour;
+
+        int localSec = DateTime.Now.Second;
+        int localMinute = DateTime.Now.Minute;
+        int localHour = DateTime.Now.Hour;
+
+        int secFi = -90;
+        int minFi = -90;
+        int hourFi = -90;
 
         private void MinHand(object sender, EventArgs e)
         {
             
+            //i = (i + 1) % 60;
+            minFi += 6;
+            x2minute = x0 + minuteHandLength * (float)Math.Cos(((Math.PI * minFi) / 180));
+            y2minute = y0 + minuteHandLength * (float)Math.Sin(((Math.PI * minFi) / 180));
             ClockFace.Invalidate();
-            gamma += 6;
-            cosFi = (float)Math.Cos(((Math.PI * gamma) / 180));
-            sinFi = (float)Math.Sin(((Math.PI * gamma) / 180));
-            
-            xMin = x0 + minRadius * cosFi;
-            yMin = y0 + minRadius * sinFi;
         }
 
         private void HourHand(object sender, EventArgs e)
         {
+            //j = (j + 1) % 60;
+            hourFi += 30;
+            x2hour = x0 + hourHandLength * (float)Math.Cos(((Math.PI * hourFi) / 180));
+            y2hour = y0 + hourHandLength * (float)Math.Sin(((Math.PI * hourFi) / 180));
             ClockFace.Invalidate();
-            fi += 6;
-            cosFi = (float)Math.Cos(((Math.PI * fi) / 180));
-            sinFi = (float)Math.Sin(((Math.PI * fi) / 180));
-            xHour = x0 + hourRadius * cosFi;
-            yHour = y0 + hourRadius * sinFi;
-
         }
-
+        
         private void SecHand(object sender, EventArgs e)
         {
+            //k = (k + 1) % 60;
+            secFi += 6;
+            x2sec = x0 + secHandLength * (float)Math.Cos(((Math.PI * secFi) / 180));
+            y2sec = y0 + secHandLength * (float)Math.Sin(((Math.PI * secFi) / 180));
             ClockFace.Invalidate();
-            fi += 6;
-            float cosFi = (float)Math.Cos(((Math.PI * fi) / 180));
-            float sinFi = (float)Math.Sin(((Math.PI * fi) / 180));
-
-            xSec = x0 + lengthOfSecHand * cosFi;
-            ySec = y0 + lengthOfSecHand * sinFi;
-            ++i;
         }
     }
 
