@@ -37,7 +37,7 @@
             this.ClockFace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClockFace.BackColor = System.Drawing.Color.DarkBlue;
+            this.ClockFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClockFace.Location = new System.Drawing.Point(0, 0);
             this.ClockFace.Name = "ClockFace";
             this.ClockFace.Size = new System.Drawing.Size(400, 400);
