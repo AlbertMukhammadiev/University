@@ -1,6 +1,6 @@
 ﻿namespace ClockWinForms
 {
-    partial class Form1
+    partial class Clock
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -34,24 +34,23 @@
             // 
             // ClockFace
             // 
-            this.ClockFace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.ClockFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.ClockFace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClockFace.Location = new System.Drawing.Point(0, 0);
             this.ClockFace.Name = "ClockFace";
-            this.ClockFace.Size = new System.Drawing.Size(400, 400);
+            this.ClockFace.Size = new System.Drawing.Size(315, 400);
             this.ClockFace.TabIndex = 0;
             this.ClockFace.TabStop = false;
-            this.ClockFace.Paint += new System.Windows.Forms.PaintEventHandler(this.Clock);
+            this.ClockFace.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingOfClockFace);
             // 
-            // Form1
+            // Clock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 400);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(315, 400);
             this.Controls.Add(this.ClockFace);
-            this.Name = "Form1";
+            this.Name = "Clock";
             this.Text = "Clock";
             ((System.ComponentModel.ISupportInitialize)(this.ClockFace)).EndInit();
             this.ResumeLayout(false);

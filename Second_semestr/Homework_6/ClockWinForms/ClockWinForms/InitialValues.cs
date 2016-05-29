@@ -11,30 +11,28 @@ namespace ClockWinForms
         {
             x0 = width / 2;
             y0 = height / 2;
-
+            smallerSide = width < height ? x0 : y0;
             CreateCoordinatesOfPoints();
             CreateCoordinatesOfHands();
         }
-
-
-
-
 
         /// <summary>
         /// coordinates of center of the clock face
         /// </summary>
         public float x0 { get; }
         public float y0 { get; }
+        private float smallerSide;
 
+        /// <summary>
+        /// methods, that return x2 y2 coordinates of hands and numbers
+        /// </summary>
+        /// <returns></returns>
         public float[] GetCoordinatesOfxPoints() => xPoints;
         public float[] GetCoordinatesOfyPoints() => yPoints;
-
         public float[] Get_x2_OfSecHand() => x2_ofSecHand;
         public float[] Get_y2_OfSecHand() => y2_ofSecHand;
-
         public float[] Get_x2_OfMinuteHand() => x2_ofMinuteHand;
         public float[] Get_y2_OfMinuteHand() => y2_ofMinuteHand;
-
         public float[] Get_x2_OfHourHand() => x2_ofHourHand;
         public float[] Get_y2_OfHourHand() => y2_ofHourHand;
 
@@ -59,7 +57,7 @@ namespace ClockWinForms
             xPoints = new float[12];
             yPoints = new float[12];
             int fi = -90;
-            float radius = y0 * 9 / 10;
+            float radius = smallerSide * 9 / 10;
             for (int i = 0; i < 12; ++i)
             {
                 fi += 30;
@@ -78,7 +76,7 @@ namespace ClockWinForms
             y2_ofHourHand = new float[60];
 
             int fi = -90;
-            float radius = y0 * 8 / 9;
+            float radius = smallerSide * 9 / 10;
             for (int i = 0; i < 60; ++i)
             {
                 x2_ofSecHand[i] = x0 + radius * (float)Math.Cos(((Math.PI * fi) / 180));
@@ -87,7 +85,7 @@ namespace ClockWinForms
             }
             
             fi = -90;
-            radius = y0 * 7 / 8;
+            radius = smallerSide * 8 / 10;
             for (int i = 0; i < 60; ++i)
             {
                 x2_ofMinuteHand[i] = x0 + radius * (float)Math.Cos(((Math.PI * fi) / 180));
@@ -96,7 +94,7 @@ namespace ClockWinForms
             }
 
             fi = -90;
-            radius = y0 * 5 / 6;
+            radius = smallerSide * 6 / 10;
             for (int i = 0; i < 60; ++i)
             {
                 x2_ofHourHand[i] = x0 + radius * (float)Math.Cos(((Math.PI * fi) / 180));
