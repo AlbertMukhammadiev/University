@@ -1,13 +1,32 @@
-﻿namespace IHashTableNamespace
+﻿namespace HashTableNamespace
 {
+    /// <summary>
+    /// interface of hash table
+    /// </summary>
     interface IHashTable
     {
-        void AddValueToTable(string word);
+        /// <summary>
+        /// adds an object to the hash table
+        /// </summary>
+        /// <param name="word"></param>
+        void Add(string word);
 
-        void DeleteValue(string word);
+        /// <summary>
+        /// removes the first occurrence of a specific object from the hash table
+        /// </summary>
+        /// <param name="word"></param>
+        void Remove(string word);
 
-        bool IsExist(string word);
+        /// <summary>
+        /// Determines whether an element is in the hash table
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        bool Contains(string word);
 
-        void PrintHashTable();
+        /// <summary>
+        /// displays all elements of hash table into the console
+        /// </summary>
+        void Print();
     }
 }
