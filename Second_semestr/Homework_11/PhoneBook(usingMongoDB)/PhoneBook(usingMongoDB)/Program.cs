@@ -13,7 +13,7 @@ namespace PhoneBookNamespace
             Console.WriteLine("	4 - to print data base to console");
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine(" Enter one of these commands, please:");
             var command = "5";

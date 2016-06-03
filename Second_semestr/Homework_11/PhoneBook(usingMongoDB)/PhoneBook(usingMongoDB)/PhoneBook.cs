@@ -89,7 +89,7 @@ namespace PhoneBookNamespace
             }
         }
 
-        MongoClient client;
+        private MongoClient client;
         private IMongoDatabase database;
         private IMongoCollection<Record> collection;
     }
