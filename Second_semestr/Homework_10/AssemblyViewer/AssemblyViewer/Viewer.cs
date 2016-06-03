@@ -54,8 +54,6 @@ namespace AssemblyViewer
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
-
-
             }
         }
 
@@ -77,6 +75,6 @@ namespace AssemblyViewer
             button_exe.Enabled = true;
         }
 
-        OpenFileDialog openFileDialog;
+        private OpenFileDialog openFileDialog;
     }
 }
