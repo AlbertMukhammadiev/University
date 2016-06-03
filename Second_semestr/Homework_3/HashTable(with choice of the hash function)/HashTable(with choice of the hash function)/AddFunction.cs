@@ -8,7 +8,7 @@ namespace HashTableNamespace
     /// <summary>
     /// hash table, that hashes by sum of all elements of the word
     /// </summary>
-    public class AddFunction
+    public class AddFunction : IHashFunction
     {
         /// <summary>
         /// class constructor

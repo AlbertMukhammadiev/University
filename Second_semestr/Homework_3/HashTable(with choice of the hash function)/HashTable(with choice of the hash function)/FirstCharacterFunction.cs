@@ -3,7 +3,7 @@
     /// <summary>
     /// hash table, that hashes by the first letter of the word
     /// </summary>
-    public class FirstCharacterFunction
+    public class FirstCharacterFunction : IHashFunction
     {
         /// <summary>
         /// class constructor
