@@ -207,9 +207,9 @@ namespace ListNamespace
                 }
             }
 
-            public void  Dispose()
-                {
-                }
+            public void Dispose()
+            {
+            }
         }
 
         /// <summary>
