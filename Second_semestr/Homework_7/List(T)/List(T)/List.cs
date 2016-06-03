@@ -216,24 +216,33 @@ namespace ListNamespace
         /// Implementation for the GetEnumerator method
         /// </summary>
         /// <returns></returns>
-        IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             return (IEnumerator<T>)GetEnumerator();
-        }
-
-        private IEnumerator GetEnumerator1()
-        {
-            return this.GetEnumerator();
         }
 
         /// <summary>
         /// Returns an enumerator that iterates through a collection
         /// </summary>
         /// <returns></returns>
-        public ListEnumerator GetEnumerator()
+        public IEnumerator GetEnumerator()
         {
             return new ListEnumerator(this);
         }
+
+        #region
+
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    return (IEnumerator<T>)GetEnumerator();
+        //}
+
+        //public ListEnumerator GetEnumerator()
+        //{
+        //    return new ListEnumerator(this);
+        //}
+
+        #endregion
 
         private int size;
         private ListElement head;
