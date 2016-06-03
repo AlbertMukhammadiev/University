@@ -40,10 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFunction.cs" />
     <Compile Include="EmptyListException.cs" />
+    <Compile Include="FirstCharacterFunction.cs" />
     <Compile Include="HashTable.cs" />
-    <Compile Include="HashTableAddFunction.cs" />
-    <Compile Include="HashTableFirstCharacterFunction.cs" />
+    <Compile Include="IHashFunction.cs" />
     <Compile Include="IHashTable.cs" />
     <Compile Include="List.cs" />
     <Compile Include="NonExistentItemException.cs" />

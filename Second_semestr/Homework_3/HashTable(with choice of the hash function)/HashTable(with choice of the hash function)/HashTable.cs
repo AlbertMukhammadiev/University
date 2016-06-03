@@ -11,9 +11,10 @@ namespace HashTableNamespace
         /// <summary>
         /// class constructor
         /// </summary>
-        public HashTable(int size)
+        public HashTable(IHashFunction function, int size)
         {
             this.Size = size;
+            this.function = function;
             hashTable = new List[size];
             for (int i = 0; i < size; ++i)
             {
@@ -28,7 +29,7 @@ namespace HashTableNamespace
 
         public void Add(string word)
         {
-            int i = this.HashFunction(word);
+            int i = this.function.HashFunction(word);
             if (!this.Contains(word))
             {
                 this.hashTable[i].Add(word);
@@ -41,13 +42,13 @@ namespace HashTableNamespace
 
         public void Remove(string word)
         {
-            int i = HashFunction(word);
+            int i = function.HashFunction(word);
             hashTable[i].Remove(word);
         }
 
         public bool Contains(string word)
         {
-            int i = HashFunction(word);
+            int i = function.HashFunction(word);
             return hashTable[i].Contains(word);
         }
 
@@ -63,7 +64,7 @@ namespace HashTableNamespace
             }
         }
 
-        public abstract int HashFunction(string word);
+        private IHashFunction function;
 
         private List[] hashTable;
     }
