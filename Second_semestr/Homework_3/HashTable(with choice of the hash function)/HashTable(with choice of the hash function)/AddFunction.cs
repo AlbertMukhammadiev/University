@@ -11,15 +11,6 @@ namespace HashTableNamespace
     public class AddFunction : IHashFunction
     {
         /// <summary>
-        /// class constructor
-        /// </summary>
-        /// <param name="Size"></param>
-        public AddFunction(int size)
-        {
-            this.Size = size;
-        }
-        
-        /// <summary>
         /// applies some function to the word
         /// and returns the key that corresponds to the given parameter
         /// </summary>
@@ -34,9 +25,7 @@ namespace HashTableNamespace
                 result += word[i];
             }
 
-            return result % this.Size;
+            return result;
         }
-
-        public int Size { get; }
     }
 }

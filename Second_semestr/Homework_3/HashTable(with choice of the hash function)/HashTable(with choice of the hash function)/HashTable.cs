@@ -6,7 +6,7 @@ namespace HashTableNamespace
     /// <summary>
     /// a class that represents a hash table
     /// </summary>
-    public abstract class HashTable : IHashTable
+    public class HashTable : IHashTable
     {
         /// <summary>
         /// class constructor
@@ -29,7 +29,7 @@ namespace HashTableNamespace
 
         public void Add(string word)
         {
-            int i = this.function.HashFunction(word);
+            int i = this.function.HashFunction(word) % this.Size;
             if (!this.Contains(word))
             {
                 this.hashTable[i].Add(word);
@@ -42,13 +42,13 @@ namespace HashTableNamespace
 
         public void Remove(string word)
         {
-            int i = function.HashFunction(word);
+            int i = function.HashFunction(word) % this.Size;
             hashTable[i].Remove(word);
         }
 
         public bool Contains(string word)
         {
-            int i = function.HashFunction(word);
+            int i = function.HashFunction(word) % this.Size;
             return hashTable[i].Contains(word);
         }
 

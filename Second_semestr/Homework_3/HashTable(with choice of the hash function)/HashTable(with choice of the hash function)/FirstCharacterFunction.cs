@@ -5,21 +5,10 @@
     /// </summary>
     public class FirstCharacterFunction : IHashFunction
     {
-        /// <summary>
-        /// class constructor
-        /// </summary>
-        /// <param name="Size"></param>
-        public FirstCharacterFunction(int size)
-        {
-            this.Size = size;
-        }
-
         public int HashFunction(string word)
         {
-            return word[0] % this.Size;
+            return word[0];
         }
-
-        public int Size { get; }
     }
 }
 
