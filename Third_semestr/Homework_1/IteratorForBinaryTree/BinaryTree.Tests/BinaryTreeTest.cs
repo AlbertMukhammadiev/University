@@ -6,13 +6,10 @@ namespace BinaryTreeNamespace
     [TestClass]
     public class BinaryTreeTest
     {
-        private BinaryTree<string> tree;
-        private string[] poem;
-
         [TestInitialize]
         public void Initialize()
         {
-            tree = new BinaryTree<string>();
+            poemTree = new BinaryTree<string>();
             poem = new string[14];
 
             int i = 0;
@@ -30,7 +27,7 @@ namespace BinaryTreeNamespace
             ++i;
             poem[i] = "беда";
             ++i;
-            poem[i] = "В";
+            poem[i] = "в.";
             ++i;
             poem[i] = "голове";
             ++i;
@@ -40,45 +37,66 @@ namespace BinaryTreeNamespace
             ++i;
             poem[i] = "да";
             ++i;
-            poem[i] = "yes";
+            poem[i] = "да.";
             ++i;
-            poem[i] = "ае";
+            poem[i] = "да..";
 
-            tree.Insert(50, "В");
-            tree.Insert(10, "я");
-            tree.Insert(70, "опилки");
-            tree.Insert(90, "yes");
-            tree.Insert(20, "в");
-            tree.Insert(5, "если");
-            tree.Insert(40, "беда");
-            tree.Insert(60, "голове");
-            tree.Insert(100, "ае");
-            tree.Insert(15, "чешу");
-            tree.Insert(65, "моей");
-            tree.Insert(25, "затылке");
-            tree.Insert(30, "не");
-            tree.Insert(80, "да");
+            
+            poemTree.Insert(50, "беда");
+            poemTree.Insert(60, "опилки");
+            poemTree.Insert(40, "не");
+            poemTree.Insert(55, "голове");
+            poemTree.Insert(70, "да");
+            poemTree.Insert(30, "я");
+            poemTree.Insert(58, "моей");
+            poemTree.Insert(20, "если");
+            poemTree.Insert(53, "в.");
+            poemTree.Insert(35, "в");
+            poemTree.Insert(75, "да.");
+            poemTree.Insert(80, "да..");
+            poemTree.Insert(33, "чешу");
+            poemTree.Insert(37, "затылке");
         }
 
         [TestMethod]
         public void InsertTest()
         {
-            tree.Insert(99, "olol");
-            Assert.IsTrue(tree.Contains(99));
+            poemTree.Insert(99, "olol");
+            Assert.IsTrue(poemTree.Contains(99));
         }
 
         [TestMethod]
         public void RemoveTest()
         {
-            tree.Remove(50);
-            Assert.IsFalse(tree.Contains(50));
+            poemTree.Remove(35);
+            poemTree.Remove(50);
+            int j = 0;
+            foreach (string element in poemTree)
+            {
+                if ((j == 3) || (j == 6))
+                {
+                    ++j;
+                }
+
+                Assert.AreEqual(element, poem[j]);
+                ++j;
+            }
+        }
+
+        [TestMethod]
+        public void ContainsTest()
+        {
+            poemTree.Remove(20);
+            poemTree.Remove(58);
+            Assert.IsFalse(poemTree.Contains(58));
+            Assert.IsFalse(poemTree.Contains(20));
         }
 
         [TestMethod]
         public void EnumeratorTest()
         {
             int j = 0;
-            foreach (string element in tree)
+            foreach (string element in poemTree)
             {
                 Assert.AreEqual(element, poem[j]);
                 ++j;
@@ -89,14 +107,17 @@ namespace BinaryTreeNamespace
         [ExpectedException(typeof(NonExistentItemException))]
         public void RemoveNonExistentKeyTest()
         {
-            tree.Remove(9876);
+            poemTree.Remove(9876);
         }
 
         [TestMethod]
         [ExpectedException(typeof(DuplicateValuesException))]
         public void InsertDuplicateKeysTest()
         {
-            tree.Insert(50, "второе в");
+            poemTree.Insert(50, "второе в");
         }
+
+        private BinaryTree<string> poemTree;
+        private string[] poem;
     }
 }
