@@ -67,9 +67,9 @@ namespace LogNamespace
 
         public void Redo()
         {
-            del.Add(position + step - 1);
-            real.Remove(position + step - 1);
             --step;
+            real.Add(position - step - 1);
+            del.Remove(position - step - 1);
         }
 
         public Bitmap GetBitmap()

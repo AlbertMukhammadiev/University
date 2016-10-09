@@ -30,6 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.field = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -43,7 +44,6 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
-            this.field = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.button28 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
@@ -63,8 +63,8 @@
             this.button13 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.field)).BeginInit();
+            this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,6 +103,22 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(673, 233);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // field
+            // 
+            this.field.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.field.BackColor = System.Drawing.SystemColors.Info;
+            this.field.Location = new System.Drawing.Point(70, 3);
+            this.field.Name = "field";
+            this.field.Size = new System.Drawing.Size(600, 227);
+            this.field.TabIndex = 1;
+            this.field.TabStop = false;
+            this.field.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
+            this.field.MouseDown += new System.Windows.Forms.MouseEventHandler(this.field_MouseDown);
+            this.field.MouseMove += new System.Windows.Forms.MouseEventHandler(this.field_MouseMove);
+            this.field.MouseUp += new System.Windows.Forms.MouseEventHandler(this.field_MouseUp);
             // 
             // tableLayoutPanel4
             // 
@@ -169,6 +185,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(25, 31);
             this.button2.TabIndex = 1;
+            this.button2.Text = "q";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button4
@@ -270,22 +287,6 @@
             this.button11.Size = new System.Drawing.Size(24, 36);
             this.button11.TabIndex = 10;
             this.button11.UseVisualStyleBackColor = true;
-            // 
-            // field
-            // 
-            this.field.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.field.BackColor = System.Drawing.SystemColors.Info;
-            this.field.Location = new System.Drawing.Point(70, 3);
-            this.field.Name = "field";
-            this.field.Size = new System.Drawing.Size(600, 227);
-            this.field.TabIndex = 1;
-            this.field.TabStop = false;
-            this.field.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
-            this.field.MouseDown += new System.Windows.Forms.MouseEventHandler(this.field_MouseDown);
-            this.field.MouseMove += new System.Windows.Forms.MouseEventHandler(this.field_MouseMove);
-            this.field.MouseUp += new System.Windows.Forms.MouseEventHandler(this.field_MouseUp);
             // 
             // tableLayoutPanel3
             // 
@@ -515,8 +516,8 @@
             this.Text = "Editor";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.field)).EndInit();
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -16,36 +16,23 @@ namespace SimpleGraphicsEditor
         public Editor()
         {
             InitializeComponent();
-            bitmap = new Bitmap(field.Width, field.Height);
             isClicked = false;
             log = new Log(field.Width, field.Height);
         }
 
-
-
         private void OnButtonShapesClick(object sender, EventArgs e)
         {
             currentButton = (Button)sender;
-
-            if (currentButton.Text == "|")
-            {
-                draw = Graphics.FromImage(bitmap).DrawLine;
-            }
-            else
-            {
-                return;
-            }
         }
 
-        bool isClicked;
+        private bool isClicked;
         private Button currentButton;
         private delegate void DrawShape(Pen pen, Point pt1, Point pt2);
-        private DrawShape draw;
         private DrawShape drawMove;
         private Log log;
-        private Bitmap bitmap;
         private Point start;
         private Point move;
+        private bool undo = false;
 
         private void field_MouseDown(object sender, MouseEventArgs e)
         {
@@ -69,14 +56,18 @@ namespace SimpleGraphicsEditor
         private void field_MouseUp(object sender, MouseEventArgs e)
         {
             isClicked = false;
-            draw(Pens.Black, start, move);
-            field.Image = bitmap;
             log.AddShape(new Line(start, move, log));
+            field.Image = log.GetBitmap();
         }
 
         private void field_Paint(object sender, PaintEventArgs e)
         {
             if (undo)
+            {
+                return;
+            }
+
+            if (currentButton == null)
             {
                 return;
             }
@@ -87,12 +78,16 @@ namespace SimpleGraphicsEditor
 
         private DrawShape ShapeShape(PaintEventArgs e)
         {
-            //if (currentButton.Text == "|")
-            //{
-            //    return e.Graphics.DrawLine;
-            //}
+            if (currentButton.Text == "|")
+            {
+                return e.Graphics.DrawLine;
+            }
+            
+            if (currentButton.Text == "q")
+            {
+            }
 
-            return e.Graphics.DrawLine;
+            return null;
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -106,8 +101,6 @@ namespace SimpleGraphicsEditor
             field.Image = log.GetBitmap();
             undo = true;
         }
-
-        private bool undo = false;
 
         private void button26_Click(object sender, EventArgs e)
         {
