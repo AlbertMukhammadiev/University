@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ShapeNamespace;
+using LogNamespace;
 
 namespace SimpleGraphicsEditor
 {
@@ -16,10 +16,11 @@ namespace SimpleGraphicsEditor
         public Editor()
         {
             InitializeComponent();
-
             bitmap = new Bitmap(field.Width, field.Height);
             isClicked = false;
+            log = new Log(field.Width, field.Height);
         }
+
 
 
         private void OnButtonShapesClick(object sender, EventArgs e)
@@ -41,7 +42,7 @@ namespace SimpleGraphicsEditor
         private delegate void DrawShape(Pen pen, Point pt1, Point pt2);
         private DrawShape draw;
         private DrawShape drawMove;
-        private List<Shape> log = new List<Shape>();
+        private Log log;
         private Bitmap bitmap;
         private Point start;
         private Point move;
@@ -51,6 +52,8 @@ namespace SimpleGraphicsEditor
             isClicked = true;
             start.X = e.X;
             start.Y = e.Y;
+            move.X = e.X;
+            move.Y = e.Y;
         }
 
         private void field_MouseMove(object sender, MouseEventArgs e)
@@ -68,17 +71,48 @@ namespace SimpleGraphicsEditor
             isClicked = false;
             draw(Pens.Black, start, move);
             field.Image = bitmap;
+            log.AddShape(new Line(start, move, log));
         }
 
         private void field_Paint(object sender, PaintEventArgs e)
         {
+            if (undo)
+            {
+                return;
+            }
+
             drawMove = ShapeShape(e);
             drawMove(Pens.Black, start, move);
         }
 
         private DrawShape ShapeShape(PaintEventArgs e)
         {
+            //if (currentButton.Text == "|")
+            //{
+            //    return e.Graphics.DrawLine;
+            //}
+
             return e.Graphics.DrawLine;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            field.Image = log.GetBitmap();
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            log.Undo();
+            field.Image = log.GetBitmap();
+            undo = true;
+        }
+
+        private bool undo = false;
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            log.Redo();
+            field.Image = log.GetBitmap();
         }
     }
 }
