@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogNamespace;
+using ShapeNamespace;
 
 namespace SimpleGraphicsEditor
 {
@@ -17,7 +18,12 @@ namespace SimpleGraphicsEditor
         {
             InitializeComponent();
             isClicked = false;
-            log = new Log(field.Width, field.Height);
+            log = new Log();
+
+            start.X = 0;
+            start.Y = 0;
+            myPen = new Pen(Color.Black);
+            field.Invalidate();
         }
 
         private void OnButtonShapesClick(object sender, EventArgs e)
@@ -33,9 +39,13 @@ namespace SimpleGraphicsEditor
         private Point start;
         private Point move;
         private bool undo = false;
+        private PaintEventArgs pictureBoxArg;
+        private bool first = false;
+        private Pen myPen;
 
         private void field_MouseDown(object sender, MouseEventArgs e)
         {
+            field.Invalidate();
             isClicked = true;
             start.X = e.X;
             start.Y = e.Y;
@@ -56,56 +66,40 @@ namespace SimpleGraphicsEditor
         private void field_MouseUp(object sender, MouseEventArgs e)
         {
             isClicked = false;
-            log.AddShape(new Line(start, move, log));
-            field.Image = log.GetBitmap();
+            Pen ppeenn = new Pen(Color.Black);
+            log.Add(new Line(true, new Parameters(new Point(start.X, start.Y), new Point(move.X, move.Y), ppeenn), pictureBoxArg));
         }
 
         private void field_Paint(object sender, PaintEventArgs e)
         {
-            if (undo)
-            {
-                return;
-            }
-
-            if (currentButton == null)
-            {
-                return;
-            }
-
-            drawMove = ShapeShape(e);
-            drawMove(Pens.Black, start, move);
+            ShapeShape(e);
+            e.Graphics.DrawLine(Pens.Black, start, move);
+            
+            log.DrawPicture();
+            
         }
 
-        private DrawShape ShapeShape(PaintEventArgs e)
+        private void ShapeShape(PaintEventArgs e)
         {
-            if (currentButton.Text == "|")
-            {
-                return e.Graphics.DrawLine;
-            }
-            
-            if (currentButton.Text == "q")
-            {
-            }
-
-            return null;
+            pictureBoxArg = e;
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            field.Image = log.GetBitmap();
+            //
         }
 
         private void button25_Click(object sender, EventArgs e)
         {
-            log.Undo();
-            field.Image = log.GetBitmap();
+            //log.Undo();
+            //field.Image = log.GetBitmap();
             undo = true;
         }
 
         private void button26_Click(object sender, EventArgs e)
         {
-            log.Redo();
-            field.Image = log.GetBitmap();
+            //log.Redo();
+            //field.Image = log.GetBitmap();
         }
     }
 }

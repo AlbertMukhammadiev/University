@@ -3,96 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
-using SimpleGraphicsEditor;
+using ShapeNamespace;
 
 namespace LogNamespace
 {
-    public class Shape
+    class Log
     {
-        public Shape(Point p1, Point p2, Log log)
-        {
-            this.p1 = p1;
-            this.p2 = p2;
-        }
-
-        public Point p1 { get; set; }
-        public Point p2 { get; set; }
-
-        public delegate void DrawShape(Pen pen, Point pt1, Point pt2);
-        public DrawShape draw;
-    }
-
-    public class Line : Shape
-    {
-        public Line(Point p1, Point p2, Log log) : base(p1, p2, log)
-        {
-            draw = Graphics.FromImage(log.bitmap).DrawLine;
-        }
-    }
-
-    public class Log
-    {
-        public Log(int width, int height)
+        public Log()
         {
             list = new List<Shape>();
-            del = new List<int>();
-            real = new List<int>();
-
-            bitmap = new Bitmap(width, height);
         }
 
-        public void AddShape(Shape shape)
+        public void Add(Shape newShape)
         {
-            list.Add(shape);
-            real.Add(position);
-            ++position;
-            step = 0;
+            list.Add(newShape);
         }
 
-        public void RemoveShape(Shape shape)
+        public void Remove(Shape newShape)
         {
-            list.Add(shape);
-            del.Add(position);
-            ++position;
+            list.Remove(newShape);
+            newShape.ChangeVisibility();
+            list.Add(newShape);
         }
 
-        public void Undo()
+        public void DrawPicture()
         {
-            
-            del.Add(position - step - 1);
-            real.Remove(position - step - 1);
-            ++step;
-        }
-
-        public void Redo()
-        {
-            --step;
-            real.Add(position - step - 1);
-            del.Remove(position - step - 1);
-        }
-
-        public Bitmap GetBitmap()
-        {
-            foreach (int i in del)
+            foreach (Shape element in list)
             {
-                list[i].draw(Pens.White, list[i].p1, list[i].p2);
+                element.Draw();
             }
-
-
-            foreach (int j in real)
-            {
-                list[j].draw(Pens.Black, list[j].p1, list[j].p2);
-            }
-
-            return bitmap;
         }
 
-        private int step;
-        private List<int> del;
-        private List<int> real;
         private List<Shape> list;
-        private int position;
-        public Bitmap bitmap { get; }
     }
 }
