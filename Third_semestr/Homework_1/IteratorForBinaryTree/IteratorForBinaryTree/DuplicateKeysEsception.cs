@@ -6,12 +6,12 @@ namespace BinaryTreeNamespace
     /// the exception that is thrown when elements with dublicate keys are added to the Unique List
     /// </summary>
     [Serializable]
-    public class DuplicateValuesException : ApplicationException
+    public class DuplicateKeysException : ApplicationException
     {
-        public DuplicateValuesException() { }
-        public DuplicateValuesException(string message) : base(message) { }
-        public DuplicateValuesException(string message, Exception inner) : base(message, inner) { }
-        protected DuplicateValuesException(
+        public DuplicateKeysException() { }
+        public DuplicateKeysException(string message) : base(message) { }
+        public DuplicateKeysException(string message, Exception inner) : base(message, inner) { }
+        protected DuplicateKeysException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }

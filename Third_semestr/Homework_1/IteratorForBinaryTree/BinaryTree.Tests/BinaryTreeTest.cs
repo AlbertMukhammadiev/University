@@ -10,38 +10,24 @@ namespace BinaryTreeNamespace
         public void Initialize()
         {
             poemTree = new BinaryTree<string>();
-            poem = new string[14];
+            poem = poem = new[]
+            {
+                "если",
+                "я",
+                "чешу",
+                "в",
+                "затылке",
+                "не",
+                "беда",
+                "в.",
+                "голове",
+                "моей",
+                "опилки",
+                "да",
+                "да.",
+                "да.."
+            };
 
-            int i = 0;
-            poem[i] = "если";
-            ++i;
-            poem[i] = "я";
-            ++i;
-            poem[i] = "чешу";
-            ++i;
-            poem[i] = "в";
-            ++i;
-            poem[i] = "затылке";
-            ++i;
-            poem[i] = "не";
-            ++i;
-            poem[i] = "беда";
-            ++i;
-            poem[i] = "в.";
-            ++i;
-            poem[i] = "голове";
-            ++i;
-            poem[i] = "моей";
-            ++i;
-            poem[i] = "опилки";
-            ++i;
-            poem[i] = "да";
-            ++i;
-            poem[i] = "да.";
-            ++i;
-            poem[i] = "да..";
-
-            
             poemTree.Insert(50, "беда");
             poemTree.Insert(60, "опилки");
             poemTree.Insert(40, "не");
@@ -111,7 +97,7 @@ namespace BinaryTreeNamespace
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DuplicateValuesException))]
+        [ExpectedException(typeof(DuplicateKeysException))]
         public void InsertDuplicateKeysTest()
         {
             poemTree.Insert(50, "второе в");

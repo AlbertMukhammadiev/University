@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryTree.cs" />
-    <Compile Include="DuplicateValuesEsception.cs" />
+    <Compile Include="DuplicateKeysEsception.cs" />
     <Compile Include="IBinaryTree.cs" />
     <Compile Include="NonExistentItemException.cs" />
     <Compile Include="Program.cs" />
