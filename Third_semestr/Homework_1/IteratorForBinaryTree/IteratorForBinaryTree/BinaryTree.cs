@@ -6,14 +6,23 @@ using System.Collections;
 
 namespace BinaryTreeNamespace
 {
-    public class BinaryTree<T> : IBinaryTree<T>, IEnumerable
+    /// <summary>
+    /// binary tree with iterator
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class BinaryTree<T> : IBinaryTree<T>, IEnumerable<T>
     {
-        public enum inOrder
+        public enum InOrder
         {
             Ascending,
             Descending
         };
 
+        /// <summary>
+        /// adds a node with key K and value V into the tree
+        /// </summary>
+        /// <param name="key">key of node</param>
+        /// <param name="value">value of node</param>
         public void Insert(int key, T value)
         {
             if (this.root == null)
@@ -24,7 +33,7 @@ namespace BinaryTreeNamespace
 
             if (this.root.Key == key)
             {
-                throw new DuplicateValuesException("the node with the same key already exists in the tree");
+                throw new DuplicateKeysException();
             }
 
             Node i = this.root;
@@ -32,7 +41,7 @@ namespace BinaryTreeNamespace
             {
                 if (i.Key == key)
                 {
-                    throw new DuplicateValuesException("the node with the same key already exists in the tree");
+                    throw new DuplicateKeysException("the node with the same key already exists in the tree");
                 }
 
                 if ((i.Left != null) && (key < i.Key))
@@ -65,8 +74,17 @@ namespace BinaryTreeNamespace
             }
         }
 
+        /// <summary>
+        /// checks for the existence of the node with the given key
+        /// </summary>
+        /// <param name="key">key of node</param>
+        /// <returns></returns>
         public bool Contains(int key) => this.GetNode(key) != null;
 
+        /// <summary>
+        /// removes the tree node with the given key
+        /// </summary>
+        /// <param name="key">key of node</param>
         public void Remove(int key)
         {
             Node required = this.GetNode(key);
@@ -208,11 +226,11 @@ namespace BinaryTreeNamespace
                 {
                     if (fromRight)
                     {
-                        parent.Left = required.Left; ;
+                        parent.Left = required.Left;
                     }
                     else
                     {
-                        parent.Right = required.Left; ;
+                        parent.Right = required.Left;
                     }
 
                     required.Left.Right = required.Right;
@@ -292,7 +310,11 @@ namespace BinaryTreeNamespace
 
         #region распечатка дерева рекурсивно в возрастающем и убывающем порядке
 
-        public void PrintTree(int order)
+        /// <summary>
+        /// prints tree to console in ascending/descending order
+        /// </summary>
+        /// <param name="order"></param>
+        public void PrintTree(InOrder order)
         {
             if (this.root == null)
             {
@@ -303,70 +325,67 @@ namespace BinaryTreeNamespace
             {
                 if ((this.root.Right == null) && (this.root.Left == null))
                 {
-                    PrintNodes(this.root, (int)inOrder.Ascending);
+                    PrintNodes(this.root, InOrder.Ascending);
                     return;
                 }
 
-                if (order == (int)inOrder.Ascending)
+                if (order == InOrder.Ascending)
                 {
                     if (this.root.Left != null)
                     {
-                        PrintNodes(this.root.Left, (int)inOrder.Ascending);
+                        PrintNodes(this.root.Left, InOrder.Ascending);
                     }
 
                     Console.Write(this.root.Value + " ");
                     if (this.root.Right != null)
                     {
-                        PrintNodes(this.root.Right, (int)inOrder.Ascending);
+                        PrintNodes(this.root.Right, InOrder.Ascending);
                     }
                 }
-                else if (order == (int)inOrder.Descending)
+                else if (order == InOrder.Descending)
                 {
                     if (this.root.Right != null)
                     {
-                        PrintNodes(this.root.Right, (int)inOrder.Descending);
+                        PrintNodes(this.root.Right, InOrder.Descending);
                     }
 
                     Console.WriteLine(this.root.Key + " ");
                     if (this.root.Left != null)
                     {
-                        PrintNodes(this.root.Left, (int)inOrder.Descending);
+                        PrintNodes(this.root.Left, InOrder.Descending);
                     }
                 }
             }
-
-            return;
         }
 
-        private void PrintNodes(Node node, int order)
+        private void PrintNodes(Node node, InOrder order)
         {
 
-            if (order == (int)inOrder.Ascending)
+            if (order == (int)InOrder.Ascending)
             {
 
                 if (node.Left != null)
                 {
-                    PrintNodes(node.Left, (int)inOrder.Ascending);
+                    PrintNodes(node.Left, InOrder.Ascending);
                 }
 
                 Console.Write(node.Value + " ");
                 if (node.Right != null)
                 {
-                    PrintNodes(node.Right, (int)inOrder.Ascending);
+                    PrintNodes(node.Right, InOrder.Ascending);
                 }
-
             }
-            else if (order == (int)inOrder.Descending)
+            else if (order == InOrder.Descending)
             {
                 if (node.Right != null)
                 {
-                    PrintNodes(node.Right, (int)inOrder.Descending);
+                    PrintNodes(node.Right, InOrder.Descending);
                 }
 
                 Console.Write(node.Value + " ");
                 if (node.Left != null)
                 {
-                    PrintNodes(node.Left, (int)inOrder.Descending);
+                    PrintNodes(node.Left, InOrder.Descending);
                 }
             }
         }
@@ -377,7 +396,7 @@ namespace BinaryTreeNamespace
         /// <summary>
         /// Supports a simple iteration over List<T>.
         /// </summary>
-        private class TreeEnumenator : IEnumerator
+        public class TreeEnumenator : IEnumerator<T>
         {
             /// <summary>
             /// the class constructor
@@ -437,6 +456,9 @@ namespace BinaryTreeNamespace
                 }
             }
 
+            public void Dispose()
+            {
+            }
 
             private Node GetNodeWithMinimumKey(BinaryTree<T> tree)
             {
@@ -454,6 +476,12 @@ namespace BinaryTreeNamespace
                 return i;
             }
 
+            /// <summary>
+            /// returns stack with node with smallest key in top
+            /// this stack stores the nodes on which we were
+            /// </summary>
+            /// <param name="tree"></param>
+            /// <returns></returns>
             private Stack<Node> MarkWay(BinaryTree<T> tree)
             {
                 stack = new Stack<Node>();
@@ -474,7 +502,7 @@ namespace BinaryTreeNamespace
             }
 
             /// <summary>
-            /// reterns next node
+            /// returns a reference to the next node
             /// </summary>
             /// <returns></returns>
             private Node Next()
@@ -519,19 +547,13 @@ namespace BinaryTreeNamespace
         /// Implementation for the GetEnumerator method
         /// </summary>
         /// <returns></returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return (IEnumerator)GetEnumerator();
-        }
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => (IEnumerator<T>)GetEnumerator();
 
         /// <summary>
         /// Returns an enumerator that iterates through a collection
         /// </summary>
         /// <returns></returns>
-        private TreeEnumenator GetEnumerator()
-        {
-            return new TreeEnumenator(this);
-        }
+        public IEnumerator GetEnumerator() => new TreeEnumenator(this);
 
         #endregion
 

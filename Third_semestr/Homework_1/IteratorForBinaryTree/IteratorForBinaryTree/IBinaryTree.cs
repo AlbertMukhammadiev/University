@@ -1,5 +1,9 @@
 ﻿namespace BinaryTreeNamespace
 {
+    /// <summary>
+    /// interface of binary tree with iterator
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     interface IBinaryTree<T>
     {
         /// adds a node with key K and value V into the tree
