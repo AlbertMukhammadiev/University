@@ -113,6 +113,25 @@ namespace ModelOfLAN
             }
         }
 
+        /// <summary>
+        /// returns a list of healthy computers
+        /// </summary>
+        /// <param name="list">list for copy</param>
+        /// <returns></returns>
+        public List<int> GetHealthyComputers()
+        {
+            var list = new List<int>();
+            foreach (var computer in computers)
+            {
+                if (!computer.IsInfected())
+                {
+                    list.Add(computer.ID);
+                }
+            }
+
+            return list;
+        }
+
         private List<List<int>> adjacencyList;
         private List<Computer> computers;
     }
