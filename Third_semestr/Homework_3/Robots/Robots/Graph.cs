@@ -6,16 +6,36 @@ using System.Threading.Tasks;
 
 namespace Robots
 {
+    /// <summary>
+    /// two possible colors for painting the node
+    /// </summary>
     public enum Colours { Black, White };
 
+    /// <summary>
+    /// Node of the graph
+    /// </summary>
     public class Node
     {
+        /// <summary>
+        /// the color of a node
+        /// </summary>
         public Colours Colour { get; set; }
+        /// <summary>
+        /// this property is true if this node has robot
+        /// </summary>
         public bool HaveRobot { get; set; }
     }
 
+    /// <summary>
+    /// the graph that represented by adjacency list
+    /// </summary>
     public class Graph
     {
+        /// <summary>
+        /// class constructor
+        /// </summary>
+        /// <param name="file">this file stores the adjacency matrix</param>
+        /// <param name="robots">the list of nodes which has robots</param>
         public Graph(System.IO.StreamReader file, List<int> robots)
         {
             nodes = new List<Node>();
@@ -42,6 +62,10 @@ namespace Robots
             buffer = new List<int>();
         }
 
+        /// <summary>
+        /// checks the possibility of destroying the robots in the graph
+        /// </summary>
+        /// <returns></returns>
         public bool AreDestruct()
         {
             int onWhite = 0;
@@ -71,6 +95,9 @@ namespace Robots
             }
         }
 
+        /// <summary>
+        /// color the graph in two colors
+        /// </summary>
         public void PaintGraph()
         {
             nodes[0].Colour = Colours.Black;
