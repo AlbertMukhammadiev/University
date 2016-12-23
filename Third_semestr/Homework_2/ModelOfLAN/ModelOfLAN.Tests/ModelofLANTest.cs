@@ -8,10 +8,9 @@ namespace ModelOfLANTests
     [TestClass]
     public class ModelofLANTest
     {
-        System.IO.StreamReader file;
-        List<int> infectedComputers;
-        LocalNetwork LAN;
-        LocalNetwork UnhealthyLAN;
+        private System.IO.StreamReader file;
+        private List<int> infectedComputers;
+        private LocalNetwork LAN;
 
         [TestInitialize]
         public void Initialize()
@@ -21,7 +20,6 @@ namespace ModelOfLANTests
             LAN = new LocalNetwork(file, infectedComputers);
             file.Close();
         }
-
 
         [TestMethod]
         public void GetHealthyComputersTest()
