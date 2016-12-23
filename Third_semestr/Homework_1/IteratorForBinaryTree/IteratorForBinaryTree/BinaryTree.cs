@@ -93,7 +93,7 @@ namespace BinaryTreeNamespace
                 throw new NonExistentItemException("the tree is empty");
             }
 
-            Node i;
+            
             if (this.root.Key == key)
             {
 
@@ -103,27 +103,28 @@ namespace BinaryTreeNamespace
                     return;
                 }
 
+                
                 if ((this.root.Left != null) && (this.root.Right != null))
                 {
-                    i = this.root.Left;
-                    if (i.Right == null)
+                    Node position = this.root.Left;
+                    if (position.Right == null)
                     {
-                        i.Right = this.root.Right;
-                        this.root = i;
+                        position.Right = this.root.Right;
+                        this.root = position;
                         return;
                     }
 
-                    Node previous = i;
-                    while (i.Right != null)
+                    Node previous = position;
+                    while (position.Right != null)
                     {
-                        previous = i;
-                        i = i.Right;
+                        previous = position;
+                        position = position.Right;
                     }
 
-                    previous.Right = i.Left;
-                    i.Left = this.root.Left;
-                    i.Right = this.root.Right;
-                    this.root = i;
+                    previous.Right = position.Left;
+                    position.Left = this.root.Left;
+                    position.Right = this.root.Right;
+                    this.root = position;
                     return;
                 }
 
@@ -140,40 +141,40 @@ namespace BinaryTreeNamespace
                 }
             }
 
-            i = this.root;
+            Node slide = this.root;
             bool fromRight = false;
-            Node parent = i;
+            Node parent = slide;
             while (true)
             {
-                if (i.Left != null)
+                if (slide.Left != null)
                 {
-                    if (i.Left.Key == key)
+                    if (slide.Left.Key == key)
                     {
-                        parent = i;
-                        i = i.Left;
+                        parent = slide;
+                        slide = slide.Left;
                         fromRight = true;
                         break;
                     }
                 }
 
-                if (i.Right != null)
+                if (slide.Right != null)
                 {
-                    if (i.Right.Key == key)
+                    if (slide.Right.Key == key)
                     {
-                        parent = i;
-                        i = i.Right;
+                        parent = slide;
+                        slide = slide.Right;
                         fromRight = false;
                         break;
                     }
                 }
 
-                if (key < i.Key)
+                if (key < slide.Key)
                 {
-                    i = i.Left;
+                    slide = slide.Left;
                 }
-                else if (key > i.Key)
+                else if (key > slide.Key)
                 {
-                    i = i.Right;
+                    slide = slide.Right;
                 }
             }
 
@@ -221,8 +222,8 @@ namespace BinaryTreeNamespace
 
             if ((required.Left != null) && (required.Right != null))
             {
-                i = required.Left;
-                if (i.Right == null)
+                slide = required.Left;
+                if (slide.Right == null)
                 {
                     if (fromRight)
                     {
@@ -237,23 +238,23 @@ namespace BinaryTreeNamespace
                     return;
                 }
 
-                Node previous = i;
-                while (i.Right != null)
+                Node previous = slide;
+                while (slide.Right != null)
                 {
-                    previous = i;
-                    i = i.Right;
+                    previous = slide;
+                    slide = slide.Right;
                 }
 
-                previous.Right = i.Left;
-                i.Left = required.Left;
-                i.Right = required.Right;
+                previous.Right = slide.Left;
+                slide.Left = required.Left;
+                slide.Right = required.Right;
                 if (fromRight)
                 {
-                    parent.Left = i;
+                    parent.Left = slide;
                 }
                 else
                 {
-                    parent.Right = i;
+                    parent.Right = slide;
                 }
 
                 return;
