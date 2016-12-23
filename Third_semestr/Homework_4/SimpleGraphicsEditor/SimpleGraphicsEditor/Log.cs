@@ -30,7 +30,17 @@ namespace LogNamespace
             if (slide > 0)
             {
                 list[slide - 1].ChangeVisibility();
-                --slide;
+                if (!list[slide - 1].moved)
+                {
+                    --slide;
+                }
+                else
+                {
+                    var shape = list[slide - 1];
+                    list.RemoveAt(slide - 1);
+                    shape.moved = false;
+                    list.Insert(shape.movedFrom, shape);
+                }
             }
         }
 
@@ -41,6 +51,11 @@ namespace LogNamespace
         {
             if (slide < list.Count)
             {
+                if (list[slide].movedFrom != -1)
+                {
+                    ++slide;
+                }
+
                 list[slide].ChangeVisibility();
                 ++slide;
             }
@@ -103,8 +118,11 @@ namespace LogNamespace
             }
 
             var resultPoint = new Point { X = list[nearest].parameter.point1.X, Y = list[nearest].parameter.point1.Y };
-            var shape = list[nearest];
+            var shape = list[nearest].Copy();
+            list.RemoveAt(nearest);
             shape.ChangeVisibility();
+            shape.moved = true;
+            shape.movedFrom = nearest;
             list.Add(shape);
             return resultPoint;
         }

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace ShapeNamespace
 {
+
     public abstract class Shape
     {
         public Shape(bool visible, Parameters parameter)
@@ -23,6 +24,10 @@ namespace ShapeNamespace
 
         public abstract void Draw(PaintEventArgs e);
 
+        public abstract Shape Copy();
+
+        public int movedFrom { get; set; } = -1;
+        public bool moved { get; set; } = false;
         protected bool visibility;
         public Parameters parameter { get; set; }
     }
@@ -49,6 +54,8 @@ namespace ShapeNamespace
             this.visibility = visible;
         }
 
+        public override Shape Copy() => new Line(true, this.parameter);
+    
         public override void Draw(PaintEventArgs e)
         {
             if (this.visibility)
