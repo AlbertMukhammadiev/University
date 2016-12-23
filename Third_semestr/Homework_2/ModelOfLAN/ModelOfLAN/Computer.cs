@@ -17,19 +17,19 @@
             {
                 case 'w':
                     {
-                        this.operatingSystem = OS.Windows;
+                        this.OperatingSystem = OS.Windows;
                         this.helthPoints = 60;
                         break;
                     }
                 case 'l':
                     {
-                        this.operatingSystem = OS.Linux;
+                        this.OperatingSystem = OS.Linux;
                         this.helthPoints = 70;
                         break;
                     }
                 case 'o':
                     {
-                        this.operatingSystem = OS.OS_X;
+                        this.OperatingSystem = OS.OS_X;
                         this.helthPoints = 50;
                         break;
                     }
@@ -43,7 +43,7 @@
         /// <summary>
         /// type of operating system
         /// </summary>
-        public OS operatingSystem { get; set; }
+        public OS OperatingSystem { get; set; }
 
         /// <summary>
         /// ID of computer in local network

@@ -70,12 +70,7 @@ namespace ModelOfLAN
         /// checks the health of the system
         /// </summary>
         /// <returns>returns true, if system is unhealthy</returns>
-        public bool IsUnhealthy()
-        {
-            var isUnhealthy = true;
-            isUnhealthy = computers.Aggregate(isUnhealthy, (current, computer) => current && computer.IsInfected());
-            return isUnhealthy;
-        }
+        public bool IsUnhealthy() => computers.Aggregate(true, (current, computer) => current && computer.IsInfected());
 
         /// <summary>
         /// shows the health of each computer
