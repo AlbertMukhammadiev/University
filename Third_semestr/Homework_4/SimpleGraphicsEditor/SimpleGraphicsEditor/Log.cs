@@ -9,13 +9,22 @@ using System.Windows.Forms;
 
 namespace LogNamespace
 {
-    class Log
+    /// <summary>
+    /// the log stores all activities that occur in the picture box
+    /// </summary>
+    public class Log
     {
+        /// <summary>
+        /// class constructor
+        /// </summary>
         public Log()
         {
             list = new List<Shape>();
         }
 
+        /// <summary>
+        /// the log takes a step back
+        /// </summary>
         public void Undo()
         {
             if (slide > 0)
@@ -25,6 +34,9 @@ namespace LogNamespace
             }
         }
 
+        /// <summary>
+        /// the log takes a step forward
+        /// </summary>
         public void Redo()
         {
             if (slide < list.Count)
@@ -34,12 +46,20 @@ namespace LogNamespace
             }
         }
 
+        /// <summary>
+        /// adds new shape in log
+        /// </summary>
+        /// <param name="newShape"></param>
         public void Add(Shape newShape)
         {
             list.Insert(slide, newShape);
             ++slide;
         }
 
+        /// <summary>
+        /// removes given shape from picture box
+        /// </summary>
+        /// <param name="newShape"></param>
         public void Remove(Shape newShape)
         {
             list.Remove(newShape);
@@ -47,6 +67,10 @@ namespace LogNamespace
             list.Add(newShape);
         }
 
+        /// <summary>
+        /// draws all the figures from the log
+        /// </summary>
+        /// <param name="e"></param>
         public void DrawPicture(PaintEventArgs e)
         {
             foreach (Shape element in list)
@@ -55,6 +79,11 @@ namespace LogNamespace
             }
         }
 
+        /// <summary>
+        /// looks for the nearest figure to the coordinate of the pressing
+        /// </summary>
+        /// <param name="point">coordinate of mouse down</param>
+        /// <returns>returns coordinate of this shape</returns>
         public Point Catch(Point point)
         {
             double distance = int.MaxValue;

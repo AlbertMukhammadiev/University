@@ -12,8 +12,14 @@ using ShapeNamespace;
 
 namespace SimpleGraphicsEditor
 {
+    /// <summary>
+    /// simple graphics editor
+    /// </summary>
     public partial class Editor : Form
     {
+        /// <summary>
+        /// class constructor
+        /// </summary>
         public Editor()
         {
             InitializeComponent();
@@ -27,12 +33,6 @@ namespace SimpleGraphicsEditor
             movement = false;
         }
 
-        private void OnButtonLinesClick(object sender, EventArgs e)
-        {
-            currentButton = (Button)sender;
-            this.Cursor = Cursors.Cross;
-        }
-
         private bool isClicked;
         private bool isCaught;
         private Button currentButton;
@@ -43,6 +43,12 @@ namespace SimpleGraphicsEditor
         private bool first;
         private bool movement;
         private Point caughtPoint;
+
+        private void OnButtonLinesClick(object sender, EventArgs e)
+        {
+            currentButton = (Button)sender;
+            this.Cursor = Cursors.Cross;
+        }
 
         private void field_MouseDown(object sender, MouseEventArgs e)
         {
