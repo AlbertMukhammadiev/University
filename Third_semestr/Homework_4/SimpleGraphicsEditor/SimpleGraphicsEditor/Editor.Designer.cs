@@ -163,7 +163,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "|";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.OnButtonShapesClick);
+            this.button1.Click += new System.EventHandler(this.OnButtonLinesClick);
             // 
             // button3
             // 
@@ -372,7 +372,7 @@
             this.button25.TabIndex = 12;
             this.button25.Text = "<- Undo";
             this.button25.UseVisualStyleBackColor = true;
-            this.button25.Click += new System.EventHandler(this.button25_Click);
+            this.button25.Click += new System.EventHandler(this.OnButtonUndoClick);
             // 
             // button24
             // 
@@ -405,7 +405,9 @@
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(78, 21);
             this.button22.TabIndex = 9;
+            this.button22.Text = "allocate";
             this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
             // button21
             // 

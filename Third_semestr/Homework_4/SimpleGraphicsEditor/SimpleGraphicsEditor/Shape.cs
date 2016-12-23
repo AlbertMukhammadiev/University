@@ -10,10 +10,9 @@ namespace ShapeNamespace
 {
     public abstract class Shape
     {
-        public Shape(bool visible, Parameters parameter, PaintEventArgs e)
+        public Shape(bool visible, Parameters parameter)
         {
             this.parameter = parameter;
-            this.e = e;
             this.visibility = visible;
         }
 
@@ -22,40 +21,39 @@ namespace ShapeNamespace
             this.visibility = !this.visibility;
         }
 
-        public abstract void Draw();
+        public abstract void Draw(PaintEventArgs e);
+
         protected bool visibility;
-        protected PaintEventArgs e;
-        protected Parameters parameter;
+        public Parameters parameter { get; set; }
     }
 
     public class Parameters
     {
         public Parameters(Point np1, Point np2, Pen npen)
         {
-            this.p1 = np1;
-            this.p2 = np2;
+            this.point1 = np1;
+            this.point2 = np2;
             this.pen = npen;
         }
 
         public Pen pen;
         public Brush brush;
-        public Point p1, p2;
+        public Point point1, point2;
     }
 
     public class Line : Shape
     {
-        public Line(bool visible, Parameters parameter, PaintEventArgs e) : base(visible, parameter, e)
+        public Line(bool visible, Parameters parameter) : base(visible, parameter)
         {
             this.parameter = parameter;
-            this.e = e;
             this.visibility = visible;
         }
 
-        public override void Draw()
+        public override void Draw(PaintEventArgs e)
         {
             if (this.visibility)
             {
-                e.Graphics.DrawLine(parameter.pen, parameter.p1, parameter.p2);
+                e.Graphics.DrawLine(parameter.pen, parameter.point1, parameter.point2);
             }
         }
     }

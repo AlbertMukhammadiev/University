@@ -19,87 +19,150 @@ namespace SimpleGraphicsEditor
             InitializeComponent();
             isClicked = false;
             log = new Log();
-
             start.X = 0;
             start.Y = 0;
             myPen = new Pen(Color.Black);
             field.Invalidate();
+            first = true;
+            movement = false;
         }
 
-        private void OnButtonShapesClick(object sender, EventArgs e)
+        private void OnButtonLinesClick(object sender, EventArgs e)
         {
             currentButton = (Button)sender;
+            this.Cursor = Cursors.Cross;
         }
 
         private bool isClicked;
+        private bool isCaught;
         private Button currentButton;
-        private delegate void DrawShape(Pen pen, Point pt1, Point pt2);
-        private DrawShape drawMove;
         private Log log;
         private Point start;
         private Point move;
-        private bool undo = false;
-        private PaintEventArgs pictureBoxArg;
-        private bool first = false;
         private Pen myPen;
+        private bool first;
+        private bool movement;
+        private Point caughtPoint;
 
         private void field_MouseDown(object sender, MouseEventArgs e)
         {
-            field.Invalidate();
-            isClicked = true;
-            start.X = e.X;
-            start.Y = e.Y;
-            move.X = e.X;
-            move.Y = e.Y;
+            if (currentButton.Text == "|")
+            {
+                field.Invalidate();
+                isClicked = true;
+                start.X = e.X;
+                start.Y = e.Y;
+                move.X = e.X;
+                move.Y = e.Y;
+            }
+            
+            if (currentButton.Text == "allocate")
+            {
+                if (movement)
+                {
+                    move.X = e.X;
+                    move.Y = e.Y;
+                    isCaught = true;
+                    if (first)
+                    {
+                        start = log.Catch(new Point { X = e.X, Y = e.Y });
+                    }
+                    else
+                    {
+                        start = caughtPoint;
+                    }
+
+                }
+
+                movement = true;
+            }
         }
 
         private void field_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isClicked)
+            if ((isClicked) && (currentButton.Text == "|"))
             {
                 move.X = e.X;
                 move.Y = e.Y;
                 field.Invalidate();
             }
+
+            if (movement)
+            {
+                if (isCaught)
+                {
+                    move.X = e.X;
+                    move.Y = e.Y;
+                    field.Invalidate();
+                }
+            }
         }
 
         private void field_MouseUp(object sender, MouseEventArgs e)
         {
-            isClicked = false;
-            Pen ppeenn = new Pen(Color.Black);
-            log.Add(new Line(true, new Parameters(new Point(start.X, start.Y), new Point(move.X, move.Y), ppeenn), pictureBoxArg));
+            if (isClicked)
+            {
+                isClicked = false;
+                Pen pen = new Pen(Color.Black);
+                log.Add(new Line(true, new Parameters(new Point(start.X, start.Y), new Point(move.X, move.Y), pen)));
+            }
+
+            if (movement)
+            {
+                if (isCaught)
+                {
+                    isCaught = false;
+                    
+                    if (first)
+                    {
+                        first = false;
+                        caughtPoint = move;
+                    }
+                    else
+                    {
+                        Pen pen = new Pen(Color.Black);
+                        log.Add(new Line(true, new Parameters(new Point(start.X, start.Y), new Point(move.X, move.Y), pen)));
+                        movement = false;
+                        first = true;
+                    }
+                }
+            }
         }
 
         private void field_Paint(object sender, PaintEventArgs e)
         {
-            ShapeShape(e);
-            e.Graphics.DrawLine(Pens.Black, start, move);
-            
-            log.DrawPicture();
-            
+            if ((isClicked) || (isCaught))
+            {
+                e.Graphics.DrawLine(Pens.Black, start, move);
+            }
+
+            log.DrawPicture(e);
         }
 
-        private void ShapeShape(PaintEventArgs e)
-        {
-            pictureBoxArg = e;
-        }
 
         private void button12_Click(object sender, EventArgs e)
         {
             //
         }
 
-        private void button25_Click(object sender, EventArgs e)
+        private void OnButtonUndoClick(object sender, EventArgs e)
         {
-            //log.Undo();
-            //field.Image = log.GetBitmap();
-            undo = true;
+            currentButton = (Button)sender;
+            log.Undo();
+            field.Invalidate();
         }
 
         private void button26_Click(object sender, EventArgs e)
         {
-            //log.Redo();
-            //field.Image = log.GetBitmap();
+            currentButton = (Button)sender;
+            log.Redo();
+            field.Invalidate();
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            currentButton = (Button)sender;
+            this.Cursor = Cursors.Hand;
         }
     }
 }
