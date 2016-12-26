@@ -275,7 +275,6 @@
             this.button12.Size = new System.Drawing.Size(25, 36);
             this.button12.TabIndex = 11;
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button11
             // 
@@ -359,7 +358,7 @@
             this.button26.TabIndex = 13;
             this.button26.Text = "Redo->";
             this.button26.UseVisualStyleBackColor = true;
-            this.button26.Click += new System.EventHandler(this.button26_Click);
+            this.button26.Click += new System.EventHandler(this.OnButtonRedoClick);
             // 
             // button25
             // 
@@ -407,7 +406,7 @@
             this.button22.TabIndex = 9;
             this.button22.Text = "allocate";
             this.button22.UseVisualStyleBackColor = true;
-            this.button22.Click += new System.EventHandler(this.button22_Click);
+            this.button22.Click += new System.EventHandler(this.OnButtonAllocateClick);
             // 
             // button21
             // 

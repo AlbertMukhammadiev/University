@@ -17,6 +17,7 @@ namespace SimpleGraphicsEditor
     /// </summary>
     public partial class Editor : Form
     {
+
         /// <summary>
         /// class constructor
         /// </summary>
@@ -24,25 +25,21 @@ namespace SimpleGraphicsEditor
         {
             InitializeComponent();
             isClicked = false;
+            isCaught = false;
             log = new Log();
             start.X = 0;
             start.Y = 0;
-            myPen = new Pen(Color.Black);
             field.Invalidate();
-            first = true;
-            movement = false;
+
         }
 
+        private Shape movedShape;
         private bool isClicked;
         private bool isCaught;
         private Button currentButton;
         private Log log;
         private Point start;
         private Point move;
-        private Pen myPen;
-        private bool first;
-        private bool movement;
-        private Point caughtPoint;
 
         private void OnButtonLinesClick(object sender, EventArgs e)
         {
@@ -61,83 +58,76 @@ namespace SimpleGraphicsEditor
                 move.X = e.X;
                 move.Y = e.Y;
             }
-            
+
             if (currentButton.Text == "allocate")
             {
-                if (movement)
+                if (isCaught)
                 {
+                    
+                    isClicked = true;
+                    start = movedShape.Parameter.start;
                     move.X = e.X;
                     move.Y = e.Y;
-                    isCaught = true;
-                    if (first)
-                    {
-                        start = log.Catch(new Point { X = e.X, Y = e.Y });
-                    }
-                    else
-                    {
-                        start = caughtPoint;
-                    }
-
                 }
 
-                movement = true;
+                movedShape = log.CatchPoint(new Point(e.X, e.Y));
+                isCaught = true;
             }
+
+            
         }
 
         private void field_MouseMove(object sender, MouseEventArgs e)
         {
-            if ((isClicked) && (currentButton.Text == "|"))
+            if (isClicked)
             {
-                move.X = e.X;
-                move.Y = e.Y;
-                field.Invalidate();
-            }
+                if (currentButton.Text == "|")
+                {
+                    move.X = e.X;
+                    move.Y = e.Y;
+                    field.Invalidate();
+                }
 
-            if (movement)
-            {
-                if (isCaught)
+                if ((currentButton.Text == "allocate") && (isCaught))
                 {
                     move.X = e.X;
                     move.Y = e.Y;
                     field.Invalidate();
                 }
             }
+
+            
         }
 
         private void field_MouseUp(object sender, MouseEventArgs e)
         {
             if (isClicked)
             {
-                isClicked = false;
                 Pen pen = new Pen(Color.Black);
-                log.Add(new Line(true, new Parameters(new Point(start.X, start.Y), new Point(move.X, move.Y), pen)));
-            }
 
-            if (movement)
-            {
-                if (isCaught)
+                if (currentButton.Text == "|")
+                {
+                    var command = new AddShapeCommand(log, new Line(true, new Parameters(new Point(start.X, start.Y), new Point(move.X, move.Y), pen)));
+                    manager.Execute(command);
+                }
+
+                if (currentButton.Text == "allocate")
                 {
                     isCaught = false;
-                    
-                    if (first)
-                    {
-                        first = false;
-                        caughtPoint = move;
-                    }
-                    else
-                    {
-                        Pen pen = new Pen(Color.Black);
-                        log.Add(new Line(true, new Parameters(new Point(start.X, start.Y), new Point(move.X, move.Y), pen)));
-                        movement = false;
-                        first = true;
-                    }
+                    var command = new ChangePointsCommand(log, movedShape, new Point(move.X, move.Y));
+                    manager.Execute(command);
                 }
+
+                
+                isClicked = false;
             }
+
+            field.Invalidate();
         }
 
         private void field_Paint(object sender, PaintEventArgs e)
         {
-            if ((isClicked) || (isCaught))
+            if (isClicked)
             {
                 e.Graphics.DrawLine(Pens.Black, start, move);
             }
@@ -145,30 +135,31 @@ namespace SimpleGraphicsEditor
             log.DrawPicture(e);
         }
 
-
-        private void button12_Click(object sender, EventArgs e)
-        {
-            //
-        }
-
-        private void OnButtonUndoClick(object sender, EventArgs e)
-        {
-            currentButton = (Button)sender;
-            log.Undo();
-            field.Invalidate();
-        }
-
-        private void button26_Click(object sender, EventArgs e)
-        {
-            currentButton = (Button)sender;
-            log.Redo();
-            field.Invalidate();
-        }
-
-        private void button22_Click(object sender, EventArgs e)
+        private void OnButtonAllocateClick(object sender, EventArgs e)
         {
             currentButton = (Button)sender;
             this.Cursor = Cursors.Hand;
         }
+
+        #region OK
+
+        private void OnButtonUndoClick(object sender, EventArgs e)
+        {
+            manager.Undo();
+            field.Invalidate();
+        }
+
+        private void OnButtonRedoClick(object sender, EventArgs e)
+        {
+            manager.Redo();
+            field.Invalidate();
+        }
+
+        private List<Shape> shapes = new List<Shape>();
+        private UndoRedoManager manager = new UndoRedoManager();
+
+        #endregion
+
+
     }
 }
