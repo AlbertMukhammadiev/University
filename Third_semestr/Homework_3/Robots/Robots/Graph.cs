@@ -85,7 +85,7 @@ namespace Robots
                 }
             }
 
-            if ((onWhite != 1) || (onBlack != 1))
+            if ((onWhite != 1) && (onBlack != 1))
             {
                 return true;
             }
