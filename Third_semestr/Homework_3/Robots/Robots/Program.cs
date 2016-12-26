@@ -10,8 +10,8 @@ namespace Robots
     {
         static void Main(string[] args)
         {
-            var file = new System.IO.StreamReader(@"C:\Users\Альберт\Documents\GitHub\University\Third_semestr\Homework_3\Robots\graph.txt");
-            var robots = new List<int> { 11, 3 };
+            var file = new System.IO.StreamReader(@"C:\Users\Альберт\Documents\GitHub\University\Third_semestr\Homework_3\Robots\TwoToneGraph.txt");
+            var robots = new List<int> { 11, 3, 10 };
             var graph = new Graph(file, robots);
             file.Close();
             graph.PaintGraph();

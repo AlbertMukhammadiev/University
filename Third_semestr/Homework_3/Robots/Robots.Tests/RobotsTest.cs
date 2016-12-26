@@ -15,7 +15,7 @@ namespace RobotsTests
         [TestInitialize]
         public void Initialize()
         {
-            robots = new List<int> { 11, 3 };
+            robots = new List<int> { 11, 3 , 10};
             file = new System.IO.StreamReader(@"C:\Users\Альберт\Documents\GitHub\University\Third_semestr\Homework_3\Robots\MonochromeGraph.txt");
             monochromeGraph = new Graph(file, robots);
             file.Close();
@@ -27,9 +27,15 @@ namespace RobotsTests
 
 
         [TestMethod]
-        public void RobotsTest()
+        public void AlwaysDestroyTest()
         {
+            Assert.IsTrue(monochromeGraph.AreDestruct());
+        }
 
+        [TestMethod]
+        public void NotDestroyTest()
+        {
+            Assert.IsFalse(twoToneGraph.AreDestruct());
         }
     }
 }
