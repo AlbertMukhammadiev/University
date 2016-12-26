@@ -13,55 +13,59 @@ namespace ShapeNamespace
     {
         public Shape(bool visible, Parameters parameter)
         {
-            this.parameter = parameter;
-            this.visibility = visible;
+            this.Parameter = parameter;
         }
 
-        public void ChangeVisibility()
-        {
-            this.visibility = !this.visibility;
-        }
+        public abstract bool IsSeized(Point p);
 
         public abstract void Draw(PaintEventArgs e);
 
         public abstract Shape Copy();
 
-        public int movedFrom { get; set; } = -1;
-        public bool moved { get; set; } = false;
-        protected bool visibility;
-        public Parameters parameter { get; set; }
+        public Parameters Parameter { get; set; }
     }
 
     public class Parameters
     {
         public Parameters(Point np1, Point np2, Pen npen)
         {
-            this.point1 = np1;
-            this.point2 = np2;
+            this.start = np1;
+            this.move = np2;
             this.pen = npen;
         }
 
         public Pen pen;
         public Brush brush;
-        public Point point1, point2;
+        public Point start, move;
     }
 
     public class Line : Shape
     {
         public Line(bool visible, Parameters parameter) : base(visible, parameter)
         {
-            this.parameter = parameter;
-            this.visibility = visible;
+            this.Parameter = parameter;
         }
 
-        public override Shape Copy() => new Line(true, this.parameter);
-    
+        public override Shape Copy() => new Line(true, this.Parameter);
+
+        public override bool IsSeized(Point p)
+        {
+            //throw new NotImplementedException();
+            var distanceFirst = Math.Sqrt(Math.Pow(p.X - this.Parameter.start.X, 2) + Math.Pow(p.Y - this.Parameter.start.Y, 2));
+            var distanceSecond = Math.Sqrt(Math.Pow(p.X - this.Parameter.move.X, 2) + Math.Pow(p.Y - this.Parameter.move.Y, 2));
+            var distance = distanceFirst <= distanceSecond ? distanceFirst : distanceSecond;
+            if (distanceFirst <= distanceSecond)
+            {
+                var point = this.Parameter.start;
+                this.Parameter.start = this.Parameter.move;
+                this.Parameter.move = point;
+            }
+            return distance < 50;
+        }
+
         public override void Draw(PaintEventArgs e)
         {
-            if (this.visibility)
-            {
-                e.Graphics.DrawLine(parameter.pen, parameter.point1, parameter.point2);
-            }
+            e.Graphics.DrawLine(Parameter.pen, Parameter.start, Parameter.move);
         }
     }
 }

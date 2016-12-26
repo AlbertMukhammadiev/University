@@ -14,72 +14,39 @@ namespace LogNamespace
     /// </summary>
     public class Log
     {
-        /// <summary>
-        /// class constructor
-        /// </summary>
-        public Log()
-        {
-            list = new List<Shape>();
-        }
-
-        /// <summary>
-        /// the log takes a step back
-        /// </summary>
-        public void Undo()
-        {
-            if (slide > 0)
-            {
-                list[slide - 1].ChangeVisibility();
-                if (!list[slide - 1].moved)
-                {
-                    --slide;
-                }
-                else
-                {
-                    var shape = list[slide - 1];
-                    list.RemoveAt(slide - 1);
-                    shape.moved = false;
-                    list.Insert(shape.movedFrom, shape);
-                }
-            }
-        }
-
-        /// <summary>
-        /// the log takes a step forward
-        /// </summary>
-        public void Redo()
-        {
-            if (slide < list.Count)
-            {
-                if (list[slide].movedFrom != -1)
-                {
-                    ++slide;
-                }
-
-                list[slide].ChangeVisibility();
-                ++slide;
-            }
-        }
+        private List<Shape> shapes = new List<Shape>();
 
         /// <summary>
         /// adds new shape in log
         /// </summary>
         /// <param name="newShape"></param>
-        public void Add(Shape newShape)
+        public void Add(Shape shape)
         {
-            list.Insert(slide, newShape);
-            ++slide;
+            shapes.Add(shape);
         }
 
-        /// <summary>
-        /// removes given shape from picture box
-        /// </summary>
-        /// <param name="newShape"></param>
-        public void Remove(Shape newShape)
+        internal void RemoveLastShape()
         {
-            list.Remove(newShape);
-            newShape.ChangeVisibility();
-            list.Add(newShape);
+            if (shapes.Count == 0) throw new ArgumentException();
+            shapes.RemoveAt(shapes.Count - 1);
+        }
+
+        public Shape LastShape
+        {
+            get { return shapes.Count == 0 ? null : shapes[shapes.Count - 1]; }
+        }
+
+        public Shape CatchPoint(Point p)
+        {
+            foreach (var shape in shapes)
+            {
+                if (shape.IsSeized(p))
+                {
+                    return shape;
+                }
+            }
+
+            throw new Exception();
         }
 
         /// <summary>
@@ -88,46 +55,11 @@ namespace LogNamespace
         /// <param name="e"></param>
         public void DrawPicture(PaintEventArgs e)
         {
-            foreach (Shape element in list)
+            foreach (Shape element in shapes)
             {
                 element.Draw(e);
             }
         }
 
-        /// <summary>
-        /// looks for the nearest figure to the coordinate of the pressing
-        /// </summary>
-        /// <param name="point">coordinate of mouse down</param>
-        /// <returns>returns coordinate of this shape</returns>
-        public Point Catch(Point point)
-        {
-            double distance = int.MaxValue;
-            var nearest = 0;
-
-            for (int i = 0; i < list.Count; ++i)
-            {
-                Point center = new Point();
-                center.X = (list[i].parameter.point1.X + list[i].parameter.point2.X) / 2;
-                center.Y = (list[i].parameter.point1.Y + list[i].parameter.point2.Y) / 2;
-                var dist = Math.Sqrt(Math.Pow(center.X - point.X, 2) + Math.Pow(center.Y - point.Y, 2));
-                if (dist <= distance)
-                {
-                    nearest = i;
-                    distance = dist;
-                }
-            }
-
-            var resultPoint = new Point { X = list[nearest].parameter.point1.X, Y = list[nearest].parameter.point1.Y };
-            var shape = list[nearest].Copy();
-            list.RemoveAt(nearest);
-            shape.ChangeVisibility();
-            shape.moved = true;
-            shape.movedFrom = nearest;
-            list.Add(shape);
-            return resultPoint;
-        }
-
-        private int slide;
-        private List<Shape> list;
     }
 }
