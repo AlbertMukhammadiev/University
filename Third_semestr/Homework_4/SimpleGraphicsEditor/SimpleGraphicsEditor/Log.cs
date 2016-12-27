@@ -46,7 +46,7 @@ namespace LogNamespace
                 }
             }
 
-            throw new Exception();
+            return null;
         }
 
         /// <summary>
