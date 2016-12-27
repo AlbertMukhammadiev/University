@@ -11,16 +11,11 @@ namespace SimpleGraphicsEditor
 {
     class ChangePointsCommand : ICommand
     {
-        private Log log;
-        private Shape shape;
-        private Point point;
-        private Point prevPoint;
-
-        public ChangePointsCommand(Log log, Shape shape, Point point)
+        public ChangePointsCommand(Log log, Shape shape, Parameters parameters)
         {
             this.log = log;
             this.shape = shape;
-            this.point = point;
+            this.parameters = parameters;
         }
 
         public string Name
@@ -30,13 +25,18 @@ namespace SimpleGraphicsEditor
 
         public void Execute()
         {
-            prevPoint = shape.Parameter.start;
-            shape.Parameter.move = point;
+            prevParameters = shape.Parameter;
+            shape.Parameter = parameters;
         }
 
         public void UnExecute()
         {
-            shape.Parameter.move = prevPoint;
+            shape.Parameter = prevParameters;
         }
+
+        private Parameters parameters;
+        private Parameters prevParameters;
+        private Log log;
+        private Shape shape;
     }
 }
