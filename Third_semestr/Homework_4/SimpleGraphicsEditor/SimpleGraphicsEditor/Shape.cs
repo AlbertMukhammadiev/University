@@ -27,10 +27,10 @@ namespace ShapeNamespace
 
     public class Parameters
     {
-        public Parameters(Point np1, Point np2, Pen npen)
+        public Parameters(Point point1, Point point2, Pen npen)
         {
-            this.start = np1;
-            this.move = np2;
+            this.start = point1;
+            this.move = point2;
             this.pen = npen;
         }
 
@@ -60,7 +60,7 @@ namespace ShapeNamespace
                 this.Parameter.start = this.Parameter.move;
                 this.Parameter.move = point;
             }
-            return distance < 50;
+            return distance < 10;
         }
 
         public override void Draw(PaintEventArgs e)
