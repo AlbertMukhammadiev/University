@@ -1,7 +1,7 @@
 ﻿using LogNamespace;
-using ShapeNamespace;
-using System;
-namespace SimpleGraphicsEditor
+using SimpleGraphicsEditor.Models;
+
+namespace SimpleGraphicsEditor.Commands
 {
     /// <summary>
     /// the command which accounts for change of the location of the shape

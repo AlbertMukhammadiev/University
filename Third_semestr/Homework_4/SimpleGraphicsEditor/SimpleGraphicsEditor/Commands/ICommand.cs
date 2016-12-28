@@ -1,4 +1,4 @@
-﻿namespace SimpleGraphicsEditor
+﻿namespace SimpleGraphicsEditor.Commands
 {
     /// <summary>
     /// interface for commands

@@ -1,7 +1,7 @@
 ﻿using LogNamespace;
-using ShapeNamespace;
+using SimpleGraphicsEditor.Models;
 
-namespace SimpleGraphicsEditor
+namespace SimpleGraphicsEditor.Commands
 {
     /// <summary>
     /// the command which accounts for the adding new shapes
