@@ -16,7 +16,7 @@ namespace ModelOfLANTests
         public void Initialize()
         {
             infectedComputers = new List<int> { 11, 3 };
-            file = new System.IO.StreamReader(@"C:\Users\Альберт\Documents\GitHub\University\Third_semestr\Homework_2\ModelOfLAN\test.txt");
+            file = new System.IO.StreamReader(@"..\..\matrix.txt");
             LAN = new LocalNetwork(file, infectedComputers);
             file.Close();
         }
@@ -53,7 +53,7 @@ namespace ModelOfLANTests
         {
             Assert.IsFalse(LAN.IsUnhealthy());
 
-            file = new System.IO.StreamReader(@"C:\Users\Альберт\Documents\GitHub\University\Third_semestr\Homework_2\ModelOfLAN\test.txt");
+            file = new System.IO.StreamReader(@"..\..\matrix.txt");
             var UnhealthyLAN = new LocalNetwork(file, new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 });
             file.Close();
             Assert.IsTrue(UnhealthyLAN.IsUnhealthy());
