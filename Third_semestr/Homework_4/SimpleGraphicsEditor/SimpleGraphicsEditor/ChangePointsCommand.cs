@@ -1,16 +1,19 @@
 ﻿using LogNamespace;
 using ShapeNamespace;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SimpleGraphicsEditor
 {
+    /// <summary>
+    /// the command which accounts for change of the location of the shape
+    /// </summary>
     class ChangePointsCommand : ICommand
     {
+        /// <summary>
+        /// class constructor
+        /// </summary>
+        /// <param name="log">log of shapes</param>
+        /// <param name="shape"></param>
+        /// <param name="parameters"></param>
         public ChangePointsCommand(Log log, Shape shape, Parameters parameters)
         {
             this.log = log;
@@ -18,10 +21,7 @@ namespace SimpleGraphicsEditor
             this.parameters = parameters;
         }
 
-        public string Name
-        {
-            get { return "Move"; }
-        }
+        public string Name { get { return "Move"; } }
 
         public void Execute()
         {

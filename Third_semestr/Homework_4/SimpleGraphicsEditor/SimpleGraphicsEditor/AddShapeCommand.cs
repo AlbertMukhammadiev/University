@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogNamespace;
+﻿using LogNamespace;
 using ShapeNamespace;
 
 namespace SimpleGraphicsEditor
 {
+    /// <summary>
+    /// the command which accounts for the adding new shapes
+    /// </summary>
     public class AddShapeCommand : ICommand
     {
+        /// <summary>
+        /// class constructor
+        /// </summary>
+        /// <param name="log">log of shapes</param>
+        /// <param name="shape"></param>
         public AddShapeCommand(Log log, Shape shape)
         {
             this.log = log;

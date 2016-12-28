@@ -64,10 +64,10 @@ namespace SimpleGraphicsEditor
             if (currentButton.Text == "allocate")
             {
                 
-                movedShape = log.CatchPoint(new Point(e.X, e.Y));
+                movedShape = log.Catch(new Point(e.X, e.Y));
                 if (movedShape != null)
                 {
-                    start = movedShape.Parameter.start;
+                    start = movedShape.Parameter.Start;
                     isClicked = true;
                 }
             }

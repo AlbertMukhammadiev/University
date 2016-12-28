@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleGraphicsEditor
+﻿namespace SimpleGraphicsEditor
 {
+    /// <summary>
+    /// interface for commands
+    /// </summary>
     public interface ICommand
     {
+        /// <summary>
+        /// name of command
+        /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// execute the command
+        /// </summary>
         void Execute();
+
+        /// <summary>
+        /// revert command
+        /// </summary>
         void UnExecute();
     }
 }

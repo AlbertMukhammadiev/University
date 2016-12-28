@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ShapeNamespace;
 using System.Drawing;
 using System.Windows.Forms;
@@ -14,8 +11,6 @@ namespace LogNamespace
     /// </summary>
     public class Log
     {
-        private List<Shape> shapes = new List<Shape>();
-
         /// <summary>
         /// adds new shape in log
         /// </summary>
@@ -25,18 +20,21 @@ namespace LogNamespace
             shapes.Add(shape);
         }
 
-        internal void RemoveLastShape()
+        /// <summary>
+        /// removes the last shape from the list
+        /// </summary>
+        public void RemoveLastShape()
         {
             if (shapes.Count == 0) throw new ArgumentException();
             shapes.RemoveAt(shapes.Count - 1);
         }
 
-        public Shape LastShape
-        {
-            get { return shapes.Count == 0 ? null : shapes[shapes.Count - 1]; }
-        }
-
-        public Shape CatchPoint(Point p)
+        /// <summary>
+        /// returns the shape which we caught
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public Shape Catch(Point p)
         {
             foreach (var shape in shapes)
             {
@@ -61,5 +59,6 @@ namespace LogNamespace
             }
         }
 
+        private List<Shape> shapes = new List<Shape>();
     }
 }
