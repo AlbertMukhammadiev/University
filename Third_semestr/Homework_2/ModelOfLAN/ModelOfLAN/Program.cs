@@ -10,7 +10,7 @@ namespace ModelOfLAN
     {
         static void Main(string[] args)
         {
-            var file = new System.IO.StreamReader(@"C:\Users\Альберт\Documents\GitHub\University\Third_semestr\Homework_2\ModelOfLAN\test.txt");
+            var file = new System.IO.StreamReader(@"..\..\matrix.txt");
             var list = new List<int> { 11, 3 };
             var lan = new LocalNetwork(file, list);
             file.Close();
