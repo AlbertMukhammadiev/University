@@ -1,5 +1,8 @@
 ﻿namespace ModelOfLAN
 {
+    /// <summary>
+    /// type of operating system
+    /// </summary>
     public enum OS { Windows, Linux, OS_X};
 
     /// <summary>

@@ -102,9 +102,10 @@ namespace ModelOfLAN
                 }
             }
 
+            var randomDamage = new Random().Next(100);
             foreach (var num in tryInfect)
             {
-                computers[num].Infect(((new Random()).Next(100)));
+                computers[num].Infect(randomDamage);
             }
         }
 
