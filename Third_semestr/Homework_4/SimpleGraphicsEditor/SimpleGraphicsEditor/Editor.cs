@@ -29,12 +29,12 @@ namespace SimpleGraphicsEditor
             log = new Log();
             start.X = 0;
             start.Y = 0;
-            wideLine = new Pen(Color.Black, 5);
+            myPen = new Pen(Color.Black, 3);
             field.Invalidate();
 
         }
 
-        private Pen wideLine;
+        private Pen myPen;
         private Shape movedShape;
         private bool isClicked;
         private bool isCaught;
@@ -111,7 +111,19 @@ namespace SimpleGraphicsEditor
         {
             if (isClicked)
             {
-                e.Graphics.DrawLine(wideLine, start, move);
+                if (currentButton.Text == "|")
+                {
+                    myPen.Width = 3;
+                    myPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+                }
+
+                if (currentButton.Text == "allocate")
+                {
+                    myPen.Width = 5;
+                    myPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                }
+
+                e.Graphics.DrawLine(myPen, start, move);
             }
 
             log.DrawPicture(e);
