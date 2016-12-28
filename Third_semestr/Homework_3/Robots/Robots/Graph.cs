@@ -45,7 +45,7 @@ namespace Robots
             while ((line = file.ReadLine()) != null)
             {
                 adjacencyList.Add(new List<int>());
-                for (int j = i; j < line.Length; ++j)
+                for (int j = 0; j < line.Length; ++j)
                 {
                     if (line[j] == '1')
                     {
@@ -102,10 +102,15 @@ namespace Robots
         {
             nodes[0].Colour = Colours.Black;
             var visitedNodes = new List<int> { 0 };
-            PaintNeighbors(visitedNodes);
+            var notVisitedNodes = new List<int>();
+            for (int i = 0; i < nodes.Count; ++i)
+            {
+                notVisitedNodes.Add(i);
+            }
+            PaintNeighbors(visitedNodes, notVisitedNodes);
         }
 
-        private void PaintNeighbors(List<int> visitedNodes)
+        private void PaintNeighbors(List<int> visitedNodes, List<int> notVisitedNodes)
         {
             foreach (var number in visitedNodes)
             {
@@ -115,6 +120,7 @@ namespace Robots
                 }
             }
 
+            notVisitedNodes.RemoveAll(element => visitedNodes.Contains(element));
             visitedNodes.RemoveRange(0, visitedNodes.Count);
             foreach (var num in buffer)
             {
@@ -124,6 +130,7 @@ namespace Robots
                 }
             }
 
+            visitedNodes.RemoveAll(element => !notVisitedNodes.Contains(element));
             buffer.RemoveRange(0, buffer.Count);
             foreach (var number in visitedNodes)
             {
@@ -132,7 +139,7 @@ namespace Robots
 
             if (visitedNodes.Count != 0)
             {
-                PaintNeighbors(visitedNodes);
+                PaintNeighbors(visitedNodes, notVisitedNodes);
             }
         }
 
