@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogNamespace;
-using ShapeNamespace;
+using SimpleGraphicsEditor.Models;
+using SimpleGraphicsEditor.Commands;
 
 namespace SimpleGraphicsEditor
 {
@@ -25,7 +21,6 @@ namespace SimpleGraphicsEditor
         {
             InitializeComponent();
             isClicked = false;
-            isCaught = false;
             log = new Log();
             start.X = 0;
             start.Y = 0;
@@ -33,15 +28,6 @@ namespace SimpleGraphicsEditor
             field.Invalidate();
 
         }
-
-        private Pen myPen;
-        private Shape movedShape;
-        private bool isClicked;
-        private bool isCaught;
-        private Button currentButton;
-        private Log log;
-        private Point start;
-        private Point move;
 
         private void OnButtonLinesClick(object sender, EventArgs e)
         {
@@ -96,7 +82,6 @@ namespace SimpleGraphicsEditor
 
                 if ((currentButton.Text == "allocate") && (movedShape != null))
                 {
-                    isCaught = false;
                     var command = new ChangePointsCommand(log, movedShape, new Parameters(start, e.Location, pen));
                     manager.Execute(command);
                 }
@@ -135,8 +120,6 @@ namespace SimpleGraphicsEditor
             this.Cursor = Cursors.Hand;
         }
 
-        #region OK
-
         private void OnButtonUndoClick(object sender, EventArgs e)
         {
             manager.Undo();
@@ -151,9 +134,12 @@ namespace SimpleGraphicsEditor
 
         private List<Shape> shapes = new List<Shape>();
         private UndoRedoManager manager = new UndoRedoManager();
-
-        #endregion
-
-
+        private Pen myPen;
+        private Shape movedShape;
+        private bool isClicked;
+        private Button currentButton;
+        private Log log;
+        private Point start;
+        private Point move;
     }
 }

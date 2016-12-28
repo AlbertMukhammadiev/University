@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ShapeNamespace;
+using SimpleGraphicsEditor.Models;
 using System.Drawing;
 using System.Windows.Forms;
 
