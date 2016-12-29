@@ -7,10 +7,10 @@ namespace RobotsTests
     [TestClass]
     public class UnitTest1
     {
-        System.IO.StreamReader file;
-        List<int> robots;
-        Graph twoToneGraph;
-        Graph monochromeGraph;
+        private System.IO.StreamReader file;
+        private List<int> robots;
+        private Graph twoToneGraph;
+        private Graph monochromeGraph;
 
         [TestInitialize]
         public void Initialize()
@@ -24,7 +24,6 @@ namespace RobotsTests
             twoToneGraph = new Graph(file, robots);
             file.Close();
         }
-
 
         [TestMethod]
         public void AlwaysDestroyTest()
