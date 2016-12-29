@@ -21,19 +21,19 @@
                 case 'w':
                     {
                         this.OperatingSystem = OS.Windows;
-                        this.helthPoints = 60;
+                        this.healthPoints = 60;
                         break;
                     }
                 case 'l':
                     {
                         this.OperatingSystem = OS.Linux;
-                        this.helthPoints = 70;
+                        this.healthPoints = 70;
                         break;
                     }
                 case 'o':
                     {
                         this.OperatingSystem = OS.OS_X;
-                        this.helthPoints = 50;
+                        this.healthPoints = 50;
                         break;
                     }
                 default:
@@ -65,13 +65,13 @@
         /// <param name="damagePoints">the power of viral attacks</param>
         public void Infect(int damagePoints)
         {
-            if (damagePoints >= helthPoints)
+            if (damagePoints >= healthPoints)
             {
                 isInfected = true;
             }
         }
 
-        private int helthPoints;
+        private int healthPoints;
         private bool isInfected;
     }
 }
