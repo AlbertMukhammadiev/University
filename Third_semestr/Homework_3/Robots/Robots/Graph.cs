@@ -107,6 +107,7 @@ namespace Robots
         {
             foreach (var number in visitedNodes)
             {
+
                 foreach (var neighbors in adjacencyList[number])
                 {
                     buffer.AddRange(adjacencyList[neighbors]);
@@ -114,17 +115,11 @@ namespace Robots
             }
 
             notVisitedNodes.RemoveAll(element => visitedNodes.Contains(element));
-            visitedNodes.RemoveRange(0, visitedNodes.Count);
-            foreach (var num in buffer)
-            {
-                if (!visitedNodes.Contains(num))
-                {
-                    visitedNodes.Add(num);
-                }
-            }
-
+            visitedNodes.Clear();
+            visitedNodes.AddRange(buffer);
+            visitedNodes = visitedNodes.Distinct().ToList();
             visitedNodes.RemoveAll(element => !notVisitedNodes.Contains(element));
-            buffer.RemoveRange(0, buffer.Count);
+            buffer.Clear();
             foreach (var number in visitedNodes)
             {
                 nodes[number].Colour = Colours.Black;
