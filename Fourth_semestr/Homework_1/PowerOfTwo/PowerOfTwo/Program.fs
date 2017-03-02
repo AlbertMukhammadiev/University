@@ -1,26 +1,19 @@
-﻿let rec create2 m list acc =
-    if m <= 0 then
+﻿let printList list = List.fold(fun acc elem -> printfn "%A" elem) () list
+
+let rec createList list m acc =
+    if m < 0 then
         list
     else
-        create2
-            (m - 1)
+        createList
             (acc :: list)
-            (acc * 2)
+            (m - 1)
+            (acc <<< 1)
 
-let rec pow n acc =
-    if n = 0 then
-        acc
-    else
-        pow
-            (n - 1)
-            (acc * 2)
+//let create n m = List.map(fun i -> i * (2 <<< n)) (List.rev (createList [] m 1))
 
-let create n m = List.fold (fun acc elem -> elem::acc) [] (create2 m [] (pow n 1))
-
-let printList list = List.fold(fun acc elem -> printfn "%A" elem) () list
+let create n m = List.fold(fun acc elem -> elem * (2 <<< (n - 1)) :: acc) [] (createList [] m 1)
 
 [<EntryPoint>] 
 let main argv = 
-//    printfn "%A" argv
-    printList(create 3 5)
+    printList(create 1 10)
     0 // возвращение целочисленного кода выхода
