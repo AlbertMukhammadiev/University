@@ -1,8 +1,10 @@
-﻿let rec indexOf elem list i =
+﻿let rec indexOfRec elem list i =
     match list with
     | [] -> None
-    | head :: tail -> if (head <> elem) then indexOf (elem) (tail) (i + 1)
+    | head :: tail -> if (head <> elem) then indexOfRec (elem) (tail) (i + 1)
                       else Some i
+
+let indexOf elem list = indexOfRec elem list 0
 
 [<EntryPoint>]
 let main argv = 
