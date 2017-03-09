@@ -9,9 +9,13 @@ let rec createList list m acc =
             (m - 1)
             (acc <<< 1)
 
-//let create n m = List.map(fun i -> i * (2 <<< n)) (List.rev (createList [] m 1))
 
-let create n m = List.fold(fun acc elem -> elem * (2 <<< (n - 1)) :: acc) [] (createList [] m 1)
+
+//let create n m = let powerOf2 = (2 <<< n)
+//                 List.map(fun i -> i * powerOf2) (List.rev (createList [] m 1))
+
+let create n m = let powerOf2 = (2 <<< (n - 1))
+                 List.fold(fun acc elem -> elem * powerOf2 :: acc) [] (createList [] m 1)
 
 [<EntryPoint>] 
 let main argv = 
