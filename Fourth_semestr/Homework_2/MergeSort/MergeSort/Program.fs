@@ -10,16 +10,14 @@ let rec merge list acc =
         | ([], head :: tail) -> merge ([], tail) (head :: acc)
         | (head :: tail, []) -> merge (tail, []) (head :: acc)
         | (head :: tail, h :: t) when head > h -> merge (head :: tail, t) (h :: acc)
-        | (head :: tail, h :: t) when head <= h -> merge (tail, h :: t) (head :: acc)
-        | _ -> acc
+        | (head :: tail, h :: t) -> merge (tail, h :: t) (head :: acc)
 
 let rec mergesort list =
     match list with
         | [] -> []
         | [x] -> list
-        | _ ->
-            let (half1, half2) = split list [] []
-            merge (mergesort half1, mergesort half2) []
+        | _ -> let (half1, half2) = split list [] []
+               merge (mergesort half1, mergesort half2) []
 
 let printList list = List.fold(fun acc elem -> printfn "%A" elem) () list        
 
