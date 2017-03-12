@@ -5,12 +5,13 @@
         | hat :: head :: tail -> split tail (hat :: half1) (head :: half2)
 
 let rec merge list acc =
-    match list with
+    match list with        
         | ([], []) -> List.rev acc
         | ([], head :: tail) -> merge ([], tail) (head :: acc)
         | (head :: tail, []) -> merge (tail, []) (head :: acc)
         | (head :: tail, h :: t) when head > h -> merge (head :: tail, t) (h :: acc)
-        | (head :: tail, h :: t) when head < h -> merge (tail, h :: t) (head :: acc)
+        | (head :: tail, h :: t) when head <= h -> merge (tail, h :: t) (head :: acc)
+        | _ -> acc
 
 let rec mergesort list =
     match list with
@@ -24,6 +25,6 @@ let printList list = List.fold(fun acc elem -> printfn "%A" elem) () list
 
 [<EntryPoint>]
 let main argv =
-    let list = [1; 4; 2; 6;9;5; 10]
+    let list = [5; 2; 8; 9; 4 ;1; 6;]
     printList (mergesort list)
     0 // возвращение целочисленного кода выхода
