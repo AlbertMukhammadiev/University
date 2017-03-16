@@ -6,6 +6,12 @@
                     
 let isUnique list = isUniqueRec list []
 
+let rec isUnique1 list =
+    match list with
+    | [] -> true
+    | head :: tail -> if List.contains head tail then false
+                      else isUnique1 (tail)
+
 [<EntryPoint>]
 let main argv = 
     printfn "%A" argv
