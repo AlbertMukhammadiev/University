@@ -2,9 +2,9 @@
     match list with
     | [] -> []
     | [x] -> list
-    | head :: tail -> tail @ (head :: [])
+    | head :: tail -> tail @ [0]
 
-let indexOfmaxSum list =
+let indexOfMaxSum list =
     let triple = List.sortDescending << List.map (fun (x, i, elem) -> (x + elem, i, elem)) <| List.zip3 (shift list) [1 .. list.Length] list
     match triple with
     | [] -> None
@@ -14,5 +14,5 @@ let indexOfmaxSum list =
 [<EntryPoint>]
 let main argv = 
 //    printfn "%A" argv
-    printfn "%A" (indexOfmaxSum [1;5;6;2])
+    printfn "%A" (indexOfMaxSum [1;5;6;2])
     0 // возвращение целочисленного кода выхода
