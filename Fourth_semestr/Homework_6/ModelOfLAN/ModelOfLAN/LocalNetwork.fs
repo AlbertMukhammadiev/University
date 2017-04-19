@@ -1,28 +1,26 @@
 ﻿namespace ModelOfLAN
 
+open System.IO
+
 /// type of operating system
 type OS = | Windows | Linux | OS_X
 
 /// computer of local network
-type Computer(os:OS) =
-    
+type Computer(abbr:char, id:int) =
     //private
     let mutable isInfected = false
     let healthPoints =
-        match os with
-        | Windows -> 60
-        | Linux -> 70
-        | OS_X -> 50
+        match abbr with
+        | 'w' -> 60
+        | 'l' -> 70
+        | 'o' -> 50
+        | _ -> 30
 
-
-
+//    /// type of operating system
+//    member val OperatingSystem = os with get, set
     
-
-    /// type of operating system
-    member val OperatingSystem = os with get, set
-    
-    /// ID of computer in local network
-    member val ID = 0 with get, set
+    /// ID of computer in local network                                    ????????????????????????????????????????
+    member val ID = 0 with get
     
     /// checks the health of computer
     member comp.IsInfected () = isInfected;
@@ -32,93 +30,57 @@ type Computer(os:OS) =
         if damagePoint >= healthPoints then
             isInfected <- true
 
-//type LocalNetwork(file, infectedComputers) =
+
+/// this class simulates the work of the local network
+type LocalNetwork(file:string, infectedComputers) =
+    let mutable computers = Array.empty
+    let mutable adjacencyList = Seq.empty
     
+    do
+        use stream = new StreamReader(file)
+        computers <- Seq.toArray (Seq.mapi (fun i x -> new Computer(x, i)) <| stream.ReadLine())
+        Seq.iter (fun i -> computers.[i].Infect(100)) infectedComputers
 
+        adjacencyList <-
+            seq { use stream = new StreamReader(file)
+                  ignore <| stream.ReadLine()
+                  while not stream.EndOfStream do
+                    let line = stream.ReadLine()
+                    let neighbors = String.filter (fun x -> x <> '0')
+                                    <| String.mapi (fun i x -> if (x = '1') then (char i) else x) line
+                    yield neighbors }
+    
+    /// shows the adjacency matrix in the console
+    member system.ShowAdjList () =
+        Seq.iter (fun ls -> Seq.iter (fun c -> printf "%A" c) ls
+                            printfn "") adjacencyList
 
+    /// shows the health of each computer
+    member system.ShowSystem () =
+        let fontColor (comp:Computer) =
+            if comp.IsInfected () then System.Console.ForegroundColor <- System.ConsoleColor.Red
+            else System.Console.ForegroundColor <- System.ConsoleColor.Gray
+        let health (comp:Computer) =
+            if comp.IsInfected () then "infected"
+            else "healthy"
+        Seq.iter (fun x -> fontColor x
+                           System.Console.WriteLine("computer number " + x.ID.ToString () + " is " + (health x))) computers
 
-//module LocalNetwork
-//
-//namespace ModelOfLAN
-//{
-//    /// <summary>
-//    /// this class simulates the work of the local network
-//    /// </summary>
-//    public class LocalNetwork
-//    {
-//        /// <summary>
-//        /// class constructor
-//        /// </summary>
-//        /// <param name="file">the adjacency matrix</param>
-//        /// <param name="infectedComputers">computers that are infected with viruses</param>
-//        public LocalNetwork(System.IO.StreamReader file, List<int> infectedComputers)
-//        {
-//            computers = new List<Computer>();
-//            string line;
-//            if ((line = file.ReadLine()) != null)
-//            {
-//                for (int j = 0; j < line.Length; ++j)
-//                {
-//                    computers.Add(new Computer(line[j]) { ID = j });
-//                }
-//            }
-//
-//            adjacencyList = new List<List<int>>();
-//            int i = 0;
-//            while ((line = file.ReadLine()) != null)
-//            {
-//                adjacencyList.Add(new List<int>());
-//                for (int j = 0; j < line.Length; ++j)
-//                {
-//                    if (line[j] == '1')
-//                    {
-//                        adjacencyList[i].Add(j);
-//                    }
-//                }
-//
-//                ++i;
-//            }
-//
-//            foreach (var numOfInfected in infectedComputers)
-//            {
-//                computers[numOfInfected].Infect(100);
-//            }
-//        }
-//
-//        /// <summary>
-//        /// shows the adjacency matrix in the console
-//        /// </summary>
-//        public void ShowAdjacencyList()
-//        {
-//            foreach (var list in adjacencyList)
-//            {
-//                foreach (var computer in list)
-//                {
-//                    Console.Write(computer + " ");
-//                }
-//
-//                Console.WriteLine();
-//            }
-//        }
-//
-//        /// <summary>
+//    member IsUnHealthy () =
+//        Seq
+//            /// <summary>
 //        /// checks the health of the system
 //        /// </summary>
 //        /// <returns>returns true, if system is unhealthy</returns>
 //        public bool IsUnhealthy() => computers.Aggregate(true, (current, computer) => current && computer.IsInfected());
+
+//module LocalNetwork
 //
-//        /// <summary>
-//        /// shows the health of each computer
-//        /// </summary>
-//        public void ShowSystem()
-//        {
-//            foreach (var computer in computers)
-//            {
-//                Console.ForegroundColor = computer.IsInfected() ? ConsoleColor.Red : ConsoleColor.Gray;
-//                var health = computer.IsInfected() ? "infected" : "healthy";
-//                Console.WriteLine("computer number " + computer.ID + " is " + health);   
-//            }
-//        }
+//        
+//
+//
+//
+
 //
 //        /// <summary>
 //        /// simulates the unit of time and performs changes in the system
