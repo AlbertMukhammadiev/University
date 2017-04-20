@@ -20,13 +20,13 @@ type Computer(abbr:char, id:int) =
 //    member val OperatingSystem = os with get, set
     
     /// ID of computer in local network                                    ????????????????????????????????????????
-    member val ID = 0 with get
+    member val ID = id with get
     
     /// checks the health of computer
-    member comp.IsInfected () = isInfected;
+    member this.IsInfected () = isInfected;
     
     /// simulates a viral attack on the computer
-    member comp.Infect damagePoint =
+    member this.Infect damagePoint =
         if damagePoint >= healthPoints then
             isInfected <- true
 
@@ -51,12 +51,12 @@ type LocalNetwork(file:string, infectedComputers) =
                     yield neighbors }
     
     /// shows the adjacency matrix in the console
-    member system.ShowAdjList () =
+    member this.ShowAdjList () =
         Seq.iter (fun ls -> Seq.iter (fun c -> printf "%A" c) ls
                             printfn "") adjacencyList
 
     /// shows the health of each computer
-    member system.ShowSystem () =
+    member this.ShowSystem () =
         let fontColor (comp:Computer) =
             if comp.IsInfected () then System.Console.ForegroundColor <- System.ConsoleColor.Red
             else System.Console.ForegroundColor <- System.ConsoleColor.Gray
@@ -65,6 +65,12 @@ type LocalNetwork(file:string, infectedComputers) =
             else "healthy"
         Seq.iter (fun x -> fontColor x
                            System.Console.WriteLine("computer number " + x.ID.ToString () + " is " + (health x))) computers
+    
+
+
+    /// returns a list of healthy computers
+    member this.GetHealthyComputers () =
+        Array.fold (fun acc (comp:Computer) -> if comp.IsInfected () then (comp.ID :: acc) else acc) [] computers
 
 //    member IsUnHealthy () =
 //        Seq
@@ -73,8 +79,6 @@ type LocalNetwork(file:string, infectedComputers) =
 //        /// </summary>
 //        /// <returns>returns true, if system is unhealthy</returns>
 //        public bool IsUnhealthy() => computers.Aggregate(true, (current, computer) => current && computer.IsInfected());
-
-//module LocalNetwork
 //
 //        
 //
@@ -106,26 +110,6 @@ type LocalNetwork(file:string, infectedComputers) =
 //            }
 //        }
 //
-//        /// <summary>
-//        /// returns a list of healthy computers
-//        /// </summary>
-//        /// <param name="list">list for copy</param>
-//        /// <returns></returns>
-//        public List<int> GetHealthyComputers()
-//        {
-//            var list = new List<int>();
-//            foreach (var computer in computers)
-//            {
-//                if (!computer.IsInfected())
-//                {
-//                    list.Add(computer.ID);
-//                }
-//            }
-//
-//            return list;
-//        }
-//
-//        private List<List<int>> adjacencyList;
-//        private List<Computer> computers;
+
 //    }
 //}
