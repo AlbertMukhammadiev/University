@@ -66,29 +66,19 @@ type LocalNetwork(file:string, infectedComputers) =
         Seq.iter (fun x -> fontColor x
                            System.Console.WriteLine("computer number " + x.ID.ToString () + " is " + (health x))) computers
     
+    /// simulates the unit of time and performs changes in the system
+    member this.Step () =
+        let tryInfect = Seq.concat <| 
 
+    /// checks the health of the system
+    member this.IsUnhealthy () =
+        Array.forall (fun (comp:Computer) -> comp.IsInfected ()) computers
 
     /// returns a list of healthy computers
     member this.GetHealthyComputers () =
         Array.fold (fun acc (comp:Computer) -> if comp.IsInfected () then (comp.ID :: acc) else acc) [] computers
+    
 
-//    member IsUnHealthy () =
-//        Seq
-//            /// <summary>
-//        /// checks the health of the system
-//        /// </summary>
-//        /// <returns>returns true, if system is unhealthy</returns>
-//        public bool IsUnhealthy() => computers.Aggregate(true, (current, computer) => current && computer.IsInfected());
-//
-//        
-//
-//
-//
-
-//
-//        /// <summary>
-//        /// simulates the unit of time and performs changes in the system
-//        /// </summary>
 //        public void Step()
 //        {
 //            var tryInfect = new List<int>();
@@ -109,7 +99,3 @@ type LocalNetwork(file:string, infectedComputers) =
 //                computers[num].Infect(randomDamage);
 //            }
 //        }
-//
-
-//    }
-//}
