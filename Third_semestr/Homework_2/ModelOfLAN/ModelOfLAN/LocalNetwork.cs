@@ -95,10 +95,7 @@ namespace ModelOfLAN
             {
                 if (computers[i].IsInfected())
                 {
-                    foreach (var neighbors in adjacencyList[i])
-                    {
-                        tryInfect.AddRange(adjacencyList[i]);
-                    }
+                    tryInfect.AddRange(adjacencyList[i]);
                 }
             }
 
