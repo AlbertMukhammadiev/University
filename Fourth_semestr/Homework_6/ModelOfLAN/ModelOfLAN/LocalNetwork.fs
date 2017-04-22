@@ -38,7 +38,7 @@ type LocalNetwork(file:string, infectedComputers) =
     
     do
         use stream = new StreamReader(file)
-        computers <- Seq.toArray (Seq.mapi (fun i x -> new Computer(x, i)) <| stream.ReadLine())
+        computers <- Seq.toArray (Seq.mapi (fun i x -> new Computer(x, i)) << Seq.tail <| stream.ReadLine())    ////?????????????????
         Seq.iter (fun i -> computers.[i].Infect(100)) infectedComputers
 
         adjacencyList <-
@@ -46,8 +46,8 @@ type LocalNetwork(file:string, infectedComputers) =
                   ignore <| stream.ReadLine()
                   while not stream.EndOfStream do
                     let line = stream.ReadLine()
-                    let neighbors = Seq.map (fun x -> int x)                //Seq.fold (fun acc x -> (int x) :: acc) []
-                                    << String.filter (fun x -> x <> '0')             ////???????????????????
+                    let neighbors = Seq.map (fun x -> int x)
+                                    << String.filter (fun x -> x <> '0')
                                     <| String.mapi (fun i x -> if (x = '1') then char i else x) line
                     yield neighbors }
     
@@ -90,4 +90,4 @@ type LocalNetwork(file:string, infectedComputers) =
 
     /// returns a list of healthy computers
     member this.GetHealthyComputers () =
-        Array.fold (fun acc (comp:Computer) -> if comp.IsInfected () then (comp.ID :: acc) else acc) [] computers
+        Array.fold (fun acc (comp:Computer) -> if comp.IsInfected () then acc else (comp.ID :: acc)) [] computers
