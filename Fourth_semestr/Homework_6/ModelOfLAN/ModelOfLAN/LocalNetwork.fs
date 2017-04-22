@@ -53,7 +53,8 @@ type LocalNetwork(file:string, infectedComputers) =
     
     /// shows the adjacency matrix in the console
     member this.ShowAdjList () =
-        Seq.iter (fun ls -> Seq.iter (fun c -> printf "%A" c) ls
+        Seq.iter (fun ls -> Seq.iter (fun n -> printf "%A" n
+                                               printf " ") ls
                             printfn "") adjacencyList
 
 
@@ -77,7 +78,7 @@ type LocalNetwork(file:string, infectedComputers) =
                 []
                 computers
         let tryInfect =
-            Seq.fold (fun acc i -> Seq.append acc <| Seq.item i adjacencyList) [] infected
+            Seq.fold (fun acc i -> Seq.append acc <| Seq.item i adjacencyList) Seq.empty infected
         let genRandomNumbers =
             let rnd = System.Random()
             List.init computers.Length (fun _ -> rnd.Next ())
