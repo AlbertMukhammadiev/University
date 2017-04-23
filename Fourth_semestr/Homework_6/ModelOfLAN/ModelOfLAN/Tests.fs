@@ -1,12 +1,11 @@
 ﻿module Tests
 
-
 open ModelOfLAN
 open NUnit.Framework
 open FsUnit
 
 type ModelOfLANTest() =
-    let LAN = new LocalNetwork("C:\Users\Альберт\Documents\GitHub\University\Fourth_semestr\Homework_6\ModelOfLAN\ModelOfLAN\matrix.txt", [3; 11])
+    let LAN = new LocalNetwork([3; 11])
     
     [<Test>]
     member this.``test of GetHealthyComputers`` () =
@@ -26,5 +25,5 @@ type ModelOfLANTest() =
     [<Test>]
     member this.``test of status of system`` () =
         LAN.IsUnhealthy() |> should equal false
-        let unhealthyLAN = new LocalNetwork("matrix.txt", [0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14])
+        let unhealthyLAN = new LocalNetwork([0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14])
         unhealthyLAN.IsUnhealthy() |> should equal true

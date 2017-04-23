@@ -32,10 +32,10 @@ type Computer(abbr:char, id:int) =
 
 
 /// this class simulates the work of the local network
-type LocalNetwork(file:string, infectedComputers) =
+type LocalNetwork(infectedComputers) =
     let mutable computers = Array.empty
     let mutable adjacencyList = Seq.empty
-    
+    let file = "..\..\matrix.txt"
     do
         use stream = new StreamReader(file)
         computers <- Seq.toArray (Seq.mapi (fun i x -> new Computer(x, i)) << Seq.tail <| stream.ReadLine())    ////?????????????????
