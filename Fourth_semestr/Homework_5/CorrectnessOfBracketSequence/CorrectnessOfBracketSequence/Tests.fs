@@ -1,4 +1,4 @@
-﻿module Test. `` gfghj ``
+﻿module Tests
 
 open Program
 open NUnit.Framework
@@ -14,7 +14,7 @@ let ``an example of incorrect string`` () =
     check "[{]}()[]([])" |> should equal false
 
 [<Test>]
-let ``null string`` =
+let ``null string`` () =
     check null |> should equal true
 
 [<Test>]
