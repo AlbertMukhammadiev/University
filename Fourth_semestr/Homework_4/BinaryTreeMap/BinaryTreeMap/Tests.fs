@@ -6,7 +6,7 @@ open FsUnit
 
 [<Test>]
 let ``test of "toList"`` () =
-    toList tree |> should equal [1 ; 2 ; 3; 4; 5]
+    toList tree |> should equal [1; 2; 3; 4; 5]
 
 [<Test>]
 let ``test of "sumTree" using "toList" for autogenerating tree`` () =
