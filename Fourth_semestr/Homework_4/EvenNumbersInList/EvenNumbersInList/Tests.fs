@@ -8,7 +8,7 @@ open FsCheck
 [<Test>]
 let ``checking of equivalence of all the functions using FsCheck`` () =
     let areEqui ls = evenNums1 ls = evenNums2 ls && evenNums2 ls = evenNums3 ls
-    Check.Quick areEqui
+    Check.QuickThrowOnFailure areEqui   ///почему тут Check.Quick пропускает ошибку?
 
 [<Test>]
 let ``counting the number of even numbers`` () =
