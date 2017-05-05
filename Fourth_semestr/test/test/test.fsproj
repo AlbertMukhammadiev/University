@@ -61,6 +61,8 @@
     <Compile Include="Sequence.fs" />
     <Compile Include="SeqTests.fs" />
     <Compile Include="Program.fs" />
+    <Compile Include="LargestPalindrome.fs" />
+    <Compile Include="LargestPalindromeTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsCheck">
