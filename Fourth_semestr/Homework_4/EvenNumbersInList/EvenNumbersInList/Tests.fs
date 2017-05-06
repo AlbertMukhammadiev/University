@@ -8,11 +8,11 @@ open FsCheck
 [<Test>]
 let ``checking of equivalence of all the functions using FsCheck`` () =
     let areEqui ls = evenNums1 ls = evenNums2 ls && evenNums2 ls = evenNums3 ls
-    Check.QuickThrowOnFailure areEqui   ///почему тут Check.Quick пропускает ошибку?
+    Check.QuickThrowOnFailure areEqui
 
 [<Test>]
 let ``counting the number of even numbers`` () =
-    let ls = List.init 11 (fun x -> x)
+    let ls = List.init 11 id
     evenNums1 ls |> should equal 6
     let ls2 = List.append ls ls
     evenNums2 ls2 |> should equal 12
@@ -21,7 +21,7 @@ let ``counting the number of even numbers`` () =
 
 [<Test>]
 let ``adding of one even number to the list(number of even numbers should increase)`` () =
-    let ls = List.init 5 (fun x -> x)
+    let ls = List.init 5 id
     List.Cons (4, ls) |> evenNums1 |> should equal <| 1 + evenNums1 ls
 
 [<Test>]
