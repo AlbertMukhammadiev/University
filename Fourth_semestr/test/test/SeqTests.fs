@@ -23,9 +23,5 @@ let ``sum of elements`` () =
 [<Test>]
 let ``counting the number of numbers in the sequence`` () =
     let seq = Seq.take 1000 sequence
-    let seq2 = Seq.init 20 (fun x -> x)
+    let seq2 = Seq.init 20 id
     Seq.forall (fun elem -> elem = (Seq.length <| Seq.filter (fun x -> x = elem) seq)) seq2 |> should equal true
-
-
-//[<Test>]
-//Check.Quick getSeq
