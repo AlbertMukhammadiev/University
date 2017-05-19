@@ -1,6 +1,8 @@
 --Написать процедуру выполнения зарезервированного заказа, который уменьшает количество ингредиентов на зарезервированное количество.
 ALTER PROCEDURE CompleteOrder (@ID_Order INT) AS
 BEGIN
+	DELETE Reservation WHERE ID = @ID_Order
+
 	DECLARE @ord Ord;
 	INSERT INTO @ord (Dish_Order, Num_Order)
 		SELECT Dish, Number
