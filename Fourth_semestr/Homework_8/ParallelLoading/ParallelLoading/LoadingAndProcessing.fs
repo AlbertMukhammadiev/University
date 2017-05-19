@@ -22,27 +22,11 @@ let references (url:string) =
     
     ls (matches.Count - 1) []    
 
-let fetchAsync url =
+let fetchAsync (url:string) =
     async {
-        do printfn "Creating request for %s..." url
         let request = WebRequest.Create(url)
         use! response = request.AsyncGetResponse()
-        do printfn "Getting response stream for %s..." url
         use stream = response.GetResponseStream()
-        do printfn "Reading response for %s..." url
-        use reader = new StreamReader(stream)
-        let html = reader.ReadToEnd()
-        do printfn "Read %d characters for %s..." html.Length url
-    }
-
-let fetchAsync2 (url:string) =
-    async {
-        //do printfn "Creating request for %s..." url
-        let request = WebRequest.Create(url)
-        use! response = request.AsyncGetResponse()
-        //do printfn "Getting response stream for %s..." url
-        use stream = response.GetResponseStream()
-        //do printfn "Reading response for %s..." url
         use reader = new StreamReader(stream)
         let html = reader.ReadToEnd()
         return html.Length
@@ -51,11 +35,6 @@ let fetchAsync2 (url:string) =
 let func url =
     let load (urls:list<string>) =
         let a = Seq.init urls.Length (fun i -> fetchAsync <| urls.Item i)
-        ignore << Async.RunSynchronously << Async.Parallel <| a
+        printfn "%A" << Async.RunSynchronously << Async.Parallel <| a
 
     load <| references url
-
-[<EntryPoint>]
-let main (string) =
-    func "https://translate.google.com"
-    0
