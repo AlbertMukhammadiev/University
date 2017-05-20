@@ -58,8 +58,9 @@
     <Content Include="packages.config" />
     <None Include="App.config" />
     <Compile Include="LocalNetwork.fs" />
-    <Content Include="matrix.txt" />
-    <Compile Include="Tests.fs" />
+    <Compile Include="Tests.fs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

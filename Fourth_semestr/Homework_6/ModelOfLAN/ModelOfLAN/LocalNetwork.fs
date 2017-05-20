@@ -15,9 +15,6 @@ type Computer(abbr:char, id:int) =
         | 'l' -> 70
         | 'o' -> 50
         | _ -> 30
-
-//    /// type of operating system
-//    member val OperatingSystem = os with get, set
     
     /// ID of computer in local network
     member val ID = id with get
@@ -32,25 +29,20 @@ type Computer(abbr:char, id:int) =
 
 
 /// this class simulates the work of the local network
-type LocalNetwork(infectedComputers) =
+type LocalNetwork(infectedComputers, input:string) =
     let mutable computers = Array.empty
     let mutable adjacencyList = Seq.empty
-    let file = "..\..\matrix.txt"
+    let random = System.Random()
     do
-        use stream = new StreamReader(file)
-        computers <- Seq.toArray (Seq.mapi (fun i x -> new Computer(x, i)) << Seq.tail <| stream.ReadLine())    ////?????????????????
+        let strs = input.Split('\n')
+        computers <- Seq.toArray (Seq.mapi (fun i x -> new Computer(x, i)) << Seq.head <| strs)
         Seq.iter (fun i -> computers.[i].Infect(100)) infectedComputers
 
-        adjacencyList <-
-            seq { use stream = new StreamReader(file)
-                  ignore <| stream.ReadLine()
-                  while not stream.EndOfStream do
-                    let line = stream.ReadLine()
-                    let neighbors = Seq.map (fun x -> int x)
-                                    << String.filter (fun x -> x <> '0')
-                                    <| String.mapi (fun i x -> if (x = '1') then char i else x) line
-                    yield neighbors }
-    
+        let neighbors k = Seq.map (fun x -> int x) << String.filter (fun x -> x <> '0')
+                          << String.mapi (fun i x -> if (x = '1') then char i else x) <| Seq.item k strs
+
+        adjacencyList <- Seq.take computers.Length <| Seq.init computers.Length (fun n -> neighbors <| n + 1)
+
     /// shows the adjacency matrix in the console
     member this.ShowAdjList () =
         Seq.iter (fun ls -> Seq.iter (fun n -> printf "%A" n
@@ -80,8 +72,7 @@ type LocalNetwork(infectedComputers) =
         let tryInfect =
             Seq.fold (fun acc i -> Seq.append acc <| Seq.item i adjacencyList) Seq.empty infected
         let genRandomNumbers =
-            let rnd = System.Random()
-            List.init computers.Length (fun _ -> rnd.Next ())
+            List.init computers.Length (fun _ -> random.Next ())
         Seq.iter2 (fun i dmg -> computers.[i].Infect(dmg)) tryInfect genRandomNumbers
 
     /// checks the health of the system
