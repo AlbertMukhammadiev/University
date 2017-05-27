@@ -1,11 +1,11 @@
-\documentclass[12pt,a4paper]{scrartcl}
+\documentclass[12pt]{article}
 
 \begin{document}
-\[  (({\lambda} a.({\lambda} b.bb)({\lambda} b.bb))b)(({\lambda} c.(cb))({\lambda} a.a))  \]
-\[  (({\lambda} a.({\lambda} b.bb)({\lambda} b.bb))b)({\lambda} a. a b)\]
-\[  (({\lambda} a.({\lambda} b.bb)({\lambda} b.bb))b)(b)\]
-\[  (({\lambda} b.bb)({\lambda} b.bb))(b)\]
-\[  (({\lambda} b.bb)({\lambda} b.bb)({\lambda} b.bb))(b)\]
-\[  (({\lambda} b.bb)({\lambda} b.bb)({\lambda} b.bb)({\lambda} b.bb))(b)\]
+\section*{\ensuremath{\beta} - reduction}
+\[  (({\lambda} a.({\lambda} b.bb)({\lambda} b.bb))b)(({\lambda} c.(cb))({\lambda} a.a))  \rightarrow_{\beta}\]
+\[  (({\lambda} a.({\lambda} b.bb)({\lambda} b.bb))b)({\lambda} a. a b) \rightarrow_{\beta}\]
+\[  (({\lambda} a.({\lambda} b.bb)({\lambda} b.bb))b)(b) \rightarrow_{\beta}\]
+\[  (({\lambda} b.bb)({\lambda} b.bb))(b) \rightarrow_{\beta}\]
+\[  (({\lambda} b.bb)({\lambda} b.bb))(b) \rightarrow_{\beta}\]
 \[ ... \]
 \end{document}
