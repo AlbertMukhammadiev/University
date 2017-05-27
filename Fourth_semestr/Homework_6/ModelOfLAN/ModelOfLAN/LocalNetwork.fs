@@ -1,7 +1,5 @@
 ﻿namespace ModelOfLAN
 
-open System.IO
-
 /// type of operating system
 type OS = | Windows | Linux | OS_X
 
@@ -49,7 +47,6 @@ type LocalNetwork(infectedComputers, input:string) =
                                                printf " ") ls
                             printfn "") adjacencyList
 
-
     /// shows the health of each computer
     member this.ShowSystem () =
         let fontColor (comp:Computer) =
@@ -61,7 +58,6 @@ type LocalNetwork(infectedComputers, input:string) =
         Seq.iter (fun x -> fontColor x
                            System.Console.WriteLine("computer number " + x.ID.ToString () + " is " + (health x))) computers
     
-
     /// simulates the unit of time and performs changes in the system
     member this.Step () =
         let infected =
