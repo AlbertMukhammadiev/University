@@ -19,18 +19,17 @@ let FV T =
                                 List.filter (fun elem -> elem <> x) a
     freeTR T []
 
-let substitute x T S =
-    let rec subst x T S =
+// свободные вхождения переменной х в терм Т заменяются на терм S
+let rec subst x T S =
         match T with
-        | Variable y when x = y -> T
+        | Variable y when x = y -> S
         | Variable y -> Variable y
         | Application (S1, S2) -> Application (subst x T S1, subst x T S2)
         | Abstraction (y, S) -> match T with
                                 | Variable z when x = y -> Abstraction (y, S)
-                                | _ when List.contains x <| FV T || List.contains y <| FV T -> Abstraction (y, subst T x S)
+                                | _ when List.contains x <| FV T || List.contains y <| FV T -> Abstraction (y, subst x T S)
                                 | _ -> let z = List.head <| List.filter (fun x -> not << List.contains x <| List.append (FV T) (FV S)) alphabet
                                        Abstraction (z, subst y (Variable z) <| subst x T S)
-    subst x T S
 
 let rec print term =
     match term with
@@ -45,8 +44,14 @@ let rec print term =
 
 let rec reduction term =
     match term with
-    | Application (S1, S2) -> match reduction S1 with
-                              | Abstraction (x, T) -> reduction (substitute x S2 T)
-    | Abstraction (x, T) -> reduction T
+    | Application (S1, S2) -> let red = reduction S1
+                              match red with
+                              | Abstraction (x, T) -> let sub = subst x T S2
+                                                      reduction sub
+                              | Application (T1, T2) -> let reductedT1 = reduction T1
+                                                        reduction <| Application (reductedT1, T2)
+                              | Variable x -> Application (Variable x, S2)
+    | Abstraction (x, T) -> let red = reduction T
+                            Abstraction (x, red)
     | Variable x -> Variable x
     
