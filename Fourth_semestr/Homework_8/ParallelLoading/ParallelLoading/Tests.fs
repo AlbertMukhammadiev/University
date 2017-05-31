@@ -12,5 +12,5 @@ let ``correctness of references`` () =
 [<Test>]
 let ``Checking that some information has downloaded`` () =
     let ls = references "https://translate.google.com"
-    let results = List.fold (fun acc x -> (Async.RunSynchronously << fetchAsync <| x) :: acc) [] ls
+    let results = List.fold (fun acc x -> (Async.RunSynchronously << fetchLength <| x) :: acc) [] ls
     List.forall (fun x -> x <> 0) results |> should equal true
