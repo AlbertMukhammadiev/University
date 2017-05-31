@@ -57,7 +57,7 @@
     <None Include="App.config" />
     <Content Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="ParseTree.fs" />
     <Compile Include="Tests.fs" />
   </ItemGroup>
   <ItemGroup>
