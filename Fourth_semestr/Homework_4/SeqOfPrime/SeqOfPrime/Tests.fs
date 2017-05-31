@@ -3,11 +3,10 @@
 open Program
 open NUnit.Framework
 open FsUnit
-open FsCheck
 
 [<Test>]
 let ``test (the sum of the first 10 prime numbers)`` () =
-    Seq.take 10 primes |> Seq.sum |> should equal 26769
+    Seq.take 10 primes |> Seq.sum |> should equal 129
 
 [<Test>]
 let ``prime number 3319 must exist in sequence`` () =
