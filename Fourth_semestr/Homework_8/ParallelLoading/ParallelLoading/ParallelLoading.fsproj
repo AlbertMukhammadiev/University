@@ -59,6 +59,7 @@
     <None Include="App.config" />
     <Compile Include="LoadingAndProcessing.fs" />
     <Compile Include="Tests.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
