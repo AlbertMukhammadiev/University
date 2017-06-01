@@ -1,8 +1,29 @@
-﻿module BinaryTree
+﻿namespace BinaryTree
 
 type Tree<'a> =
     | EmptyTree
     | TreeNode of 'a * int * Tree<'a> * Tree<'a>
+
+type TreeEnumerator<'a> (root:Tree<'a>) =
+    let tree =
+        let rec convert tree acc =
+            match tree with
+            | EmptyTree -> acc
+            | TreeNode (v, k, left, right) -> let a = convert right acc
+                                              let b = v :: a
+                                              (convert left acc) @ b
+        convert root []
+
+    let mutable i = -1
+
+    interface System.Collections.Generic.IEnumerator<'a> with
+        member this.Reset () = i <- -1
+        member this.Current = List.item i tree
+        member this.MoveNext () =
+            i <- i + 1
+            tree.Length > i
+        member this.Dispose () = ()
+        member this.get_Current () = (this :> System.Collections.Generic.IEnumerator<'a>).Current :> obj
 
 type BinaryTree<'a> () =
     let mutable root = EmptyTree
@@ -54,5 +75,8 @@ type BinaryTree<'a> () =
                                               print right
         print root
 
+    interface System.Collections.Generic.IEnumerable<'a> with
+        member this.GetEnumerator() = new TreeEnumerator<'a>(root):>System.Collections.Generic.IEnumerator<'a>
+        member this.GetEnumerator() = (new TreeEnumerator<'a>(root):>System.Collections.Generic.IEnumerator<'a>) :> System.Collections.IEnumerator
 
     
