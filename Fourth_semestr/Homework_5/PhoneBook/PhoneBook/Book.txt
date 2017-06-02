@@ -1,0 +1,4 @@
+﻿Police 112102
+Ambulance 112103
+Fire 112101
+GasEmergency 112144
