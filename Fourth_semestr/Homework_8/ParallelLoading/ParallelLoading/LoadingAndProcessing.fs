@@ -15,10 +15,8 @@ let fetchPage (url:string) =
 
 let fetchLength (url:string) =
     async {
-        /// получается внутри workflow я могу использовать и Async.RunSynchronously и let!
-        /// и так и так мы дожидаемся завершения процесса, но здесь ведь есть какая то разница? 
         let! html = fetchPage url
-        return html.Length
+        return url, html.Length
     }
 
 let references (url:string) =
