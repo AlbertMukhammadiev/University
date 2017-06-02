@@ -1,11 +1,11 @@
 ﻿module Reducer
 
 type Term =
-    | Variable of string
-    | Abstraction of string * Term
+    | Variable of char
+    | Abstraction of char * Term
     | Application of Term * Term
 
-let alphabet = [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"; "k"; "l"; "m"; "n"; "o"; "p"; "q"; "r"; "s"; "t"; "u"; "v"; "w"; "x"; "y"; "z" ]
+let alphabet = List.fold (fun acc x -> (char x) :: acc) [] << Seq.toList <| Seq.init 26 (fun n -> n + 97)
 
 /// free variables of term
 let FV T =
@@ -35,8 +35,8 @@ let rec substitute inS forX ofT =
 
 let rec print term =
     match term with
-    | Variable x -> printf "%s" x
-    | Abstraction (x, t) -> printf "%s" ("L" + x + ".")
+    | Variable x -> printf "%c" x
+    | Abstraction (x, t) -> printf "%s %c %s" "L" x "."
                             print t
     | Application (t1, t2) -> printf "%s" "("
                               print t1
@@ -53,4 +53,9 @@ let rec reduction term =
                               | Variable x -> Application (Variable x, S2)
     | Abstraction (x, T) -> Abstraction (x, reduction T)
     | Variable x -> Variable x
-    
+
+//[<EntryPoint>]
+//let main args =
+//    printfn "%A" alphabet
+//    // Return 0. This indicates success.
+//    0

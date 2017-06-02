@@ -56,8 +56,8 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
-    <Compile Include="Reducer.fs" />
     <Content Include="packages.config" />
+    <Compile Include="Reducer.fs" />
     <Compile Include="Tests.fs" />
   </ItemGroup>
   <ItemGroup>
