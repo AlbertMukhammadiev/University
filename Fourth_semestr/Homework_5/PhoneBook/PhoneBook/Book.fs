@@ -2,40 +2,11 @@
 
 open System.IO
 
-let read fn =
-    seq { use input = File.OpenText fn in
-          while not input.EndOfStream do
-            yield input.ReadLine() }   
-
-let findByName name path =
-    let records =
+let read path =
         seq { use reader = new StreamReader(File.OpenRead path)
               while not reader.EndOfStream do
                 let record = reader.ReadLine().Split()
-                yield (record.[0], record.[1]) }
-    let record = Seq.tryFind (fun (x, y) -> name = x) records
-    match record with
-    | Some (name, num) -> num
-    | None -> "There is no person with such name"
-
-let findByNumber number path =
-    let records =
-        seq { use reader = new StreamReader(File.OpenRead path)
-              while not reader.EndOfStream do
-                let record = reader.ReadLine().Split()
-                yield (record.[0], record.[1]) }
-    let record = Seq.tryFind (fun (x, y) -> number = y) records
-    match record with
-    | Some (name, num) -> name
-    | None -> "There is no person with such a telephone number"
-
-let print path =
-    let data = Seq.readonly <| read path
-    Seq.iter (fun elem -> printfn "%A" elem) data
-
-let save buffer path =
-    let tosave = Seq.fold (fun acc (x, y) -> (x + " " + y) :: acc  ) [] <| Seq.distinct buffer
-    File.AppendAllLines (path, tosave)
+                yield (record.[0], record.[1]) }    
 
 let rec dialog (buffer : list<string * string>) path =
     printfn "Enter the command"
@@ -45,6 +16,7 @@ let rec dialog (buffer : list<string * string>) path =
     printfn "4 - find name by phone number"
     printfn "5 - print all data from file"
     printfn "6 - save current data to a file"
+    printfn "7 - read data from file"
 
     let command = System.Console.ReadLine()
     let cmd =
@@ -62,18 +34,31 @@ let rec dialog (buffer : list<string * string>) path =
            dialog ((name, number)::buffer) (path)
     | 3 -> printfn "Enter the name, please"
            let name = System.Console.ReadLine()
-           let number = findByName name path
-           printfn "%s" number
+           let record = Seq.tryFind (fun (x, y) -> name = x) buffer
+           match record with
+           | Some (name, num) -> printfn "%s" num
+           | None -> printfn "There is no person with such name"
            dialog buffer path
     | 4 -> printfn "Enter the number, please"
            let number = System.Console.ReadLine()
-           let name = findByNumber number path
-           printfn "%s" name
+           let record = Seq.tryFind (fun (x, y) -> number = y) buffer
+           match record with
+           | Some (name, num) -> printfn "%s" name
+           | None -> printfn "There is no person with such a telephone number"
            dialog buffer path
-    | 5 -> print path
+    | 5 -> printfn "All records"
+           Seq.iter (fun elem -> printfn "%A" elem) buffer
            dialog buffer path
-    | 6 -> save buffer path
-           dialog [] path
+    | 6 -> let tosave = Seq.fold (fun acc (x, y) -> (x + " " + y) :: acc  ) [] <| Seq.distinct buffer
+           File.AppendAllLines (path, tosave)
+           dialog buffer path
+    | 7 ->
+        try
+            let newBuffer = Seq.toList <| read path
+            dialog newBuffer path
+        with
+        | :? FileNotFoundException -> printfn "file not found"
+                                      dialog buffer path
     | _ -> printfn "Invalid query or non-existent command"
 
 
