@@ -3,7 +3,6 @@
 open Program
 open NUnit.Framework
 open FsUnit
-open FsCheck
 
 [<Test>]
 let   ``an example of correct string`` () =
@@ -20,6 +19,3 @@ let ``null string`` () =
 [<Test>]
 let ``empty string`` () =
     check "" |> should equal true
-
-[<Test>]
-Check.Quick check
