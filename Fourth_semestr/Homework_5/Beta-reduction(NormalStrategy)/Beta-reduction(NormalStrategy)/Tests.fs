@@ -17,7 +17,7 @@ let ``Test of reduction (λx. x) ((λx. x) (λz. (λx.x) z))`` () =
 [<Test>]
 let ``Test of FV (((λa.(λb.b b) (λb.b b)) b) ((λc.(c b)) (λa.a)))`` () =
     let expr = (Application (Application (Abstraction ('a', Application (Abstraction ('b', Application(Variable 'b', Variable 'b')), Abstraction ('b', Application(Variable 'b', Variable 'b')))), Variable 'b'),  Application (Abstraction ('c', Application(Variable 'c', Variable 'b')),Abstraction('a', Variable 'a'))))
-    FV expr |> should equal [ 'b'; 'b']
+    freeVars expr |> should equal [ 'b'; 'b']
 
 [<Test>]
 let ``Test of substitution of (λa.a a) for a in (λa.y)`` () =
