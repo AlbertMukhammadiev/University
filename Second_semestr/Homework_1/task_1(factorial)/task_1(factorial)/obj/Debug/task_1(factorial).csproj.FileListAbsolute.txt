@@ -1,5 +1,0 @@
-C:\University\Second_semestr\Homework_1\task_1(factorial)\task_1(factorial)\bin\Debug\task_1(factorial).exe
-C:\University\Second_semestr\Homework_1\task_1(factorial)\task_1(factorial)\bin\Debug\task_1(factorial).pdb
-C:\University\Second_semestr\Homework_1\task_1(factorial)\task_1(factorial)\obj\Debug\task_1(factorial).csprojResolveAssemblyReference.cache
-C:\University\Second_semestr\Homework_1\task_1(factorial)\task_1(factorial)\obj\Debug\task_1(factorial).exe
-C:\University\Second_semestr\Homework_1\task_1(factorial)\task_1(factorial)\obj\Debug\task_1(factorial).pdb
