@@ -1,14 +1,15 @@
-% returns an array of arguments and an array of polynomial values from these arguments
-% a - left border, b - right border,
+% Draws polinomial with thease arguments:
+% [a; b] - definition area
 % n - the number of the derivative,
 % array - polynomial coefficients
-function [ x, y ] = DrawPx( a, b, n, array )
+function [ ] = DrawPx( a, b, n, array )
 numOfNodes = 51;
 dx = (b - a) / (numOfNodes - 1);
-for k = 1 : numOfNodes
-    result(k) = HornerSchemeDerivative(a + (k - 1) * dx, array, n);
-end
 x = a : dx : b;
-y = result;
+for k = 1 : numOfNodes
+    Px(k) = HornerSchemeDerivative(a + (k - 1) * dx, array, n);
 end
 
+PxPlot = plot(x, Px);
+set(PxPlot, 'LineWidth', 1.5);
+end
