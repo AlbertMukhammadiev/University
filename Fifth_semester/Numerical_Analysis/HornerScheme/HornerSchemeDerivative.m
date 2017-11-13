@@ -5,5 +5,5 @@ for k = 0 : n
         array(i) = array(i) + array(i - 1) * x;
     end
 end
-result = array(length(array) - n);
+result = array(length(array) - n) * factorial(n);
 end
