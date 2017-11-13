@@ -3,7 +3,9 @@
 % draws function, chord between points 0 and 1,
 % tangent line, that is parallel to the chord, required polinomial
 % and alternance points;
-function [ ] = Approximate1(  )
+% returns an array of values of the expression (f - P)
+% at alternance points;
+function [ altCheck ] = Approximate1(  )
 k = (f(1) - f(0))/(1 - 0);
 % The point at which the tangent line is parallel to the chord
 x0 = 1 / (-2 * k)^(2 / 3) - 1;
@@ -37,6 +39,7 @@ E = 1 / 100^3;
 for i = 1 : numOfNodes
     if ((abs(P1x(i) - fx(i)) <= max + E) && (abs(P1x(i) - fx(i)) >= max - E))
         alt(k) = dx * (i - 1);
+        altCheck(k) = fx(i) - P1x(i);
         k = k + 1;
     end
 end
