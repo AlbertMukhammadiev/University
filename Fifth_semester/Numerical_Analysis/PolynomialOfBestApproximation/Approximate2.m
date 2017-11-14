@@ -2,8 +2,10 @@
 % for a polynomial of degree n
 % draws Chebyshev polinomial of n-th degree, approximating function
 % and alternance points;
+% returns an array of values of the expression (Pnx - y)
+% at alternance points;
 % arguments: array - polynomial coefficients
-function [ ] = Approximate2( array )
+function [ altCheck ] = Approximate2( array )
 numOfNodes = 101;
 % the boundaries of the interval [a,b]
 a = -1;
@@ -39,10 +41,11 @@ end
 
 % alternance points
 k = 1;
-E = 1 / 100^4;
+E = 1 / 10^4;
 for i = 1 : numOfNodes
     if ((abs(xn(i) - y(i)) <= max + E) && (abs(xn(i) - y(i)) >= max - E))
         alt(k) = a + dx * (i - 1);
+        altCheck(k) = Pnx(i) - y(i);
         k = k + 1;
     end
 end
