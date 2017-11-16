@@ -3,11 +3,11 @@
 function [ ] = Display2( )
 x = [0.5 0.6 0.4 0.7 0.3];
 x = sort(x);
-for i = 1 : length(x)
-    y(i) = f(x(i));
-end
+y = f(x);
 
-table = DividedDifferences(x, y, length(x));
-table(:,1) = [ ];
-display(table);
+div_difference = DividedDifferences(x, y, length(x));
+div_difference(:,1) = [ ];
+ddTable = [table(y') array2table(div_difference)];
+ddTable.Properties.VariableNames(1) = {'f'};
+display(ddTable);
 end
