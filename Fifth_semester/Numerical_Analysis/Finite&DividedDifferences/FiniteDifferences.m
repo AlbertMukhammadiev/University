@@ -13,4 +13,13 @@ for j = 2 : m + 1
         array(i,j) = array(i + 1, j - 1) - array(i, j - 1);
     end
 end
+
+% absolute error
+relativeErr = 1 / 10^15;
+exactValue = f(b);
+absoluteErr = exactValue * relativeErr;
+for i = 1 : n
+    array(m + 2, i) = absoluteErr;
+    absoluteErr = absoluteErr * 2;
+end
 end
