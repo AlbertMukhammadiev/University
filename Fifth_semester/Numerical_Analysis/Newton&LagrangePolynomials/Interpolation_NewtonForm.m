@@ -1,5 +1,5 @@
 % draws function and interpolation polinomial
-% in the Newton form
+%   in the Newton form;
 function [ ] = Interpolation_NewtonForm( nodesNum )
 a = 0; b = 1;
 
@@ -11,8 +11,9 @@ fx = f(x);
 dx = (b - a) / (nodesNum - 1);
 nodes = 0 : dx : 1;
 Y = DividedDifferences(nodes, f(nodes), length(nodes));
+coefficients = GetNewtonPolinomial(nodes, Y);
 for i = 1 : length(x)
-    px(i) = NewtonPolinomial(nodes, Y, x(i));
+    px(i) = HornerScheme(x(i), coefficients);
 end
 
 h = figure;
