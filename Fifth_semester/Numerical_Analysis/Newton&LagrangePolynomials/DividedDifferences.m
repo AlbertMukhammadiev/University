@@ -1,8 +1,8 @@
 % returns 2d array of divided differences
-% (f(x) in first column);
+%   (f(x) in first column);
 % arguments:
-% x - array of nodes, y - array of f(x)
-% m - max exp of divided differences
+%   x - array of nodes, y - array of f(x)
+%   m - max exp of divided differences
 function [ arr ] = DividedDifferences( x, y, m )
 arr(:, 1) = y;
 if m > length(x)
