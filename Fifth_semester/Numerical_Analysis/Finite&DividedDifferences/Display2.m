@@ -2,7 +2,6 @@
 % for y = f(x) for given array x.
 function [ ] = Display2( )
 x = [0.5 0.6 0.4 0.7 0.3];
-x = sort(x);
 y = f(x);
 
 div_difference = DividedDifferences(x, y, length(x));
