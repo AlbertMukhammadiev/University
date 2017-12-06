@@ -17,9 +17,9 @@ function [ ] = CompareRules( )
     [S12, temp] = MidpointRule(a, b, ceil(n / 2));
     [S22, temp] = TrapezoidRule(a, b, ceil(n / 2));
     [S32, temp] = SimpsonsRule(a, b, ceil(n / 2));
-    ruki = {(S12 - S1) / 3, (S22 - S2) / 3, (S32 - S3) / 15};
+    runge = {(S1 - S12) / 3, (S2 - S22) / 3, (S3 - S32) / 15};
     
-    data = [exactValues; approxs; actualErr; theoreticalErr; ruki];
+    data = [exactValues; approxs; actualErr; theoreticalErr; runge];
 
     rowNames = {'exact value', 'approximation', 'actual error',...
                 'theoretical error', 'Runge estimate'};
@@ -27,5 +27,5 @@ function [ ] = CompareRules( )
     f = figure;
     t = uitable( f, 'Data', data, 'ColumnName',columnNames,...
                 'RowName',rowNames,'Position', [20 20 430 120]);
-    %print(f, '-dpng', '-r300', 'table');
+    print(f, '-dpng', '-r300', 'table');
 end
