@@ -1,3 +1,4 @@
+% returns approximation of integral using Mehler quadrature
 function [ S ] = MehlerQuadrature( n )
     S = 0;
     for k = 1 : n

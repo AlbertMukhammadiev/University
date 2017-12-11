@@ -1,3 +1,4 @@
+% returns approximation of integral using Gauss quadrature
 function [ S ] = GaussLegendreQuadrature( a, b, n )
     if n > 5
         n = 5;

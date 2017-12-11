@@ -1,3 +1,4 @@
+% draws table for Gauss Legendre quadrature
 function [ ] = Task1( )
     a = 0;
     b = 0.4;

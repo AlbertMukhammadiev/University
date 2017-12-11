@@ -1,3 +1,4 @@
+% returns first derivative of Legendre polynomial
 function [ dPnx ] = dLegendrePolynomial( x, n )
     if n == 1
         dPnx = 1;

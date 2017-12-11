@@ -1,3 +1,4 @@
+% returns roots of Legendre polynomial
 function [ roots ] = GetLegendreRoots( n )
     switch n
         case 1
