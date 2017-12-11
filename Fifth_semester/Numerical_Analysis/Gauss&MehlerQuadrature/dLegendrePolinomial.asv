@@ -1,0 +1,14 @@
+function [ dPnx ] = dLegendrePolinomial( x, n )
+    if n == 1
+        dPnx = 1;
+        return;
+    end
+
+    P = [1 x];
+    for k = 2 : n
+        coeff1 = x * (2 * k + 1) / (k + 1);
+        coeff2 = k / (n + 1);
+        P(k + 1) = coeff1 * P(k) - coeff2 * P(k - 1);
+    end
+    dPnx = n / (1 - x^2) * (P(n - 1) - x * P(n));
+end

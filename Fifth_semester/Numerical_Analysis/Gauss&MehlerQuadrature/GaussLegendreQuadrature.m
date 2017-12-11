@@ -1,12 +1,20 @@
 function [ S ] = GaussLegendreQuadrature( a, b, n )
-    n = 5;
+    if n > 5
+        n = 5;
+    end
+    if n < 1
+        n = 1;
+    end
+
     S = 0;
-    xs = GetLegendreRoots();
+    format long;
+    xs = GetLegendreRoots(n);
     for i = 1 : n
         dPnx = dLegendrePolinomial(xs(i), n);
-        w = 2 / (1 - xs(i) ^ 2) / dPnx ^ 2;
         x = ((b - a) / 2 * xs(i) + (a + b) / 2);
-        S = S + w * f(x);
+        w = 2 / (1 - xs(i) ^ 2) / dPnx ^ 2;
+        S_t = w * f(x);
+        S = S + S_t;
     end
     S = (b - a) / 2 * S;
 end
