@@ -1,18 +1,30 @@
 % draws table for Gauss Legendre quadrature
-function [ ] = Task1( )
+function [ ] = Task1( func )
     a = 0;
     b = 0.4;
     n = 5;
     
-    intf = IntegralF(a, b);
+    syms x;
+    I = double(vpa(int(func, x, a, b), 15));
+    
+    % search of max difference in [a, b]
+    maxDiff = -inf;
+    df = diff(func, x, 2 * n);
+    for i = 0 : 20
+        x = a + i * 0.01;
+        temp = eval(df);
+        if (temp > maxDiff)
+            maxDiff = temp;
+        end
+    end
+    
+    error = double((b - a)^(2 * i + 1) * (factorial(i))^4 /...
+            (2 * i + 1) / (fix(factorial(2 * n)))^3 * maxDiff);
+    
     for i = 1 : n    
-        S = GaussLegendreQuadrature(a, b, i);
-        ksi = (a + b) / 2;
-        error = (b - a)^(2 * i + 1) * (factorial(i))^4 /...
-            (2 * i + 1) / (fix(factorial(2 * n)))^3 * df(ksi, 2 * i);
-        actualError = intf - S;
-        
-        integrals(i) = intf;
+        S = GaussLegendreQuadrature(func, a, b, i);
+        actualError = I - S;
+        integrals(i) = I;
         Sums(i) = S;
         actualErrors(i) = actualError;
         theoreticalErrors(i) = error;

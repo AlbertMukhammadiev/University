@@ -1,5 +1,5 @@
 % returns approximation of integral using Gauss quadrature
-function [ S ] = GaussLegendreQuadrature( a, b, n )
+function [ S ] = GaussLegendreQuadrature( func, a, b, n )
     if n > 5
         n = 5;
     end
@@ -11,10 +11,10 @@ function [ S ] = GaussLegendreQuadrature( a, b, n )
     format long;
     xs = GetLegendreRoots(n);
     for i = 1 : n
-        dPnx = dLegendrePolinomial(xs(i), n);
-        x = ((b - a) / 2 * xs(i) + (a + b) / 2);
+        dPnx = dLegendrePolynomial(xs(i), n);
         w = 2 / (1 - xs(i) ^ 2) / dPnx ^ 2;
-        S_t = w * f(x);
+        x = ((b - a) / 2 * xs(i) + (a + b) / 2);
+        S_t = w * eval(func);
         S = S + S_t;
     end
     S = (b - a) / 2 * S;
