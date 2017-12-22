@@ -9,7 +9,7 @@ function [ xs ] = InverseFunctionToTaylor( func, x0 )
     condition = true;
     k = 2;
     xs(1) = x0;
-    epsilon = 1 / 10^5;
+    epsilon = 1 / 10^12;
     while condition
         dy = sym('y') - f(xs(k - 1));
         F = xs(k - 1) + dy * dF(xs(k - 1)) - dy ^ 2 * d2F(xs(k - 1)) / 2;
