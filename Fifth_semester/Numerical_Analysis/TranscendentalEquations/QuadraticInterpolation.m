@@ -1,11 +1,11 @@
-% approximates the root of the transcendental equation using the Inverse
+% approximates the root of the transcendental equation using the Direct
 %   Quadratic method of interpolation
 % arguments:
 %   func - string representation of the function
 %   x1, x2, x3 - points for interpolation
 %   eps - the upper bound on the relative error, which affects the quality
 %       of the approximation
-function [ xs ] = InverseQuadraticInterpolation( func, x1, x2, x3, eps )
+function [ xs ] = QuadraticInterpolation( func, x1, x2, x3, eps )
     xs(1) = x1;
     xs(2) = x2;
     xs(3) = x3;
@@ -15,9 +15,9 @@ function [ xs ] = InverseQuadraticInterpolation( func, x1, x2, x3, eps )
 
     while condition
         ys = eval(f(xs(k - 2 : k)));
-        Q2 = LagrangePolynomial(ys, xs(k - 2 : k));
-        funcQ = symfun(sym(Q2), sym('x'));
-        xs(k + 1) = funcQ(0);
+        P2 = LagrangePolynomial(xs(k - 2 : k), ys);
+        roots = solve(P2);
+        xs(k + 1) = min(abs(roots));
         k = k + 1;
         condition = (abs(xs(k) - xs(k - 1)) > eps);
     end

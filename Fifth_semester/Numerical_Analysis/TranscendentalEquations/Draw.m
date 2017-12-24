@@ -1,3 +1,4 @@
+% Draws function 'func' and constant function = 0
 function [ ] = Draw( func )
     f = symfun(sym(func), sym('x'));
     a = 0;
