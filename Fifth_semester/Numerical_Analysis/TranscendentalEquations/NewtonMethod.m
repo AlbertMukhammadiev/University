@@ -10,12 +10,14 @@ function [ xs ] = NewtonMethod( func, x0, eps )
     df = symfun(diff(func, sym('x')), sym('x'));
     
     k = 1;
-    xs(k) = eval(x0 - f(x0) / df(x0));
+    xs(k) = vpa(x0 - f(x0) / df(x0));
+    firstNo = length(xs) + 1;
     condition = true;
     while condition
         k = k + 1;
         x = xs(k - 1);
-        xs(k) = eval(x - f(x) / df(x));
+        xs(k) = vpa(x - f(x) / df(x));
         condition = (abs(xs(k) - xs(k - 1)) > eps);
     end
+    xs = xs(firstNo : length(xs));
 end
