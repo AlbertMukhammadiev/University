@@ -4,42 +4,32 @@
 %   3) actual error
 %   4) Runge estimate
 % arguments:
-%   func - function
-%   a - left boarder
+%   f - function
+%   max_d2f - max second derivative on [a; b]
+%   [a; b] - interval
 %   n - number of nodes
 %   T - period
-function [ errors ] = GetErrors( func, a, n, T )
-    accuracy = 15;
-    
+function [ errors ] = GetErrors( f, max_d2f, a, b, n, T )
     % theoretical(periodic) error
-    a_n = 2 / T * int(func * cos(2 * pi * n * sym('x') / T), sym('x'), a, T);
-    b_n = 2 / T * int(func * sin(2 * pi * n * sym('x') / T), sym('x'), a, T);
-    An = sqrt(a_n^2 + b_n^2);
-    errors(1) = vpa(pi * An, accuracy);
-    
-    % theoretical error 
-    d2f = symfun(diff(diff(func, sym('x'))), sym('x'));
-    x = a;
-    b = a + T;
-    dx = 1 / 100;
-    max_d2f = -inf;
-    while x < b
-        temp = abs(d2f(x));
-        if temp > max_d2f
-            max_d2f = temp;
-        end
-        x = x + dx;
+    accuracyDeg = 6;
+    An = 0;
+    for k = 1 : accuracyDeg
+        a_n = vpa(2 / T * int(f * cos(2 * pi * k * n * sym('x') / T), sym('x'), a, b));
+        b_n = vpa(2 / T * int(f * sin(2 * pi * k * n * sym('x') / T), sym('x'), a, b));
+        An = An + sqrt(a_n^2 + b_n^2);
     end
-    max_d2f = eval(max_d2f);
-    errors(2) = vpa((b - a) * ((b - a) / n) ^ 2 * max_d2f / 24, accuracy);
+    errors(1) = vpa(pi * An);
+    
+    % theoretical error
+    errors(2) = vpa((b - a) * ((b - a) / n) ^ 2 * max_d2f / 24);
     
     % actual error
-    S = RiemannSum(func, a, n, T);
-    I = int(func, sym('x'), a, T);
-    errors(3) = vpa(S - I, accuracy);
+    S = RiemannSum(f, a, n, T);
+    I = int(f, sym('x'), a, T);
+    errors(3) = vpa(abs(S - I));
     
     % Runge estimate
-    errors(4) = vpa(S - RiemannSum(func, a, 2 * n, T), accuracy);
+    errors(4) = vpa(abs(S - RiemannSum(f, a, 2 * n, T)));
 end
 
 

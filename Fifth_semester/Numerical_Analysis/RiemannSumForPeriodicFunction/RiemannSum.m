@@ -7,13 +7,13 @@
 function [ S ] = RiemannSum( func, a, n, T )
     f = symfun(sym(func), sym('x'));
     b = a + T;
-    dx = (b - a) / (n - 1);
+    dx = (b - a) / n;
     x = a;
     S = sym(0);
-    for i = 0 : n - 2
+    for i = 0 : n - 1
         middle = (x + x + dx) / 2;
-        S = S + f(middle) * dx;
+        S = S + eval(f(middle) * dx);
         x = x + dx;
     end
-    S = eval(S);
+    S = vpa(S);
 end
