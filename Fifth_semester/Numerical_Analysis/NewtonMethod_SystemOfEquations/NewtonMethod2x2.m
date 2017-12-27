@@ -3,10 +3,9 @@
 % arguments:
 %   F - symbolic equation system
 %   x0 - initial approximation vector
-%   rootF - exact solution of system F
 %   eps - the upper bound on the relative error, which affects the quality
 %       of the approximation
-function [ xs ] = NewtonMethod(F, x0, rootF, eps )
+function [ xs ] = NewtonMethod2x2(F, x0, eps )
     x = (argnames(F)).';
     Jf = jacobian(F);
     k = 1;
@@ -18,7 +17,7 @@ function [ xs ] = NewtonMethod(F, x0, rootF, eps )
         sln = vpa([sln.x1; sln.x2]);
         xs = [xs sln];
         k = k + 1;
-        distance = EuclideanDistance(xs(:,k), rootF);
+        distance = norm(xs(:,k) - xs(:,k - 1));
         isntAccurate = (distance > eps);
     end
 end
