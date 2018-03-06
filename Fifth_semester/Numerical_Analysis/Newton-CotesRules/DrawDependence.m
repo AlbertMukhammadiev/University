@@ -1,10 +1,11 @@
 % draws the dependence of errors on the number of nodes
-function [ ] = DrawDependence( someRule )
+function [ ] = DrawDependence( someRule, func )
     a = 0;
     b = 0.4;
     xs = 5 : 1 : 21;
     xsRunge = 5 : 2 : 21;
-    IntF = IntegralF(a, b);
+    foo = symfun(sym(func), sym('x'));
+    IntF = eval(int(foo, a, b));
     
     theta = 3;
     if (someRule(1:12) == 'SimpsonsRule')
@@ -12,13 +13,13 @@ function [ ] = DrawDependence( someRule )
     end
     
     for k = 5 : 21
-        [S error] = feval(someRule, a, b, k);
+        [S, error] = feval(someRule, func, a, b, k);
         i = k - 4;
         actualErrors(i) = IntF - S;
         theoreticalErrors(i) = error;
         
         if (mod(k, 2) == 1)
-            [S2 temp] = feval(someRule, a, b, ceil(k / 2));
+            S2 = feval(someRule, func, a, b, ceil(k / 2));
             RungeEstimates(i - floor(i / 2)) = (S - S2) / theta;
         end
     end
