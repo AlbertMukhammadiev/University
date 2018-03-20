@@ -9,4 +9,3 @@ function [ S ] = MehlerQuadrature( func, n )
     
     S = S * pi / n;
 end
-
